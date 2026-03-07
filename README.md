@@ -87,7 +87,7 @@ Esta sección describe los **requerimientos funcionales del sistema**, los cuale
 
 ---
 
-## Módulo de Roles y Empleados
+### Módulo de Roles y Empleados
 
 | ID | Requerimiento |
 |----|---------------|
@@ -99,7 +99,7 @@ Esta sección describe los **requerimientos funcionales del sistema**, los cuale
 
 ---
 
-## Módulo de Dashboard y Estadísticas
+### Módulo de Dashboard y Estadísticas
 
 | ID | Requerimiento |
 |----|---------------|
@@ -110,7 +110,7 @@ Esta sección describe los **requerimientos funcionales del sistema**, los cuale
 
 ---
 
-## Módulo de Exportación de Informes
+### Módulo de Exportación de Informes
 
 | ID | Requerimiento |
 |----|---------------|
@@ -120,7 +120,7 @@ Esta sección describe los **requerimientos funcionales del sistema**, los cuale
 
 ---
 
-## Módulo de Escaneo de Código de Barras / QR
+### Módulo de Escaneo de Código de Barras / QR
 
 | ID | Requerimiento |
 |----|---------------|
@@ -130,7 +130,7 @@ Esta sección describe los **requerimientos funcionales del sistema**, los cuale
 
 ---
 
-## Módulo de Gestión de Compras y Órdenes de Pedido
+### Módulo de Gestión de Compras y Órdenes de Pedido
 
 | ID | Requerimiento |
 |----|---------------|
@@ -142,7 +142,7 @@ Esta sección describe los **requerimientos funcionales del sistema**, los cuale
 
 ---
 
-## Módulo de Historial de Precios
+### Módulo de Historial de Precios
 
 | ID | Requerimiento |
 |----|---------------|
@@ -152,7 +152,7 @@ Esta sección describe los **requerimientos funcionales del sistema**, los cuale
 
 ---
 
-## Módulo de Categorías y Subcategorías Personalizables
+### Módulo de Categorías y Subcategorías Personalizables
 
 | ID | Requerimiento |
 |----|---------------|
