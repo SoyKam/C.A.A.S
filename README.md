@@ -172,21 +172,21 @@ Esta sección describe los requerimientos no funcionales de la app:
 
 | ID | Requerimiento |
 |----|---------------|
-| RNF-01 | (Rendimiento) El sistema debe cargar el Dashboard principal en un tiempo máximo de **3 segundos** bajo condiciones normales de red. |
-| RNF-02 | (Rendimiento) El sistema debe reflejar los cambios de **stock en tiempo real** con una latencia máxima de **2 segundos** tras registrar un movimiento. |
-| RNF-03 | (Rendimiento) Las **notificaciones de stock bajo** deben enviarse al usuario en un tiempo máximo de **5 segundos** después de detectarse la condición. |
-| RNF-04 | (Usabilidad) La interfaz debe seguir los principios de diseño **Material Design 3 de Android** para garantizar una experiencia consistente y familiar al usuario. |
-| RNF-05 | (Usabilidad) El flujo de **onboarding (registro → crear negocio)** no debe requerir más de **3 pantallas** para que el usuario pueda comenzar a usar la app. |
-| RNF-06 | (Usabilidad) Todos los **formularios** deben mostrar **mensajes de error descriptivos** cuando el usuario ingrese datos inválidos o incompletos. |
-| RNF-07 | (Seguridad) Las **contraseñas de los usuarios** deben ser gestionadas exclusivamente por **Firebase Authentication**, sin almacenarse en texto plano en ninguna capa del sistema. |
-| RNF-08 | (Seguridad) El acceso a los **datos del negocio** debe estar restringido únicamente al **usuario propietario autenticado** mediante reglas de seguridad en **Firebase Firestore**. |
-| RNF-09 | (Seguridad) La **sesión del usuario** debe expirar automáticamente tras un periodo prolongado de **inactividad**. |
-| RNF-10 | (Disponibilidad) El sistema debe estar disponible el **99% del tiempo**, aprovechando la infraestructura de **alta disponibilidad de Firebase**. |
-| RNF-11 | (Disponibilidad) La aplicación debe mostrar un **mensaje informativo** al usuario cuando **no haya conexión a internet**, indicando que los datos no pueden sincronizarse. |
-| RNF-12 | (Escalabilidad) La arquitectura basada en **Firebase Firestore** debe soportar el crecimiento del **número de sucursales, productos y proveedores** sin degradar el rendimiento. |
-| RNF-13 | (Escalabilidad) El **modelo de datos** debe permitir que un mismo usuario pueda **gestionar múltiples negocios** en el futuro sin requerir cambios estructurales mayores. |
-| RNF-14 | (Mantenibilidad) El **código fuente** debe seguir la arquitectura **MVVM** para facilitar la separación de responsabilidades y el mantenimiento futuro. |
-| RNF-15 | (Mantenibilidad) El proyecto debe estar **versionado en GitHub** con **commits descriptivos** que reflejen los cambios realizados en cada módulo. |
-| RNF-16 | (Compatibilidad) La aplicación debe ser compatible con **dispositivos Android desde la versión 8.0 (API 26)** en adelante. |
-| RNF-17 | (Compatibilidad) La interfaz debe **adaptarse correctamente a diferentes tamaños de pantalla** (teléfonos de **5" a 7"**) sin distorsionar los elementos visuales. |
-| RNF-18 | (Portabilidad) La aplicación debe poder **instalarse mediante un archivo APK** o **distribuirse a través de Google Play Store** sin requerir configuración adicional por parte del usuario. |
+| RNF-01 | (Rendimiento) La aplicación Android desarrollada en **Kotlin** debe cargar el **Dashboard principal en un tiempo máximo de 3 segundos** bajo condiciones normales de red y con datos almacenados en **Firebase Firestore**. |
+| RNF-02 | (Rendimiento) El sistema debe reflejar los **cambios de stock en tiempo casi real** utilizando los listeners de **Firebase Firestore**, con una latencia promedio menor a **2 segundos** tras registrar un movimiento. |
+| RNF-03 | (Rendimiento) Las **notificaciones de stock bajo** deben generarse y mostrarse al usuario en un tiempo máximo de **5 segundos** después de detectarse la condición. |
+| RNF-04 | (Usabilidad) La interfaz debe seguir los principios de diseño **Material Design 3** y las guías de interfaz de **Android** para garantizar una experiencia consistente en dispositivos móviles. |
+| RNF-05 | (Usabilidad) El flujo inicial de **onboarding (registro → creación de negocio)** debe permitir que el usuario comience a utilizar la aplicación en **máximo 3 pantallas**. |
+| RNF-06 | (Usabilidad) Todos los **formularios de entrada de datos** deben validar los campos y mostrar **mensajes de error claros y descriptivos** cuando el usuario ingrese información inválida o incompleta. |
+| RNF-07 | (Seguridad) La **autenticación de usuarios** debe gestionarse mediante **Firebase Authentication**, evitando el almacenamiento de contraseñas en texto plano dentro de la aplicación o en la base de datos. |
+| RNF-08 | (Seguridad) El acceso a los **datos del negocio** debe controlarse mediante **reglas de seguridad de Firebase Firestore**, permitiendo el acceso únicamente a usuarios autenticados pertenecientes al negocio correspondiente. |
+| RNF-09 | (Seguridad) La aplicación debe mantener la sesión del usuario mediante el sistema de autenticación de **Firebase**, permitiendo cerrar sesión manualmente o expirar la sesión tras un periodo prolongado de inactividad. |
+| RNF-10 | (Disponibilidad) El sistema debe aprovechar la infraestructura de **Firebase Cloud** para garantizar una disponibilidad aproximada del **99% del tiempo**. |
+| RNF-11 | (Disponibilidad) Cuando el dispositivo no tenga conexión a internet, la aplicación debe **mostrar un aviso al usuario** indicando que los datos no pueden sincronizarse con la base de datos remota. |
+| RNF-12 | (Escalabilidad) La base de datos **Firebase Firestore** debe permitir el crecimiento del número de **usuarios, sucursales, productos y proveedores** sin afectar significativamente el rendimiento de consultas. |
+| RNF-13 | (Escalabilidad) El modelo de datos en Firestore debe permitir que **un mismo usuario gestione múltiples negocios** mediante una estructura escalable basada en colecciones y documentos. |
+| RNF-14 | (Mantenibilidad) El código fuente de la aplicación debe seguir la arquitectura **MVVM (Model – View – ViewModel)** recomendada para aplicaciones Android desarrolladas en **Kotlin**. |
+| RNF-15 | (Mantenibilidad) El proyecto debe mantenerse en un repositorio **GitHub**, utilizando **commits descriptivos y control de versiones** para facilitar el mantenimiento y la colaboración. |
+| RNF-16 | (Compatibilidad) La aplicación debe ser compatible con dispositivos **Android desde la versión 8.0 (API 26)** en adelante. |
+| RNF-17 | (Compatibilidad) La interfaz debe adaptarse correctamente a diferentes tamaños de pantalla de teléfonos Android (aproximadamente **5 a 7 pulgadas**) utilizando layouts responsivos. |
+| RNF-18 | (Portabilidad) La aplicación debe poder instalarse mediante un **archivo APK o Android App Bundle (AAB)** y distribuirse a través de **Google Play Store**. |
