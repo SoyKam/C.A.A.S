@@ -84,3 +84,30 @@ Esta sección describe los **requerimientos funcionales del sistema**, los cuale
 |----|---------------|
 | RF-23 | El sistema debe notificar al usuario cuando un producto alcance un nivel crítico de inventario. |
 | RF-24 | El sistema debe mostrar alertas dentro del sistema relacionadas con eventos importantes del inventario. |
+
+## Requerimientos No Funcionales
+
+Esta sección describe los requerimientos no funcionales de la app:
+
+---
+
+| ID | Requerimiento |
+|----|---------------|
+| RNF-01 | (Rendimiento) El sistema debe cargar el Dashboard principal en un tiempo máximo de **3 segundos** bajo condiciones normales de red. |
+| RNF-02 | (Rendimiento) El sistema debe reflejar los cambios de **stock en tiempo real** con una latencia máxima de **2 segundos** tras registrar un movimiento. |
+| RNF-03 | (Rendimiento) Las **notificaciones de stock bajo** deben enviarse al usuario en un tiempo máximo de **5 segundos** después de detectarse la condición. |
+| RNF-04 | (Usabilidad) La interfaz debe seguir los principios de diseño **Material Design 3 de Android** para garantizar una experiencia consistente y familiar al usuario. |
+| RNF-05 | (Usabilidad) El flujo de **onboarding (registro → crear negocio)** no debe requerir más de **3 pantallas** para que el usuario pueda comenzar a usar la app. |
+| RNF-06 | (Usabilidad) Todos los **formularios** deben mostrar **mensajes de error descriptivos** cuando el usuario ingrese datos inválidos o incompletos. |
+| RNF-07 | (Seguridad) Las **contraseñas de los usuarios** deben ser gestionadas exclusivamente por **Firebase Authentication**, sin almacenarse en texto plano en ninguna capa del sistema. |
+| RNF-08 | (Seguridad) El acceso a los **datos del negocio** debe estar restringido únicamente al **usuario propietario autenticado** mediante reglas de seguridad en **Firebase Firestore**. |
+| RNF-09 | (Seguridad) La **sesión del usuario** debe expirar automáticamente tras un periodo prolongado de **inactividad**. |
+| RNF-10 | (Disponibilidad) El sistema debe estar disponible el **99% del tiempo**, aprovechando la infraestructura de **alta disponibilidad de Firebase**. |
+| RNF-11 | (Disponibilidad) La aplicación debe mostrar un **mensaje informativo** al usuario cuando **no haya conexión a internet**, indicando que los datos no pueden sincronizarse. |
+| RNF-12 | (Escalabilidad) La arquitectura basada en **Firebase Firestore** debe soportar el crecimiento del **número de sucursales, productos y proveedores** sin degradar el rendimiento. |
+| RNF-13 | (Escalabilidad) El **modelo de datos** debe permitir que un mismo usuario pueda **gestionar múltiples negocios** en el futuro sin requerir cambios estructurales mayores. |
+| RNF-14 | (Mantenibilidad) El **código fuente** debe seguir la arquitectura **MVVM** para facilitar la separación de responsabilidades y el mantenimiento futuro. |
+| RNF-15 | (Mantenibilidad) El proyecto debe estar **versionado en GitHub** con **commits descriptivos** que reflejen los cambios realizados en cada módulo. |
+| RNF-16 | (Compatibilidad) La aplicación debe ser compatible con **dispositivos Android desde la versión 8.0 (API 26)** en adelante. |
+| RNF-17 | (Compatibilidad) La interfaz debe **adaptarse correctamente a diferentes tamaños de pantalla** (teléfonos de **5" a 7"**) sin distorsionar los elementos visuales. |
+| RNF-18 | (Portabilidad) La aplicación debe poder **instalarse mediante un archivo APK** o **distribuirse a través de Google Play Store** sin requerir configuración adicional por parte del usuario. |
