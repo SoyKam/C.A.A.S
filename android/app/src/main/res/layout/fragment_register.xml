@@ -1,60 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    Layout básico para RegisterFragment.
-    Sin diseño visual, solo elementos funcionales.
--->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="#FFFFFF">
 
-    <EditText
-        android:id="@+id/nameEditText"
+    <!-- LOGO -->
+
+    <ImageView
+        android:layout_width="138dp"
+        android:layout_height="180dp"
+        android:layout_marginBottom="30dp"
+        android:contentDescription="Logo"
+        android:src="@drawable/logo"
+        android:scaleType="centerCrop"/>
+
+    <!-- TARJETA REGISTER -->
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre completo"
-        android:inputType="textPersonName" />
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        android:padding="20dp">
 
-    <EditText
-        android:id="@+id/emailEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:layout_marginTop="8dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/passwordEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:layout_marginTop="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Crear Cuenta"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#333"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"/>
 
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registrarse"
-        android:layout_marginTop="16dp" />
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre completo"
+                android:padding="12dp"
+                android:inputType="textPersonName"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_marginTop="16dp" />
+            <EditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo electrónico"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:inputType="textEmailAddress"/>
 
-    <TextView
-        android:id="@+id/goToLoginTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="¿Ya tienes cuenta? Inicia sesión"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:focusable="true" />
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:inputType="textPassword"/>
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="REGISTRARSE"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#FF9800"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/goToLoginTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Ya tienes cuenta? Inicia sesión"
+                android:textColor="#FF9800"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
