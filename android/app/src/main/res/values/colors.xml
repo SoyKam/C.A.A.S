@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores personalizados para modo claro -->
+    <color name="background">#FFFFFF</color>
+    <color name="surface">#F5F5F5</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="input_background">#F0F0F0</color>
+    <color name="input_text">#212121</color>
+    <color name="button_orange">#FF9800</color>
+    <color name="divider">#E0E0E0</color>
 </resources>
