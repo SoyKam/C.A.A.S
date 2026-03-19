@@ -75,10 +75,35 @@ class BusinessRepositoryImpl(
             }
 
             val business = dataSource.getBusinessById(businessId)
-            Result.Success(business)
+            if (business != null) {
+                Result.Success(business)
+            } else {
+                Result.Error("Negocio no encontrado")
+            }
         } catch (e: Exception) {
             Result.Error(
                 message = e.message ?: "Error al obtener el negocio",
+                throwable = e
+            )
+        }
+    }
+
+    /**
+     * Obtiene todos los negocios de un propietario específico.
+     *
+     * @param ownerId ID del propietario
+     * @return Result con la lista de negocios
+     */
+    override suspend fun getBusinessesByOwnerId(ownerId: String): Result<List<Business>> {
+        return try {
+            if (ownerId.isBlank()) {
+                return Result.Error("El ID del propietario es requerido")
+            }
+            val businesses = dataSource.getBusinessesByOwnerId(ownerId)
+            Result.Success(businesses)
+        } catch (e: Exception) {
+            Result.Error(
+                message = e.message ?: "Error al obtener los negocios",
                 throwable = e
             )
         }
