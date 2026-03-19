@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     android:fitsSystemWindows="true">
 
     <TextView
@@ -14,7 +14,7 @@
         android:text="Mis Negocios"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#333"
+        android:textColor="@color/text_primary"
         android:layout_marginBottom="16dp"
         android:gravity="center" />
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="No tienes negocios creados"
         android:textSize="16sp"
-        android:textColor="#999"
+        android:textColor="@color/text_secondary"
         android:gravity="center"
         android:layout_weight="1"
         android:visibility="gone" />
