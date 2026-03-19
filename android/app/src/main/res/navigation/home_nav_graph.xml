@@ -3,16 +3,64 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_nav_graph"
-    app:startDestination="@id/createBusinessFragment">
+    app:startDestination="@id/businessListFragment">
+
+    <fragment
+        android:id="@+id/businessListFragment"
+        android:name="com.caas.app.ui.business.BusinessListFragment"
+        android:label="Mis Negocios">
+        <action
+            android:id="@+id/action_businessList_to_businessDetail"
+            app:destination="@id/businessDetailFragment" />
+        <action
+            android:id="@+id/action_businessList_to_createBusiness"
+            app:destination="@id/createBusinessFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/createBusinessFragment"
         android:name="com.caas.app.ui.business.CreateBusinessFragment"
-        android:label="Crear Negocio" />
+        android:label="Crear Negocio">
+        <action
+            android:id="@+id/action_createBusiness_to_businessList"
+            app:destination="@id/businessListFragment"
+            app:popUpTo="@id/businessListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/businessDetailFragment"
+        android:name="com.caas.app.ui.business.BusinessDetailFragment"
+        android:label="Detalle del Negocio">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_businessDetail_to_editBusiness"
+            app:destination="@id/editBusinessFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_businessDetail_to_businessList"
+            app:destination="@id/businessListFragment"
+            app:popUpTo="@id/businessListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/editBusinessFragment"
         android:name="com.caas.app.ui.business.EditBusinessFragment"
-        android:label="Editar Negocio" />
+        android:label="Editar Negocio">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_editBusiness_to_businessDetail"
+            app:destination="@id/businessDetailFragment"
+            app:popUpTo="@id/businessDetailFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 
 </navigation>

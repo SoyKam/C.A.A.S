@@ -10,63 +10,59 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.caas.app.core.result.Result
-import com.caas.app.databinding.FragmentCreateBusinessBinding
+import com.caas.app.data.model.Business
+import com.caas.app.databinding.FragmentBusinessDetailBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
-class CreateBusinessFragment : Fragment() {
+class BusinessDetailFragment : Fragment() {
 
-    private var _binding: FragmentCreateBusinessBinding? = null
+    private var _binding: FragmentBusinessDetailBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: BusinessViewModel by activityViewModels()
+    private val args: BusinessDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCreateBusinessBinding.inflate(inflater, container, false)
+        _binding = FragmentBusinessDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
-        observeCreateBusinessState()
+        observeBusinessState()
+        viewModel.getBusiness(args.businessId)
     }
 
     private fun setupClickListeners() {
-        binding.btnCreateBusiness.setOnClickListener {
-            val name = binding.etBusinessName.text.toString().trim()
-            val sector = binding.etSector.text.toString().trim()
-            val taxId = binding.etTaxId.text.toString().trim()
+        binding.btnEdit.setOnClickListener {
+            findNavController().navigate(
+                BusinessDetailFragmentDirections.actionBusinessDetailToEditBusiness(args.businessId)
+            )
+        }
 
-            // Validación antes de llamar ViewModel
-            if (name.isEmpty() || sector.isEmpty() || taxId.isEmpty()) {
-                Snackbar.make(binding.root, "Todos los campos son requeridos", Snackbar.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            viewModel.createBusiness(name, sector, taxId)
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
-    private fun observeCreateBusinessState() {
+    private fun observeBusinessState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.createBusinessState.collect { state ->
+                viewModel.businessState.collect { state ->
                     when (state) {
                         is Result.Loading -> showLoading(true)
                         is Result.Success<*> -> {
                             showLoading(false)
-                            showSuccess("Negocio creado correctamente")
-                            viewModel.resetCreateState()
-                            // Navegar a BusinessList DESPUÉS de resetear
-                            findNavController().navigate(
-                                com.caas.app.R.id.action_createBusiness_to_businessList
-                            )
+                            val business = state.data as? Business
+                            business?.let { displayBusiness(it) }
                         }
                         is Result.Error -> {
                             showLoading(false)
@@ -79,17 +75,19 @@ class CreateBusinessFragment : Fragment() {
         }
     }
 
+    private fun displayBusiness(business: Business) {
+        binding.tvBusinessName.text = business.name
+        binding.tvSector.text = business.sector
+        binding.tvTaxId.text = business.taxId
+    }
+
     private fun showLoading(isLoading: Boolean) {
-        binding.btnCreateBusiness.isEnabled = !isLoading
+        binding.btnEdit.isEnabled = !isLoading
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showError(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
-    }
-
-    private fun showSuccess(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
