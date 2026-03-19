@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/createBusinessFragment">
+
+    <fragment
+        android:id="@+id/createBusinessFragment"
+        android:name="com.caas.app.ui.business.CreateBusinessFragment"
+        android:label="Crear Negocio" />
+
+    <fragment
+        android:id="@+id/editBusinessFragment"
+        android:name="com.caas.app.ui.business.EditBusinessFragment"
+        android:label="Editar Negocio" />
+
+</navigation>

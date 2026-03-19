@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Editar Negocio"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#333"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/etBusinessName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del negocio"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"
+        android:inputType="text"
+        android:background="@android:drawable/edit_text" />
+
+    <EditText
+        android:id="@+id/etSector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Sector"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"
+        android:inputType="text"
+        android:background="@android:drawable/edit_text" />
+
+    <EditText
+        android:id="@+id/etTaxId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="NIT / Identificación"
+        android:padding="12dp"
+        android:layout_marginBottom="20dp"
+        android:inputType="text"
+        android:background="@android:drawable/edit_text" />
+
+    <Button
+        android:id="@+id/btnUpdateBusiness"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Cambios"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FF9800" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
