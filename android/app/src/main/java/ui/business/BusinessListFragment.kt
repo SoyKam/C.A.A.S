@@ -10,9 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.Business
 import com.caas.app.databinding.FragmentBusinessListBinding
+import com.caas.app.ui.business.adapter.BusinessListAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
@@ -22,6 +24,7 @@ class BusinessListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: BusinessViewModel by activityViewModels()
+    private lateinit var adapter: BusinessListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,9 +37,23 @@ class BusinessListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         setupClickListeners()
         observeBusinessListState()
         viewModel.getBusinessesByOwner()
+    }
+
+    private fun setupRecyclerView() {
+        adapter = BusinessListAdapter { businessId ->
+            navigateToBusinessDetail(businessId)
+        }
+
+        binding.rvBusinessList.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+        binding.rvBusinessList.adapter = adapter
     }
 
     private fun setupClickListeners() {
@@ -84,15 +101,21 @@ class BusinessListFragment : Fragment() {
         binding.btnCreateNewBusiness.visibility = View.VISIBLE
     }
 
-    private fun showBusinesses(@Suppress("UNUSED_PARAMETER") businesses: List<Business>) {
+    private fun showBusinesses(businesses: List<Business>) {
         binding.tvEmptyState.visibility = View.GONE
         binding.rvBusinessList.visibility = View.VISIBLE
         binding.btnCreateNewBusiness.visibility = View.VISIBLE
-        // TODO: Implement RecyclerView adapter
+        adapter.submitList(businesses)
     }
 
     private fun showCreateButton() {
         binding.btnCreateNewBusiness.visibility = View.VISIBLE
+    }
+
+    private fun navigateToBusinessDetail(businessId: String) {
+        findNavController().navigate(
+            BusinessListFragmentDirections.actionBusinessListToBusinessDetail(businessId)
+        )
     }
 
     private fun showError(message: String) {

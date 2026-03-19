@@ -36,8 +36,17 @@ class CreateBusinessUseCase(
         val currentUser = firebaseAuth.currentUser
             ?: return Result.Error("No hay un usuario autenticado")
 
+        // Validar máximo 3 negocios
+        val businessesResult = businessRepository.getBusinessesByOwnerId(currentUser.uid)
+        if (businessesResult is Result.Success) {
+            if (businessesResult.data.size >= 3) {
+                return Result.Error("No puedes tener más de 3 negocios. Elimina uno para crear otro.")
+            }
+        }
+
         val now = System.currentTimeMillis()
-        val businessId = currentUser.uid
+        // ID único: uid_timestamp para cada negocio diferente
+        val businessId = "${currentUser.uid}_${System.nanoTime()}"
 
         val business = Business(
             id = businessId,
