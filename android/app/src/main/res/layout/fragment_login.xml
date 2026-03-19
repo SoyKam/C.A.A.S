@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="24dp">
@@ -45,7 +45,7 @@
                 android:text="Iniciar Sesión"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#333"
+                android:textColor="@color/text_primary"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"/>
 
@@ -55,7 +55,9 @@
                 android:layout_height="wrap_content"
                 android:hint="Correo"
                 android:padding="12dp"
-                android:background="@android:drawable/edit_text"
+                android:background="@color/input_background"
+                android:textColor="@color/input_text"
+                android:textColorHint="@color/text_secondary"
                 android:inputType="textEmailAddress"/>
 
             <EditText
@@ -65,7 +67,9 @@
                 android:hint="Contraseña"
                 android:layout_marginTop="12dp"
                 android:padding="12dp"
-                android:background="@android:drawable/edit_text"
+                android:background="@color/input_background"
+                android:textColor="@color/input_text"
+                android:textColorHint="@color/text_secondary"
                 android:inputType="textPassword"/>
 
             <Button
