@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class BusinessDetailFragment : Fragment() {
 
     private var _binding: FragmentBusinessDetailBinding? = null
-    private val binding get() = _binding!!
+private val binding get() = _binding!!
 
     private val viewModel: BusinessViewModel by activityViewModels()
     private val args: BusinessDetailFragmentArgs by navArgs()
@@ -45,6 +45,12 @@ class BusinessDetailFragment : Fragment() {
         binding.btnEdit.setOnClickListener {
             findNavController().navigate(
                 BusinessDetailFragmentDirections.actionBusinessDetailToEditBusiness(args.businessId)
+            )
+        }
+
+        binding.btnViewBranches.setOnClickListener {
+            findNavController().navigate(
+                BusinessDetailFragmentDirections.actionBusinessDetailToBranchList(args.businessId)
             )
         }
 

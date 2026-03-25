@@ -2,12 +2,12 @@ package com.caas.app.data.model
 
 import com.google.firebase.firestore.PropertyName
 
-data class Business(
+data class Branch(
     val id: String = "",
-    val ownerId: String = "",
+    val businessId: String = "",
     val name: String = "",
-    val sector: String = "",
-    val taxId: String = "",
+    val address: String = "",
+    val phone: String = "",
     @get:PropertyName("isActive") val isActive: Boolean = true,
     val createdAt: Long = 0L,
     val updatedAt: Long = 0L

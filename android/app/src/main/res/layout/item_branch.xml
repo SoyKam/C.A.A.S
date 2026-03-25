@@ -30,20 +30,20 @@
             android:layout_marginEnd="12dp">
 
             <TextView
-                android:id="@+id/tvBusinessName"
+                android:id="@+id/tvBranchName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:text="Nombre del Negocio"
+                android:text="Nombre de la Sucursal"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/tvBusinessSector"
+                android:id="@+id/tvBranchAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sector"
+                android:text="Dirección"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp"/>
 
@@ -51,7 +51,7 @@
 
         <!-- BOTÓN (DERECHA) -->
         <Button
-            android:id="@+id/btnViewDetails"
+            android:id="@+id/btnViewBranch"
             android:layout_width="wrap_content"
             android:layout_height="38dp"
             android:backgroundTint="@color/button_orange"

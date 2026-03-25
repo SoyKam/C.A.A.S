@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Editar Negocio"
+                android:text="Editar Sucursal"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"/>
@@ -49,64 +49,6 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <!-- INPUT NOMBRE -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Nombre del negocio">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etBusinessName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/input_text"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- INPUT SECTOR -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Sector">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etSector"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/input_text"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- INPUT NIT -->
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
-                    android:hint="NIT / Identificación">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etTaxId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/input_text"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- BOTÓN -->
-                <Button
-                    android:id="@+id/btnUpdateBusiness"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:text="Guardar Cambios"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:backgroundTint="@color/button_orange"
-                    android:elevation="6dp"
-                    android:layout_marginBottom="10dp"
-                    app:cornerRadius="12dp"/>
-
                 <!-- LOADING -->
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -114,7 +56,78 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     android:layout_gravity="center"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- INPUT NOMBRE -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Nombre de la sucursal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBranchName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- INPUT DIRECCIÓN -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Dirección">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBranchAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- INPUT TELÉFONO -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:hint="Teléfono">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBranchPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- BOTÓN GUARDAR -->
+                <Button
+                    android:id="@+id/btnSaveBranch"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="GUARDAR"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/button_orange"
+                    android:elevation="6dp"
+                    android:layout_marginBottom="12dp"
+                    app:cornerRadius="12dp"/>
+
+                <!-- BOTÓN ELIMINAR -->
+                <Button
+                    android:id="@+id/btnDeleteBranch"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="ELIMINAR"
+                    android:textStyle="bold"
+                    android:textColor="#C62828"
+                    android:backgroundTint="#FFEBEE"
+                    android:elevation="2dp"
+                    app:cornerRadius="12dp"/>
 
             </LinearLayout>
 

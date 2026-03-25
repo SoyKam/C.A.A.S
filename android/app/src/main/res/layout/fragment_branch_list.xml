@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mis Negocios"
+            android:text="Sucursales"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/white"/>
@@ -65,7 +65,7 @@
                     android:id="@+id/tvEmptyState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No tienes negocios creados"
+                    android:text="No hay sucursales registradas"
                     android:textSize="16sp"
                     android:textColor="@color/text_secondary"
                     android:gravity="center"
@@ -75,7 +75,7 @@
 
                 <!-- LISTA -->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvBusinessList"
+                    android:id="@+id/rvBranchList"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -84,14 +84,14 @@
                     android:visibility="gone"/>
 
                 <Button
-                    android:id="@+id/btnCreateNewBusiness"
+                    android:id="@+id/btnAddBranch"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:backgroundTint="@color/button_orange"
                     android:elevation="6dp"
-                    android:text="Crear Nuevo Negocio"
+                    android:text="Agregar Sucursal"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:cornerRadius="12dp"/>
