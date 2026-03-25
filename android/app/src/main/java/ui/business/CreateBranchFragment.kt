@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import android.util.Log
 import com.caas.app.core.result.Result
 import com.caas.app.databinding.FragmentCreateBranchBinding
 import com.google.android.material.snackbar.Snackbar
@@ -36,11 +35,6 @@ class CreateBranchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        android.widget.Toast.makeText(
-            requireContext(),
-            "ID: '${args.businessId}' (len=${args.businessId.length})",
-            android.widget.Toast.LENGTH_LONG
-        ).show()
         setupClickListeners()
         observeCreateBranchState()
     }
@@ -50,7 +44,6 @@ class CreateBranchFragment : Fragment() {
             val name = binding.etBranchName.text.toString().trim()
             val address = binding.etBranchAddress.text.toString().trim()
             val phone = binding.etBranchPhone.text.toString().trim()
-            Log.d("BRANCH_DEBUG", "button clicked — businessId='${args.businessId}' name='$name'")
 
             if (name.isEmpty() || address.isEmpty() || phone.isEmpty()) {
                 Snackbar.make(binding.root, "Todos los campos son requeridos", Snackbar.LENGTH_SHORT).show()
@@ -65,7 +58,6 @@ class CreateBranchFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.createBranchState.collect { state ->
-                    Log.d("BRANCH_DEBUG", "Fragment collected state: $state")
                     when (state) {
                         is Result.Loading -> showLoading(true)
                         is Result.Success -> {
