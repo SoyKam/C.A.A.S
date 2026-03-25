@@ -12,67 +12,62 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.caas.app.core.result.Result
-import com.caas.app.data.model.Business
-import com.caas.app.databinding.FragmentBusinessDetailBinding
+import com.caas.app.databinding.FragmentCreateBranchBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
-class BusinessDetailFragment : Fragment() {
+class CreateBranchFragment : Fragment() {
 
-    private var _binding: FragmentBusinessDetailBinding? = null
+    private var _binding: FragmentCreateBranchBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: BusinessViewModel by activityViewModels()
-    private val args: BusinessDetailFragmentArgs by navArgs()
+    private val viewModel: BranchViewModel by activityViewModels()
+    private val args: CreateBranchFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBusinessDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentCreateBranchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
-        observeBusinessState()
-        viewModel.getBusiness(args.businessId)
+        observeCreateBranchState()
     }
 
     private fun setupClickListeners() {
-        binding.btnEdit.setOnClickListener {
-            findNavController().navigate(
-                BusinessDetailFragmentDirections.actionBusinessDetailToEditBusiness(args.businessId)
-            )
-        }
+        binding.btnCreateBranch.setOnClickListener {
+            val name = binding.etBranchName.text.toString().trim()
+            val address = binding.etBranchAddress.text.toString().trim()
+            val phone = binding.etBranchPhone.text.toString().trim()
 
-        binding.btnViewBranches.setOnClickListener {
-            findNavController().navigate(
-                BusinessDetailFragmentDirections.actionBusinessDetailToBranchList(args.businessId)
-            )
-        }
+            if (name.isEmpty() || address.isEmpty() || phone.isEmpty()) {
+                Snackbar.make(binding.root, "Todos los campos son requeridos", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-        binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            viewModel.createBranch(args.businessId, name, address, phone)
         }
     }
 
-    private fun observeBusinessState() {
+    private fun observeCreateBranchState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.businessState.collect { state ->
+                viewModel.createBranchState.collect { state ->
                     when (state) {
                         is Result.Loading -> showLoading(true)
-                        is Result.Success<*> -> {
+                        is Result.Success -> {
                             showLoading(false)
-                            val business = state.data as? Business
-                            business?.let { displayBusiness(it) }
+                            viewModel.resetCreateState()
+                            findNavController().navigateUp()
                         }
                         is Result.Error -> {
                             showLoading(false)
-                            showError(state.message)
+                            Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
                         }
                         null -> showLoading(false)
                     }
@@ -81,19 +76,9 @@ class BusinessDetailFragment : Fragment() {
         }
     }
 
-    private fun displayBusiness(business: Business) {
-        binding.tvBusinessName.text = business.name
-        binding.tvSector.text = business.sector
-        binding.tvTaxId.text = business.taxId
-    }
-
     private fun showLoading(isLoading: Boolean) {
-        binding.btnEdit.isEnabled = !isLoading
+        binding.btnCreateBranch.isEnabled = !isLoading
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    private fun showError(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

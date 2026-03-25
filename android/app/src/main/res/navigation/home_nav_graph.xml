@@ -47,6 +47,13 @@
             app:destination="@id/businessListFragment"
             app:popUpTo="@id/businessListFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_businessDetail_to_branchList"
+            app:destination="@id/branchListFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -61,6 +68,53 @@
             app:destination="@id/businessDetailFragment"
             app:popUpTo="@id/businessDetailFragment"
             app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/branchListFragment"
+        android:name="com.caas.app.ui.business.BranchListFragment"
+        android:label="Sucursales">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_branchList_to_createBranch"
+            app:destination="@id/createBranchFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_branchList_to_editBranch"
+            app:destination="@id/editBranchFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="branchId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/createBranchFragment"
+        android:name="com.caas.app.ui.business.CreateBranchFragment"
+        android:label="Crear Sucursal">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editBranchFragment"
+        android:name="com.caas.app.ui.business.EditBranchFragment"
+        android:label="Editar Sucursal">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="branchId"
+            app:argType="string" />
     </fragment>
 
 </navigation>

@@ -157,6 +157,19 @@
                     android:elevation="6dp"
                     android:layout_marginBottom="12dp"/>
 
+                <!-- BOTÓN VER SUCURSALES -->
+
+                <Button
+                    android:id="@+id/btnViewBranches"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="VER SUCURSALES"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#FB8C00"
+                    android:elevation="4dp"
+                    android:layout_marginBottom="12dp"/>
+
                 <!-- BOTÓN VOLVER -->
 
                 <Button
