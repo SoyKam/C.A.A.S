@@ -6,10 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="12dp"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="8dp">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/card_background"
+    app:strokeColor="@color/divider"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,12 +22,12 @@
         android:padding="16dp">
 
         <!-- CONTENIDO (IZQUIERDA) -->
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginEnd="12dp">
 
             <TextView
                 android:id="@+id/tvBusinessName"
@@ -33,8 +36,8 @@
                 android:layout_marginBottom="4dp"
                 android:text="Nombre del Negocio"
                 android:textColor="@color/text_primary"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvBusinessSector"
@@ -42,23 +45,23 @@
                 android:layout_height="wrap_content"
                 android:text="Sector"
                 android:textColor="@color/text_secondary"
-                android:textSize="13sp" />
+                android:textSize="13sp"/>
 
         </LinearLayout>
 
         <!-- BOTÓN (DERECHA) -->
-
         <Button
             android:id="@+id/btnViewDetails"
             android:layout_width="wrap_content"
             android:layout_height="38dp"
-            android:backgroundTint="#FF9800"
-            android:elevation="4dp"
-            android:paddingHorizontal="14dp"
+            android:backgroundTint="@color/button_orange"
+            android:elevation="2dp"
+            android:paddingHorizontal="16dp"
             android:text="Ver"
-            android:textColor="#FFFFFF"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:cornerRadius="8dp"/>
 
     </LinearLayout>
 
