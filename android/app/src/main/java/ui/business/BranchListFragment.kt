@@ -42,6 +42,10 @@ class BranchListFragment : Fragment() {
         setupRecyclerView()
         setupClickListeners()
         observeBranchListState()
+    }
+
+    override fun onStart() {
+        super.onStart()
         viewModel.getBranchesByBusiness(args.businessId)
     }
 

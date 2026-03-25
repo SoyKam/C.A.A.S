@@ -1,5 +1,6 @@
 package com.caas.app.ui.business
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caas.app.core.result.Result
@@ -46,9 +47,13 @@ class BranchViewModel : ViewModel() {
     val branchState: StateFlow<Result<Branch>?> = _branchState.asStateFlow()
 
     fun createBranch(businessId: String, name: String, address: String, phone: String) {
+        Log.d("BRANCH_DEBUG", "ViewModel.createBranch() called, businessId='$businessId'")
         viewModelScope.launch {
+            Log.d("BRANCH_DEBUG", "coroutine started, invoking use case")
             _createBranchState.value = Result.Loading
-            _createBranchState.value = createBranchUseCase(businessId, name, address, phone)
+            val result = createBranchUseCase(businessId, name, address, phone)
+            Log.d("BRANCH_DEBUG", "use case result: $result")
+            _createBranchState.value = result
         }
     }
 
