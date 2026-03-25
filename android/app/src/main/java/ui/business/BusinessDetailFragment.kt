@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class BusinessDetailFragment : Fragment() {
 
     private var _binding: FragmentBusinessDetailBinding? = null
-    private val binding get() = _binding!!
+private val binding get() = _binding!!
 
     private val viewModel: BusinessViewModel by activityViewModels()
     private val args: BusinessDetailFragmentArgs by navArgs()
