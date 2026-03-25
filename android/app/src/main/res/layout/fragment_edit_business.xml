@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="@color/background"
     android:fillViewport="true"
     android:fitsSystemWindows="true">
 
@@ -15,11 +15,10 @@
         android:orientation="vertical">
 
         <!-- HEADER -->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:background="#FF9800"
+            android:background="@color/button_orange"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -29,11 +28,10 @@
                 android:text="Editar Negocio"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <!-- TARJETA -->
-
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,74 +39,82 @@
             android:layout_marginTop="-40dp"
             app:cardCornerRadius="24dp"
             app:cardElevation="12dp"
-            android:padding="20dp">
+            app:cardBackgroundColor="@color/card_background"
+            app:strokeColor="@color/divider"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20dp">
 
-                <!-- INPUT -->
-
-                <EditText
-                    android:id="@+id/etBusinessName"
+                <!-- INPUT NOMBRE -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Nombre del negocio"
-                    android:padding="14dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="#F5F5F5"
-                    android:textColor="#000000"
-                    android:textColorHint="#888888" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Nombre del negocio">
 
-                <!-- INPUT -->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBusinessName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/etSector"
+                <!-- INPUT SECTOR -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Sector"
-                    android:padding="14dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="#F5F5F5"
-                    android:textColor="#000000"
-                    android:textColorHint="#888888" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Sector">
 
-                <!-- INPUT -->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/etTaxId"
+                <!-- INPUT NIT -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="NIT / Identificación"
-                    android:padding="14dp"
-                    android:layout_marginBottom="22dp"
-                    android:background="#F5F5F5"
-                    android:textColor="#000000"
-                    android:textColorHint="#888888" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:hint="NIT / Identificación">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTaxId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- BOTÓN -->
-
                 <Button
                     android:id="@+id/btnUpdateBusiness"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:text="Guardar Cambios"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:backgroundTint="#FF9800"
+                    android:backgroundTint="@color/button_orange"
                     android:elevation="6dp"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    app:cornerRadius="12dp"/>
 
                 <!-- LOADING -->
-
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     android:layout_gravity="center"
-                    android:layout_marginTop="12dp" />
+                    android:layout_marginTop="12dp"/>
 
             </LinearLayout>
 

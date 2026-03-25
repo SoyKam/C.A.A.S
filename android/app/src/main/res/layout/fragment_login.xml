@@ -1,97 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp">
+    android:fillViewport="true">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
-    <!-- LOGO -->
-
-    <!-- TARJETA LOGIN -->
-    <ImageView
-        android:layout_width="138dp"
-        android:layout_height="180dp"
-        android:layout_marginBottom="30dp"
-        android:contentDescription="Logo"
-        android:src="@drawable/logo"
-        android:scaleType="centerCrop"/>
-
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="6dp"
-        android:padding="20dp">
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        android:paddingTop="48dp"
+        android:paddingBottom="48dp">
 
-        <LinearLayout
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- LOGO -->
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="Logo"
+            android:src="@drawable/logo"
+            android:scaleType="centerCrop"/>
+
+        <!-- TARJETA LOGIN -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/card_background"
+            app:strokeColor="@color/divider"
+            app:strokeWidth="1dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Iniciar Sesión"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"/>
-
-            <EditText
-                android:id="@+id/emailEditText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Correo"
-                android:padding="12dp"
-                android:background="@color/input_background"
-                android:textColor="@color/input_text"
-                android:textColorHint="@color/text_secondary"
-                android:inputType="textEmailAddress"/>
+                android:orientation="vertical"
+                android:padding="24dp">
 
-            <EditText
-                android:id="@+id/passwordEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Contraseña"
-                android:layout_marginTop="12dp"
-                android:padding="12dp"
-                android:background="@color/input_background"
-                android:textColor="@color/input_text"
-                android:textColorHint="@color/text_secondary"
-                android:inputType="textPassword"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Iniciar Sesión"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="24dp"/>
 
-            <Button
-                android:id="@+id/loginButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="INICIAR SESIÓN"
-                android:textColor="#FFFFFF"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#FF9800"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Correo electrónico">
 
-            <TextView
-                android:id="@+id/goToRegisterTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="¿No tienes cuenta? Regístrate"
-                android:textColor="#FF9800"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:hint="Contraseña"
+                    app:endIconMode="password_toggle">
 
-    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passwordEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+                <Button
+                    android:id="@+id/loginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="INICIAR SESIÓN"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/button_orange"
+                    app:cornerRadius="12dp"/>
+
+                <TextView
+                    android:id="@+id/goToRegisterTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¿No tienes cuenta? Regístrate"
+                    android:textColor="@color/button_orange"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:paddingVertical="8dp"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</ScrollView>

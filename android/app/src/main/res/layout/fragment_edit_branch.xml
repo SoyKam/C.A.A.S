@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="@color/background"
     android:fillViewport="true"
     android:fitsSystemWindows="true">
 
@@ -14,10 +14,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- HEADER -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:background="#FF9800"
+            android:background="@color/button_orange"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -27,9 +28,10 @@
                 android:text="Editar Sucursal"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
+                android:textColor="@color/white"/>
         </LinearLayout>
 
+        <!-- TARJETA -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,13 +39,17 @@
             android:layout_marginTop="-40dp"
             app:cardCornerRadius="24dp"
             app:cardElevation="12dp"
-            android:padding="20dp">
+            app:cardBackgroundColor="@color/card_background"
+            app:strokeColor="@color/divider"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20dp">
 
+                <!-- LOADING -->
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
@@ -52,51 +58,66 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"/>
 
-                <EditText
-                    android:id="@+id/etBranchName"
+                <!-- INPUT NOMBRE -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Nombre de la sucursal"
-                    android:padding="14dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="#F5F5F5"
-                    android:textColor="#000000"
-                    android:textColorHint="#888888" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Nombre de la sucursal">
 
-                <EditText
-                    android:id="@+id/etBranchAddress"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBranchName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- INPUT DIRECCIÓN -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Dirección"
-                    android:padding="14dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="#F5F5F5"
-                    android:textColor="#000000"
-                    android:textColorHint="#888888" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Dirección">
 
-                <EditText
-                    android:id="@+id/etBranchPhone"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBranchAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- INPUT TELÉFONO -->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Teléfono"
-                    android:inputType="phone"
-                    android:padding="14dp"
-                    android:layout_marginBottom="22dp"
-                    android:background="#F5F5F5"
-                    android:textColor="#000000"
-                    android:textColorHint="#888888" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:hint="Teléfono">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBranchPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- BOTÓN GUARDAR -->
                 <Button
                     android:id="@+id/btnSaveBranch"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:text="GUARDAR"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:backgroundTint="#FF9800"
+                    android:backgroundTint="@color/button_orange"
                     android:elevation="6dp"
-                    android:layout_marginBottom="12dp"/>
+                    android:layout_marginBottom="12dp"
+                    app:cornerRadius="12dp"/>
 
+                <!-- BOTÓN ELIMINAR -->
                 <Button
                     android:id="@+id/btnDeleteBranch"
                     android:layout_width="match_parent"
@@ -105,7 +126,8 @@
                     android:textStyle="bold"
                     android:textColor="#C62828"
                     android:backgroundTint="#FFEBEE"
-                    android:elevation="2dp"/>
+                    android:elevation="2dp"
+                    app:cornerRadius="12dp"/>
 
             </LinearLayout>
 
