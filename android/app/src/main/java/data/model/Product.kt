@@ -15,3 +15,4 @@ data class Product(
     val createdAt: Long = 0L,
     val updatedAt: Long = 0L
 )
+
