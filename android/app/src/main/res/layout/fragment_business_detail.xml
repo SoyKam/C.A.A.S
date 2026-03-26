@@ -167,6 +167,19 @@
                     android:layout_marginBottom="12dp"
                     app:cornerRadius="12dp"/>
 
+                <!-- BOTÓN VER PRODUCTOS -->
+                <Button
+                    android:id="@+id/btnViewProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="VER PRODUCTOS"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/button_orange"
+                    android:elevation="4dp"
+                    android:layout_marginBottom="12dp"
+                    app:cornerRadius="12dp"/>
+
                 <!-- BOTÓN VOLVER -->
                 <Button
                     android:id="@+id/btnBack"
