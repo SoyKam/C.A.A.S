@@ -94,6 +94,48 @@
                 android:name="branchId"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_branchList_to_branchDetail"
+            app:destination="@id/branchDetailFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="branchId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/branchDetailFragment"
+        android:name="com.caas.app.ui.business.BranchDetailFragment"
+        android:label="Detalle de Sucursal">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="branchId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_branchDetail_to_editBranch"
+            app:destination="@id/editBranchFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="branchId"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_branchDetail_to_stockList"
+            app:destination="@id/stockListFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="branchId"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -109,6 +151,84 @@
         android:id="@+id/editBranchFragment"
         android:name="com.caas.app.ui.business.EditBranchFragment"
         android:label="Editar Sucursal">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="branchId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/stockListFragment"
+        android:name="com.caas.app.ui.stock.StockListFragment"
+        android:label="Inventario">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="branchId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_stockList_to_registerEntry"
+            app:destination="@id/registerEntryFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="branchId"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_stockList_to_registerExit"
+            app:destination="@id/registerExitFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="branchId"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_stockList_to_stockAlerts"
+            app:destination="@id/stockAlertsFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="branchId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerEntryFragment"
+        android:name="com.caas.app.ui.stock.RegisterEntryFragment"
+        android:label="Registrar Entrada">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="branchId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerExitFragment"
+        android:name="com.caas.app.ui.stock.RegisterExitFragment"
+        android:label="Registrar Salida">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="branchId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/stockAlertsFragment"
+        android:name="com.caas.app.ui.stock.StockAlertsFragment"
+        android:label="Alertas de Stock">
         <argument
             android:name="businessId"
             app:argType="string" />

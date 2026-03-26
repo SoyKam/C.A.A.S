@@ -52,7 +52,7 @@ class BranchListFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter = BranchListAdapter { branchId ->
             findNavController().navigate(
-                BranchListFragmentDirections.actionBranchListToEditBranch(args.businessId, branchId)
+                BranchListFragmentDirections.actionBranchListToBranchDetail(args.businessId, branchId)
             )
         }
         binding.rvBranchList.layoutManager = LinearLayoutManager(requireContext())

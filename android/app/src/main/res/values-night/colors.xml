@@ -19,5 +19,5 @@
     <color name="input_text">#FFFFFF</color>
     <color name="button_orange">#FF9800</color>
     <color name="divider">#404040</color>
+    <color name="error_red">#CF6679</color>
 </resources>
-
