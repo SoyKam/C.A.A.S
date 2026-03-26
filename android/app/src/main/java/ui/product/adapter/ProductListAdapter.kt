@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.caas.app.R
 import com.caas.app.data.model.Product
 import com.caas.app.databinding.ItemProductBinding
 
@@ -19,7 +20,8 @@ class ProductListAdapter(
         fun bind(product: Product) {
             binding.tvProductName.text = product.name
             binding.tvProductCategory.text = product.category
-            binding.tvProductSalePrice.text = "$ %.2f".format(product.salePrice)
+            binding.tvProductSalePrice.text =
+                binding.root.context.getString(R.string.price_currency_format, product.salePrice)
             binding.root.setOnClickListener { onItemClick(product) }
         }
     }

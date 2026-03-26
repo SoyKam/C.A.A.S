@@ -80,8 +80,8 @@ class ProductDetailFragment : Fragment() {
         binding.tvProductName.text = product.name
         binding.tvProductSku.text = product.sku
         binding.tvProductCategory.text = product.category
-        binding.tvCostPrice.text = "$ %.2f".format(product.costPrice)
-        binding.tvSalePrice.text = "$ %.2f".format(product.salePrice)
+        binding.tvCostPrice.text = getString(com.caas.app.R.string.price_currency_format, product.costPrice)
+        binding.tvSalePrice.text = getString(com.caas.app.R.string.price_currency_format, product.salePrice)
 
         if (product.imageUrl.isNotBlank()) {
             binding.ivProductImage.visibility = View.VISIBLE
