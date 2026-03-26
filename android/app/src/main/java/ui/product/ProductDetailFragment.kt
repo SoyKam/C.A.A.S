@@ -1,4 +1,4 @@
-package com.caas.app.ui.business
+package com.caas.app.ui.product
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,51 +12,41 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.caas.app.core.result.Result
-import com.caas.app.data.model.Business
-import com.caas.app.databinding.FragmentBusinessDetailBinding
+import com.caas.app.data.model.Product
+import com.caas.app.databinding.FragmentProductDetailBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
-class BusinessDetailFragment : Fragment() {
+class ProductDetailFragment : Fragment() {
 
-    private var _binding: FragmentBusinessDetailBinding? = null
-private val binding get() = _binding!!
+    private var _binding: FragmentProductDetailBinding? = null
+    private val binding get() = _binding!!
 
-    private val viewModel: BusinessViewModel by activityViewModels()
-    private val args: BusinessDetailFragmentArgs by navArgs()
+    private val viewModel: ProductViewModel by activityViewModels()
+    private val args: ProductDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBusinessDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
-        observeBusinessState()
-        viewModel.getBusiness(args.businessId)
+        observeProductState()
+        viewModel.getProductById(args.businessId, args.productId)
     }
 
     private fun setupClickListeners() {
         binding.btnEdit.setOnClickListener {
             findNavController().navigate(
-                BusinessDetailFragmentDirections.actionBusinessDetailToEditBusiness(args.businessId)
-            )
-        }
-
-        binding.btnViewBranches.setOnClickListener {
-            findNavController().navigate(
-                BusinessDetailFragmentDirections.actionBusinessDetailToBranchList(args.businessId)
-            )
-        }
-
-        binding.btnViewProducts.setOnClickListener {
-            findNavController().navigate(
-                BusinessDetailFragmentDirections.actionBusinessDetailToProductList(args.businessId)
+                ProductDetailFragmentDirections.actionProductDetailToEditProduct(
+                    args.businessId, args.productId
+                )
             )
         }
 
@@ -65,20 +55,19 @@ private val binding get() = _binding!!
         }
     }
 
-    private fun observeBusinessState() {
+    private fun observeProductState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.businessState.collect { state ->
+                viewModel.productState.collect { state ->
                     when (state) {
                         is Result.Loading -> showLoading(true)
-                        is Result.Success<*> -> {
+                        is Result.Success -> {
                             showLoading(false)
-                            val business = state.data as? Business
-                            business?.let { displayBusiness(it) }
+                            state.data?.let { displayProduct(it) }
                         }
                         is Result.Error -> {
                             showLoading(false)
-                            showError(state.message)
+                            Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
                         }
                         null -> showLoading(false)
                     }
@@ -87,19 +76,21 @@ private val binding get() = _binding!!
         }
     }
 
-    private fun displayBusiness(business: Business) {
-        binding.tvBusinessName.text = business.name
-        binding.tvSector.text = business.sector
-        binding.tvTaxId.text = business.taxId
+    private fun displayProduct(product: Product) {
+        binding.tvProductName.text = product.name
+        binding.tvProductSku.text = product.sku
+        binding.tvProductCategory.text = product.category
+        binding.tvCostPrice.text = getString(com.caas.app.R.string.price_currency_format, product.costPrice)
+        binding.tvSalePrice.text = getString(com.caas.app.R.string.price_currency_format, product.salePrice)
+
+        if (product.imageUrl.isNotBlank()) {
+            binding.ivProductImage.visibility = View.VISIBLE
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.btnEdit.isEnabled = !isLoading
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    private fun showError(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+        binding.btnEdit.isEnabled = !isLoading
     }
 
     override fun onDestroyView() {

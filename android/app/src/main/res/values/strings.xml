@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CAAS</string>
+    <string name="price_currency_format">$ %1$.2f</string>
 </resources>
