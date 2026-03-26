@@ -1,4 +1,4 @@
-package com.caas.app.ui.business
+package com.caas.app.ui.stock
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,73 +9,59 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caas.app.core.result.Result
-import com.caas.app.data.model.Branch
-import com.caas.app.databinding.FragmentBranchListBinding
-import com.caas.app.ui.business.adapter.BranchListAdapter
+import com.caas.app.data.model.Stock
+import com.caas.app.databinding.FragmentStockAlertsBinding
+import com.caas.app.ui.stock.adapter.StockAlertAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
-class BranchListFragment : Fragment() {
+class StockAlertsFragment : Fragment() {
 
-    private var _binding: FragmentBranchListBinding? = null
+    private var _binding: FragmentStockAlertsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: BranchViewModel by activityViewModels()
-    private val args: BranchListFragmentArgs by navArgs()
-    private lateinit var adapter: BranchListAdapter
+    private val viewModel: StockViewModel by activityViewModels()
+    private val args: StockAlertsFragmentArgs by navArgs()
+    private lateinit var adapter: StockAlertAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBranchListBinding.inflate(inflater, container, false)
+        _binding = FragmentStockAlertsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        setupClickListeners()
-        observeBranchListState()
+        observeLowStockState()
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.getBranchesByBusiness(args.businessId)
+        viewModel.getLowStock(args.businessId, args.branchId)
     }
 
     private fun setupRecyclerView() {
-        adapter = BranchListAdapter { branchId ->
-            findNavController().navigate(
-                BranchListFragmentDirections.actionBranchListToBranchDetail(args.businessId, branchId)
-            )
-        }
-        binding.rvBranchList.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvBranchList.adapter = adapter
+        adapter = StockAlertAdapter()
+        binding.rvAlertList.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvAlertList.adapter = adapter
     }
 
-    private fun setupClickListeners() {
-        binding.btnAddBranch.setOnClickListener {
-            findNavController().navigate(
-                BranchListFragmentDirections.actionBranchListToCreateBranch(args.businessId)
-            )
-        }
-    }
-
-    private fun observeBranchListState() {
+    private fun observeLowStockState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.branchListState.collect { state ->
+                viewModel.lowStockState.collect { state ->
                     when (state) {
                         is Result.Loading -> showLoading(true)
                         is Result.Success -> {
                             showLoading(false)
-                            if (state.data.isEmpty()) showEmptyState() else showBranches(state.data)
+                            if (state.data.isEmpty()) showEmptyState() else showAlerts(state.data)
                         }
                         is Result.Error -> {
                             showLoading(false)
@@ -94,13 +80,13 @@ class BranchListFragment : Fragment() {
 
     private fun showEmptyState() {
         binding.tvEmptyState.visibility = View.VISIBLE
-        binding.rvBranchList.visibility = View.GONE
+        binding.rvAlertList.visibility = View.GONE
     }
 
-    private fun showBranches(branches: List<Branch>) {
+    private fun showAlerts(stock: List<Stock>) {
         binding.tvEmptyState.visibility = View.GONE
-        binding.rvBranchList.visibility = View.VISIBLE
-        adapter.submitList(branches)
+        binding.rvAlertList.visibility = View.VISIBLE
+        adapter.submitList(stock)
     }
 
     override fun onDestroyView() {

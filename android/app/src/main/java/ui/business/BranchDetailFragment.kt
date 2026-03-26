@@ -11,71 +11,67 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.Branch
-import com.caas.app.databinding.FragmentBranchListBinding
-import com.caas.app.ui.business.adapter.BranchListAdapter
+import com.caas.app.databinding.FragmentBranchDetailBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
-class BranchListFragment : Fragment() {
+class BranchDetailFragment : Fragment() {
 
-    private var _binding: FragmentBranchListBinding? = null
+    private var _binding: FragmentBranchDetailBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: BranchViewModel by activityViewModels()
-    private val args: BranchListFragmentArgs by navArgs()
-    private lateinit var adapter: BranchListAdapter
+    private val args: BranchDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBranchListBinding.inflate(inflater, container, false)
+        _binding = FragmentBranchDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
         setupClickListeners()
-        observeBranchListState()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.getBranchesByBusiness(args.businessId)
-    }
-
-    private fun setupRecyclerView() {
-        adapter = BranchListAdapter { branchId ->
-            findNavController().navigate(
-                BranchListFragmentDirections.actionBranchListToBranchDetail(args.businessId, branchId)
-            )
-        }
-        binding.rvBranchList.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvBranchList.adapter = adapter
+        observeBranchState()
+        viewModel.getBranchById(args.businessId, args.branchId)
     }
 
     private fun setupClickListeners() {
-        binding.btnAddBranch.setOnClickListener {
+        binding.btnEdit.setOnClickListener {
             findNavController().navigate(
-                BranchListFragmentDirections.actionBranchListToCreateBranch(args.businessId)
+                BranchDetailFragmentDirections.actionBranchDetailToEditBranch(
+                    args.businessId, args.branchId
+                )
             )
+        }
+
+        binding.btnViewStock.setOnClickListener {
+            findNavController().navigate(
+                BranchDetailFragmentDirections.actionBranchDetailToStockList(
+                    args.businessId, args.branchId
+                )
+            )
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
-    private fun observeBranchListState() {
+    private fun observeBranchState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.branchListState.collect { state ->
+                viewModel.branchState.collect { state ->
                     when (state) {
                         is Result.Loading -> showLoading(true)
                         is Result.Success -> {
                             showLoading(false)
-                            if (state.data.isEmpty()) showEmptyState() else showBranches(state.data)
+                            displayBranch(state.data)
                         }
                         is Result.Error -> {
                             showLoading(false)
@@ -88,19 +84,14 @@ class BranchListFragment : Fragment() {
         }
     }
 
+    private fun displayBranch(branch: Branch) {
+        binding.tvBranchName.text = branch.name
+        binding.tvBranchAddress.text = branch.address
+        binding.tvBranchPhone.text = branch.phone
+    }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    private fun showEmptyState() {
-        binding.tvEmptyState.visibility = View.VISIBLE
-        binding.rvBranchList.visibility = View.GONE
-    }
-
-    private fun showBranches(branches: List<Branch>) {
-        binding.tvEmptyState.visibility = View.GONE
-        binding.rvBranchList.visibility = View.VISIBLE
-        adapter.submitList(branches)
     }
 
     override fun onDestroyView() {

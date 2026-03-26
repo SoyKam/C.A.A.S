@@ -1,4 +1,4 @@
-package com.caas.app.ui.business
+package com.caas.app.ui.stock
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,27 +13,27 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caas.app.core.result.Result
-import com.caas.app.data.model.Branch
-import com.caas.app.databinding.FragmentBranchListBinding
-import com.caas.app.ui.business.adapter.BranchListAdapter
+import com.caas.app.data.model.Stock
+import com.caas.app.databinding.FragmentStockListBinding
+import com.caas.app.ui.stock.adapter.StockListAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
-class BranchListFragment : Fragment() {
+class StockListFragment : Fragment() {
 
-    private var _binding: FragmentBranchListBinding? = null
+    private var _binding: FragmentStockListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: BranchViewModel by activityViewModels()
-    private val args: BranchListFragmentArgs by navArgs()
-    private lateinit var adapter: BranchListAdapter
+    private val viewModel: StockViewModel by activityViewModels()
+    private val args: StockListFragmentArgs by navArgs()
+    private lateinit var adapter: StockListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBranchListBinding.inflate(inflater, container, false)
+        _binding = FragmentStockListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,41 +41,61 @@ class BranchListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupClickListeners()
-        observeBranchListState()
+        observeStockListState()
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.getBranchesByBusiness(args.businessId)
+        viewModel.getStockByBranch(args.businessId, args.branchId)
     }
 
     private fun setupRecyclerView() {
-        adapter = BranchListAdapter { branchId ->
-            findNavController().navigate(
-                BranchListFragmentDirections.actionBranchListToBranchDetail(args.businessId, branchId)
-            )
+        adapter = StockListAdapter { stock ->
+            Snackbar.make(
+                binding.root,
+                "Movimientos de ${stock.productName}: ${stock.quantity} en stock",
+                Snackbar.LENGTH_LONG
+            ).show()
         }
-        binding.rvBranchList.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvBranchList.adapter = adapter
+        binding.rvStockList.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvStockList.adapter = adapter
     }
 
     private fun setupClickListeners() {
-        binding.btnAddBranch.setOnClickListener {
+        binding.btnRegisterEntry.setOnClickListener {
             findNavController().navigate(
-                BranchListFragmentDirections.actionBranchListToCreateBranch(args.businessId)
+                StockListFragmentDirections.actionStockListToRegisterEntry(
+                    args.businessId, args.branchId
+                )
+            )
+        }
+
+        binding.btnRegisterExit.setOnClickListener {
+            findNavController().navigate(
+                StockListFragmentDirections.actionStockListToRegisterExit(
+                    args.businessId, args.branchId
+                )
+            )
+        }
+
+        binding.btnViewAlerts.setOnClickListener {
+            findNavController().navigate(
+                StockListFragmentDirections.actionStockListToStockAlerts(
+                    args.businessId, args.branchId
+                )
             )
         }
     }
 
-    private fun observeBranchListState() {
+    private fun observeStockListState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.branchListState.collect { state ->
+                viewModel.stockListState.collect { state ->
                     when (state) {
                         is Result.Loading -> showLoading(true)
                         is Result.Success -> {
                             showLoading(false)
-                            if (state.data.isEmpty()) showEmptyState() else showBranches(state.data)
+                            if (state.data.isEmpty()) showEmptyState() else showStock(state.data)
                         }
                         is Result.Error -> {
                             showLoading(false)
@@ -94,13 +114,13 @@ class BranchListFragment : Fragment() {
 
     private fun showEmptyState() {
         binding.tvEmptyState.visibility = View.VISIBLE
-        binding.rvBranchList.visibility = View.GONE
+        binding.rvStockList.visibility = View.GONE
     }
 
-    private fun showBranches(branches: List<Branch>) {
+    private fun showStock(stock: List<Stock>) {
         binding.tvEmptyState.visibility = View.GONE
-        binding.rvBranchList.visibility = View.VISIBLE
-        adapter.submitList(branches)
+        binding.rvStockList.visibility = View.VISIBLE
+        adapter.submitList(stock)
     }
 
     override fun onDestroyView() {
