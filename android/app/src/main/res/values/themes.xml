@@ -34,10 +34,34 @@
         <item name="colorOnSurface">@color/text_primary</item>
         <item name="android:colorBackground">@color/background</item>
         <!-- Status bar color. -->
+        <item name="android:statusBarColor">#FFFFFF</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Deshabilitar ActionBar explícitamente -->
         <item name="windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
+    </style>
+
+    <style name="Widget.CAAS.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">#FFFFFF</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxStrokeColor">#E5E7EB</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="hintTextColor">#6B7280</item>
+        <item name="android:textColorHint">#9CA3AF</item>
+    </style>
+
+    <style name="Widget.CAAS.Button.Main" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/button_orange</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>
