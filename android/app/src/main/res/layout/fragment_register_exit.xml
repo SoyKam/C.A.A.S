@@ -57,47 +57,39 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"/>
 
-                <!-- NOMBRE DEL PRODUCTO -->
-                <TextView
+                <!-- SELECTOR DE PRODUCTO -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilProduct"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nombre del producto"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="6dp"/>
+                    android:layout_marginBottom="16dp"
+                    android:hint="Producto">
 
-                <EditText
-                    android:id="@+id/etProductName"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="@color/input_background"
-                    android:textColor="@color/input_text"
-                    android:hint="Ej: Coca Cola 500ml"
-                    android:inputType="text"
-                    android:paddingHorizontal="16dp"
-                    android:layout_marginBottom="16dp"/>
+                    <AutoCompleteTextView
+                        android:id="@+id/actvProduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- CANTIDAD -->
-                <TextView
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cantidad a retirar"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="6dp"/>
+                    android:layout_marginBottom="16dp"
+                    android:hint="Cantidad a retirar">
 
-                <EditText
-                    android:id="@+id/etQuantity"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="@color/input_background"
-                    android:textColor="@color/input_text"
-                    android:hint="Ej: 3"
-                    android:inputType="number"
-                    android:paddingHorizontal="16dp"
-                    android:layout_marginBottom="16dp"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etQuantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- TIPO DE SALIDA -->
                 <TextView
@@ -147,25 +139,20 @@
                 </RadioGroup>
 
                 <!-- MOTIVO (OPCIONAL) -->
-                <TextView
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Motivo (opcional)"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="6dp"/>
+                    android:layout_marginBottom="24dp"
+                    android:hint="Motivo (opcional)">
 
-                <EditText
-                    android:id="@+id/etReason"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="@color/input_background"
-                    android:textColor="@color/input_text"
-                    android:hint="Describe el motivo"
-                    android:inputType="text"
-                    android:paddingHorizontal="16dp"
-                    android:layout_marginBottom="24dp"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etReason"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:textColor="@color/input_text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- BOTÓN -->
                 <Button

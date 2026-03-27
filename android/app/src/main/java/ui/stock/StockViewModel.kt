@@ -2,8 +2,10 @@ package com.caas.app.ui.stock
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.caas.app.core.constants.FirestoreCollections
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.MovementType
+import com.caas.app.data.model.Product
 import com.caas.app.data.model.Stock
 import com.caas.app.data.model.StockMovement
 import com.caas.app.data.repository.StockRepositoryImpl
@@ -20,6 +22,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class StockViewModel : ViewModel() {
 
@@ -48,6 +51,9 @@ class StockViewModel : ViewModel() {
 
     private val _movementsState = MutableStateFlow<Result<List<StockMovement>>?>(null)
     val movementsState: StateFlow<Result<List<StockMovement>>?> = _movementsState.asStateFlow()
+
+    private val _businessProductsState = MutableStateFlow<Result<List<Product>>?>(null)
+    val businessProductsState: StateFlow<Result<List<Product>>?> = _businessProductsState.asStateFlow()
 
     fun registerEntry(
         businessId: String,
@@ -102,6 +108,26 @@ class StockViewModel : ViewModel() {
         viewModelScope.launch {
             _movementsState.value = Result.Loading
             _movementsState.value = getMovementsByBranchUseCase(businessId, branchId)
+        }
+    }
+
+    fun getBusinessProducts(businessId: String) {
+        viewModelScope.launch {
+            _businessProductsState.value = Result.Loading
+            _businessProductsState.value = runCatching {
+                firestore.collection(FirestoreCollections.BUSINESSES)
+                    .document(businessId)
+                    .collection(FirestoreCollections.SubCollections.PRODUCTS_SUB)
+                    .whereEqualTo("isActive", true)
+                    .get()
+                    .await()
+                    .documents
+                    .mapNotNull { it.toObject(Product::class.java)?.copy(id = it.id) }
+                    .sortedBy { it.name.lowercase() }
+            }.fold(
+                onSuccess = { Result.Success(it) },
+                onFailure = { Result.Error(it.message ?: "No se pudieron cargar los productos", it) }
+            )
         }
     }
 

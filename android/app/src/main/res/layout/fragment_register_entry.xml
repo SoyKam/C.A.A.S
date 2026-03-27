@@ -59,19 +59,21 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"/>
 
-                <!-- NOMBRE DEL PRODUCTO -->
+                <!-- SELECTOR DE PRODUCTO -->
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/tilProduct"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Nombre del producto">
+                    android:hint="Producto">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etProductName"
+                    <AutoCompleteTextView
+                        android:id="@+id/actvProduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
+                        android:focusable="false"
+                        android:inputType="none"
                         android:textColor="@color/input_text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
