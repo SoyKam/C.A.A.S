@@ -71,3 +71,26 @@ App Android para control de almacén y administración eficiente de stock en tie
 | RF-23 | El sistema debe notificar al usuario cuando un producto alcance un nivel crítico de inventario. |
 | RF-24 | El sistema debe mostrar alertas dentro del sistema relacionadas con eventos importantes del inventario. |
 | RF-25 | El sistema debe permitir al propietario 
+
+#### Prioridad Baja — Funcionalidades avanzadas
+
+| ID | Descripción |
+|---|---|
+| RF-30 | El sistema debe mostrar gráficos de movimientos de inventario por período de tiempo (semana, mes, año). |
+| RF-31 | El sistema debe mostrar los productos con mayor y menor rotación dentro de un rango de fechas. |
+| RF-32 | El sistema debe permitir comparar el nivel de stock entre sucursales en una misma vista. |
+| RF-33 | El sistema debe mostrar un resumen de alertas activas (stock bajo) agrupadas por sucursal. |
+| RF-34 | El sistema debe permitir exportar el reporte de inventario de una sucursal en formato PDF. |
+| RF-35 | El sistema debe permitir exportar el historial de movimientos de un período en formato Excel (.xlsx). |
+| RF-36 | El sistema debe permitir compartir el informe generado mediante las opciones nativas de Android. |
+| RF-37 | El sistema debe permitir escanear el código de barras o QR de un producto para autocompletar su SKU. |
+| RF-38 | El sistema debe permitir buscar un producto escaneando su código de barras o QR desde el inventario. |
+| RF-39 | El sistema debe permitir registrar una entrada o salida escaneando el código del producto directamente. |
+| RF-40 | El sistema debe generar automáticamente una orden de compra cuando el stock baje del mínimo configurado. |
+| RF-41 | El sistema debe permitir al usuario crear una orden de compra manual seleccionando proveedor y productos. |
+| RF-42 | El sistema debe permitir cambiar el estado de una orden de compra (Pendiente, Enviada, Recibida, Cancelada). |
+| RF-43 | El sistema debe actualizar automáticamente el stock cuando una orden de compra sea marcada como Recibida. |
+| RF-44 | El sistema debe listar el historial de órdenes de compra filtrable por estado, proveedor y fecha. |
+| RF-45 | El sistema debe registrar automáticamente un historial cada vez que se modifique el precio de un producto. |
+| RF-46 | El sistema debe mostrar el historial de cambios de precio con valor anterior, nuevo valor, fecha y usuario. |
+| RF-47 | El sistema debe permitir visualizar la evolución del precio de costo y venta en un gráfico de línea. |
