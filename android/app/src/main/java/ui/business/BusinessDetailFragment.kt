@@ -60,6 +60,12 @@ private val binding get() = _binding!!
             )
         }
 
+        binding.btnViewProviders.setOnClickListener {
+            findNavController().navigate(
+                BusinessDetailFragmentDirections.actionBusinessDetailToProviderList(args.businessId)
+            )
+        }
+
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }

@@ -61,6 +61,113 @@
                 android:name="businessId"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_businessDetail_to_providerList"
+            app:destination="@id/providerListFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/providerListFragment"
+        android:name="com.caas.app.ui.provider.ProviderListFragment"
+        android:label="Proveedores">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_providerList_to_createProvider"
+            app:destination="@id/createProviderFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_providerList_to_providerDetail"
+            app:destination="@id/providerDetailFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="providerId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/createProviderFragment"
+        android:name="com.caas.app.ui.provider.CreateProviderFragment"
+        android:label="Nuevo Proveedor">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/providerDetailFragment"
+        android:name="com.caas.app.ui.provider.ProviderDetailFragment"
+        android:label="Detalle del Proveedor">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="providerId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_providerDetail_to_editProvider"
+            app:destination="@id/editProviderFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="providerId"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_providerDetail_to_associateProduct"
+            app:destination="@id/associateProductFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="providerId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProviderFragment"
+        android:name="com.caas.app.ui.provider.EditProviderFragment"
+        android:label="Editar Proveedor">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="providerId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_editProvider_to_providerList"
+            app:destination="@id/providerListFragment"
+            app:popUpTo="@id/providerListFragment"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/associateProductFragment"
+        android:name="com.caas.app.ui.provider.AssociateProductFragment"
+        android:label="Asociar Producto">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="providerId"
+            app:argType="string" />
     </fragment>
 
     <fragment
