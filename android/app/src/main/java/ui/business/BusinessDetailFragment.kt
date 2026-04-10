@@ -14,15 +14,17 @@ import androidx.navigation.fragment.navArgs
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.Business
 import com.caas.app.databinding.FragmentBusinessDetailBinding
+import com.caas.app.ui.stock.StockViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class BusinessDetailFragment : Fragment() {
 
     private var _binding: FragmentBusinessDetailBinding? = null
-private val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     private val viewModel: BusinessViewModel by activityViewModels()
+    private val stockViewModel: StockViewModel by activityViewModels()
     private val args: BusinessDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -38,7 +40,13 @@ private val binding get() = _binding!!
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
         observeBusinessState()
+        observeAlertBadge()
         viewModel.getBusiness(args.businessId)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        stockViewModel.getUnreadAlerts(args.businessId)
     }
 
     private fun setupClickListeners() {
@@ -72,6 +80,12 @@ private val binding get() = _binding!!
             )
         }
 
+        binding.btnCriticalStock.setOnClickListener {
+            findNavController().navigate(
+                BusinessDetailFragmentDirections.actionBusinessDetailToLowStockSummary(args.businessId)
+            )
+        }
+
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -93,6 +107,23 @@ private val binding get() = _binding!!
                             showError(state.message)
                         }
                         null -> showLoading(false)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeAlertBadge() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                stockViewModel.unreadAlertsState.collect { state ->
+                    if (state is Result.Success) {
+                        val count = state.data.size
+                        binding.btnCriticalStock.text = if (count > 0) {
+                            "VER STOCK CRÍTICO  ($count)"
+                        } else {
+                            "VER STOCK CRÍTICO"
+                        }
                     }
                 }
             }

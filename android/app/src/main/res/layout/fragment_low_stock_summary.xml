@@ -9,36 +9,22 @@
     android:background="@color/background"
     android:fitsSystemWindows="true">
 
-    <!-- HEADER naranja con badge de no leídas -->
+    <!-- HEADER naranja -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/button_orange"
         android:gravity="center_vertical"
         android:paddingHorizontal="20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Alertas de Stock"
+            android:text="Stock Crítico"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/white"/>
-
-        <!-- Badge contador de no leídas -->
-        <TextView
-            android:id="@+id/tvAlertBadge"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@color/error_red"
-            android:gravity="center"
-            android:text="0"
-            android:textColor="@color/white"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:visibility="gone"/>
 
     </LinearLayout>
 
@@ -66,19 +52,6 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <!-- BOTÓN MARCAR TODAS -->
-                <Button
-                    android:id="@+id/btnMarkAllRead"
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:text="MARCAR TODAS COMO LEÍDAS"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/button_orange"
-                    android:layout_marginBottom="16dp"
-                    android:visibility="gone"
-                    app:cornerRadius="10dp"/>
-
                 <!-- LOADING -->
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -94,22 +67,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="No hay alertas activas"
+                    android:text="Todo el stock está en niveles normales ✓"
                     android:textSize="15sp"
                     android:textColor="@color/text_secondary"
                     android:gravity="center"
                     android:visibility="gone"
                     android:padding="40dp"/>
 
-                <!-- LISTA ALERTAS -->
+                <!-- LISTA PRODUCTOS CRÍTICOS -->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvAlertList"
+                    android:id="@+id/rvLowStock"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:clipToPadding="false"
                     android:paddingBottom="8dp"
                     android:visibility="gone"/>
+
+                <!-- BOTÓN VER ALERTAS -->
+                <Button
+                    android:id="@+id/btnViewAlerts"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="VER ALERTAS"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/button_orange"
+                    android:elevation="4dp"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone"
+                    app:cornerRadius="12dp"/>
 
             </LinearLayout>
 
