@@ -6,26 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- HEADER CON COLOR -->
+        <!-- HEADER compacto -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="80dp"
             android:background="@color/button_orange"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="20dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Detalle del Negocio"
-                android:textSize="24sp"
+                android:text="Detalle del Proveedor"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"/>
         </LinearLayout>
@@ -34,10 +36,10 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginTop="-40dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="12dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="-24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
             app:cardBackgroundColor="@color/card_background"
             app:strokeColor="@color/divider"
             app:strokeWidth="1dp">
@@ -46,16 +48,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="22dp">
+                android:padding="20dp">
 
-                <!-- PROGRESS -->
+                <!-- LOADING -->
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="12dp"/>
 
                 <!-- BLOQUE NOMBRE -->
                 <LinearLayout
@@ -64,132 +66,146 @@
                     android:orientation="vertical"
                     android:background="@color/surface"
                     android:padding="14dp"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="1dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nombre:"
+                        android:text="Nombre"
                         android:textStyle="bold"
                         android:textSize="12sp"
                         android:textColor="@color/text_secondary"
                         android:layout_marginBottom="4dp"/>
 
                     <TextView
-                        android:id="@+id/tvBusinessName"
+                        android:id="@+id/tvName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="—"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:text="N/A"/>
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
-                <!-- BLOQUE SECTOR -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"
+                    android:layout_marginBottom="1dp"/>
+
+                <!-- BLOQUE TELÉFONO -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:background="@color/surface"
                     android:padding="14dp"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="1dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Sector:"
+                        android:text="Teléfono"
                         android:textStyle="bold"
                         android:textSize="12sp"
                         android:textColor="@color/text_secondary"
                         android:layout_marginBottom="4dp"/>
 
                     <TextView
-                        android:id="@+id/tvSector"
+                        android:id="@+id/tvPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="—"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:text="N/A"/>
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
-                <!-- BLOQUE NIT -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"
+                    android:layout_marginBottom="1dp"/>
+
+                <!-- BLOQUE CORREO -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:background="@color/surface"
                     android:padding="14dp"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginBottom="20dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="NIT / Identificación:"
+                        android:text="Correo"
                         android:textStyle="bold"
                         android:textSize="12sp"
                         android:textColor="@color/text_secondary"
                         android:layout_marginBottom="4dp"/>
 
                     <TextView
-                        android:id="@+id/tvTaxId"
+                        android:id="@+id/tvEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="—"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:text="N/A"/>
+                        android:textStyle="bold"/>
                 </LinearLayout>
+
+                <!-- SECCIÓN PRODUCTOS (RF-20) -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Productos que suministra"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="8dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:clipToPadding="false"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvNoProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sin productos asociados"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:visibility="gone"
+                    android:layout_marginBottom="8dp"/>
+
+                <Button
+                    android:id="@+id/btnAssociateProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:backgroundTint="@color/button_orange"
+                    android:text="Asociar Producto"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="20dp"
+                    app:cornerRadius="12dp"/>
 
                 <!-- BOTÓN EDITAR -->
                 <Button
                     android:id="@+id/btnEdit"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:text="EDITAR"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
+                    android:layout_height="52dp"
                     android:backgroundTint="@color/button_orange"
-                    android:elevation="6dp"
-                    android:layout_marginBottom="12dp"
-                    app:cornerRadius="12dp"/>
-
-                <!-- BOTÓN VER SUCURSALES -->
-                <Button
-                    android:id="@+id/btnViewBranches"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:text="VER SUCURSALES"
-                    android:textStyle="bold"
+                    android:text="Editar"
                     android:textColor="@color/white"
-                    android:backgroundTint="@color/button_orange"
-                    android:elevation="4dp"
-                    android:layout_marginBottom="12dp"
-                    app:cornerRadius="12dp"/>
-
-                <!-- BOTÓN VER PRODUCTOS -->
-                <Button
-                    android:id="@+id/btnViewProducts"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:text="VER PRODUCTOS"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/button_orange"
-                    android:elevation="4dp"
-                    android:layout_marginBottom="12dp"
-                    app:cornerRadius="12dp"/>
-
-                <!-- BOTÓN VER PROVEEDORES -->
-                <Button
-                    android:id="@+id/btnViewProviders"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:text="VER PROVEEDORES"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/button_orange"
-                    android:elevation="4dp"
                     android:layout_marginBottom="12dp"
                     app:cornerRadius="12dp"/>
 
@@ -197,12 +213,11 @@
                 <Button
                     android:id="@+id/btnBack"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:text="VOLVER"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"
+                    android:layout_height="52dp"
                     android:backgroundTint="@color/surface"
-                    android:elevation="2dp"
+                    android:text="Volver"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
                     app:cornerRadius="12dp"/>
 
             </LinearLayout>
