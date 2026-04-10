@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvEmptyState"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:textSize="@dimen/text_size_body"
+    android:textColor="@color/text_secondary"
+    android:gravity="center"
+    android:visibility="gone"
+    android:padding="@dimen/spacing_xxxl"/>
+
