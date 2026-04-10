@@ -193,6 +193,19 @@
                     android:layout_marginBottom="12dp"
                     app:cornerRadius="12dp"/>
 
+                <!-- BOTÓN RESUMEN INVENTARIO -->
+                <Button
+                    android:id="@+id/btnInventorySummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="RESUMEN DE INVENTARIO"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/button_orange"
+                    android:elevation="4dp"
+                    android:layout_marginBottom="12dp"
+                    app:cornerRadius="12dp"/>
+
                 <!-- BOTÓN VOLVER -->
                 <Button
                     android:id="@+id/btnBack"
