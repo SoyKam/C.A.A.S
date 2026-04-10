@@ -68,6 +68,22 @@
                 android:name="businessId"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_businessDetail_to_inventorySummary"
+            app:destination="@id/inventorySummaryFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/inventorySummaryFragment"
+        android:name="com.caas.app.ui.inventory.InventorySummaryFragment"
+        android:label="Resumen de Inventario">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
     </fragment>
 
     <fragment

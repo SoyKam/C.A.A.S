@@ -66,6 +66,12 @@ private val binding get() = _binding!!
             )
         }
 
+        binding.btnInventorySummary.setOnClickListener {
+            findNavController().navigate(
+                BusinessDetailFragmentDirections.actionBusinessDetailToInventorySummary(args.businessId)
+            )
+        }
+
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
