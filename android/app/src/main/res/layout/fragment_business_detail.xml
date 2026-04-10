@@ -206,6 +206,19 @@
                     android:layout_marginBottom="12dp"
                     app:cornerRadius="12dp"/>
 
+                <!-- BOTÓN VER STOCK CRÍTICO -->
+                <Button
+                    android:id="@+id/btnCriticalStock"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="VER STOCK CRÍTICO"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/error_red"
+                    android:elevation="4dp"
+                    android:layout_marginBottom="12dp"
+                    app:cornerRadius="12dp"/>
+
                 <!-- BOTÓN VOLVER -->
                 <Button
                     android:id="@+id/btnBack"

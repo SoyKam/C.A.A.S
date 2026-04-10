@@ -90,6 +90,13 @@
                 android:name="businessId"
                 app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/action_businessDetail_to_lowStockSummary"
+            app:destination="@id/lowStockSummaryFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string"/>
+        </action>
     </fragment>
 
     <fragment
@@ -299,6 +306,24 @@
             app:argType="string"/>
     </fragment>
 
+    <!-- ===== LOW STOCK SUMMARY ===== -->
+
+    <fragment
+        android:id="@+id/lowStockSummaryFragment"
+        android:name="com.caas.app.ui.stock.LowStockSummaryFragment"
+        android:label="Stock Crítico">
+        <argument
+            android:name="businessId"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_lowStockSummary_to_stockAlerts"
+            app:destination="@id/stockAlertsFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
     <!-- ===== STOCK MANAGEMENT ===== -->
 
     <fragment
@@ -376,7 +401,8 @@
             app:argType="string"/>
         <argument
             android:name="branchId"
-            app:argType="string"/>
+            app:argType="string"
+            android:defaultValue=""/>
     </fragment>
 
     <!-- ===== PROVIDER MANAGEMENT ===== -->

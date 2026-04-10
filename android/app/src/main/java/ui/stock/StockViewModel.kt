@@ -1,19 +1,28 @@
 package com.caas.app.ui.stock
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.caas.app.core.constants.FirestoreCollections
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.MovementType
 import com.caas.app.data.model.Product
 import com.caas.app.data.model.Stock
+import com.caas.app.data.model.StockAlert
 import com.caas.app.data.model.StockMovement
+import com.caas.app.data.repository.BranchRepositoryImpl
 import com.caas.app.data.repository.StockRepositoryImpl
+import com.caas.app.data.source.FirestoreBranchDataSource
 import com.caas.app.data.source.FirestoreStockDataSource
+import com.caas.app.domain.repository.BranchRepository
 import com.caas.app.domain.repository.StockRepository
+import com.caas.app.domain.usecase.CheckAndSaveStockAlertsUseCase
+import com.caas.app.domain.usecase.GetAllLowStockByBusinessUseCase
 import com.caas.app.domain.usecase.GetLowStockUseCase
 import com.caas.app.domain.usecase.GetMovementsByBranchUseCase
 import com.caas.app.domain.usecase.GetStockByBranchUseCase
+import com.caas.app.domain.usecase.GetUnreadAlertsUseCase
+import com.caas.app.domain.usecase.MarkAlertAsReadUseCase
 import com.caas.app.domain.usecase.RegisterStockEntryUseCase
 import com.caas.app.domain.usecase.RegisterStockExitUseCase
 import com.google.firebase.auth.FirebaseAuth
@@ -24,18 +33,29 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class StockViewModel : ViewModel() {
+class StockViewModel(application: Application) : AndroidViewModel(application) {
 
     private val firestore = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private val dataSource = FirestoreStockDataSource(firestore)
     private val repository: StockRepository = StockRepositoryImpl(dataSource)
 
+    private val branchDataSource = FirestoreBranchDataSource(firestore)
+    private val branchRepository: BranchRepository = BranchRepositoryImpl(branchDataSource)
+
     private val registerStockEntryUseCase = RegisterStockEntryUseCase(repository)
     private val registerStockExitUseCase = RegisterStockExitUseCase(repository)
     private val getStockByBranchUseCase = GetStockByBranchUseCase(repository)
     private val getLowStockUseCase = GetLowStockUseCase(repository)
     private val getMovementsByBranchUseCase = GetMovementsByBranchUseCase(repository)
+    private val getAllLowStockByBusinessUseCase = GetAllLowStockByBusinessUseCase(repository)
+    private val getUnreadAlertsUseCase = GetUnreadAlertsUseCase(repository)
+    private val markAlertAsReadUseCase = MarkAlertAsReadUseCase(repository)
+    private val checkAndSaveStockAlertsUseCase = CheckAndSaveStockAlertsUseCase(
+        repository, branchRepository, application.applicationContext
+    )
+
+    // ── Estados existentes ──────────────────────────────────────────────────
 
     private val _stockEntryState = MutableStateFlow<Result<Stock>?>(null)
     val stockEntryState: StateFlow<Result<Stock>?> = _stockEntryState.asStateFlow()
@@ -54,6 +74,22 @@ class StockViewModel : ViewModel() {
 
     private val _businessProductsState = MutableStateFlow<Result<List<Product>>?>(null)
     val businessProductsState: StateFlow<Result<List<Product>>?> = _businessProductsState.asStateFlow()
+
+    // ── Estados nuevos RF-22 / RF-23 ────────────────────────────────────────
+
+    private val _allLowStockState = MutableStateFlow<Result<List<Stock>>?>(null)
+    val allLowStockState: StateFlow<Result<List<Stock>>?> = _allLowStockState.asStateFlow()
+
+    private val _unreadAlertsState = MutableStateFlow<Result<List<StockAlert>>?>(null)
+    val unreadAlertsState: StateFlow<Result<List<StockAlert>>?> = _unreadAlertsState.asStateFlow()
+
+    private val _markReadState = MutableStateFlow<Result<Unit>?>(null)
+    val markReadState: StateFlow<Result<Unit>?> = _markReadState.asStateFlow()
+
+    private val _checkAlertsState = MutableStateFlow<Result<Unit>?>(null)
+    val checkAlertsState: StateFlow<Result<Unit>?> = _checkAlertsState.asStateFlow()
+
+    // ── Métodos existentes ──────────────────────────────────────────────────
 
     fun registerEntry(
         businessId: String,
@@ -131,9 +167,55 @@ class StockViewModel : ViewModel() {
         }
     }
 
+    // ── Métodos nuevos RF-22 / RF-23 ────────────────────────────────────────
+
+    fun getAllLowStockByBusiness(businessId: String) {
+        viewModelScope.launch {
+            _allLowStockState.value = Result.Loading
+            _allLowStockState.value = getAllLowStockByBusinessUseCase(businessId)
+        }
+    }
+
+    fun getUnreadAlerts(businessId: String) {
+        viewModelScope.launch {
+            _unreadAlertsState.value = Result.Loading
+            _unreadAlertsState.value = getUnreadAlertsUseCase(businessId)
+        }
+    }
+
+    fun markAlertAsRead(businessId: String, alertId: String) {
+        viewModelScope.launch {
+            _markReadState.value = Result.Loading
+            _markReadState.value = markAlertAsReadUseCase(businessId, alertId)
+        }
+    }
+
+    fun markAllAlertsAsRead(businessId: String, alertIds: List<String>) {
+        viewModelScope.launch {
+            _markReadState.value = Result.Loading
+            for (alertId in alertIds) {
+                markAlertAsReadUseCase(businessId, alertId)
+            }
+            _markReadState.value = Result.Success(Unit)
+        }
+    }
+
+    fun checkAndSaveAlerts(businessId: String) {
+        viewModelScope.launch {
+            _checkAlertsState.value = Result.Loading
+            _checkAlertsState.value = checkAndSaveStockAlertsUseCase(businessId)
+        }
+    }
+
+    // ── Resets ──────────────────────────────────────────────────────────────
+
     fun resetEntryState() { _stockEntryState.value = null }
     fun resetExitState() { _stockExitState.value = null }
     fun resetListState() { _stockListState.value = null }
     fun resetLowStockState() { _lowStockState.value = null }
     fun resetMovementsState() { _movementsState.value = null }
+    fun resetAllLowStockState() { _allLowStockState.value = null }
+    fun resetUnreadAlertsState() { _unreadAlertsState.value = null }
+    fun resetMarkReadState() { _markReadState.value = null }
+    fun resetCheckAlertsState() { _checkAlertsState.value = null }
 }

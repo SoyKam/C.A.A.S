@@ -31,6 +31,7 @@ object FirestoreCollections {
         const val BRANCHES_SUB = "branches"
         const val MEMBERS_SUB = "members"
         const val PRODUCTS_SUB = "products"
+        const val STOCK_ALERTS_SUB = "stockAlerts"
     }
 }
 
