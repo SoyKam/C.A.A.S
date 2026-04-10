@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="#FAFAFA"
     android:fillViewport="true">
 
     <LinearLayout
@@ -14,9 +14,10 @@
         android:orientation="vertical">
 
         <!-- HEADER -->
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="130dp"
             android:background="@color/button_orange"
             android:gravity="center"
             android:orientation="vertical">
@@ -31,12 +32,13 @@
         </LinearLayout>
 
         <!-- TARJETA -->
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:layout_marginTop="-30dp"
-            app:cardCornerRadius="24dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="26dp"
             app:cardElevation="12dp"
             app:cardBackgroundColor="@color/card_background"
             app:strokeColor="@color/divider"
@@ -49,6 +51,7 @@
                 android:padding="22dp">
 
                 <!-- PROGRESS -->
+
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
@@ -57,13 +60,14 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"/>
 
-                <!-- SELECTOR DE PRODUCTO -->
+                <!-- PRODUCTO -->
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilProduct"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="18dp"
                     android:hint="Producto">
 
                     <AutoCompleteTextView
@@ -76,11 +80,12 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- CANTIDAD -->
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="18dp"
                     android:hint="Cantidad a retirar">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -91,12 +96,13 @@
                         android:textColor="@color/input_text"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- TIPO DE SALIDA -->
+                <!-- TIPO -->
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tipo de salida"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_secondary"
                     android:layout_marginBottom="8dp"/>
@@ -106,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="18dp">
 
                     <RadioButton
                         android:id="@+id/rbSale"
@@ -138,12 +144,13 @@
 
                 </RadioGroup>
 
-                <!-- MOTIVO (OPCIONAL) -->
+                <!-- MOTIVO -->
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="26dp"
                     android:hint="Motivo (opcional)">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -155,16 +162,18 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- BOTÓN -->
+
                 <Button
                     android:id="@+id/btnRegisterExit"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="56dp"
                     android:backgroundTint="@color/button_orange"
-                    android:elevation="6dp"
+                    android:elevation="8dp"
                     android:text="Registrar Salida"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:cornerRadius="12dp"/>
+                    android:textSize="15sp"
+                    app:cornerRadius="16dp"/>
 
             </LinearLayout>
 

@@ -3,23 +3,19 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardStyle.ListItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
-    app:cardBackgroundColor="@color/card_background"
-    app:strokeColor="@color/divider"
-    app:strokeWidth="1dp">
+    android:layout_marginHorizontal="@dimen/spacing_md"
+    android:layout_marginTop="@dimen/spacing_sm"
+    android:layout_marginBottom="@dimen/spacing_sm">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="@dimen/spacing_lg">
 
         <!-- CONTENIDO (IZQUIERDA) -->
         <LinearLayout
@@ -27,41 +23,34 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginEnd="12dp">
+            android:layout_marginEnd="@dimen/spacing_md">
 
             <TextView
                 android:id="@+id/tvBranchName"
+                style="@style/TextStyle.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Nombre de la Sucursal"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:layout_marginBottom="@dimen/spacing_xs"
+                android:text="Nombre de la Sucursal"/>
 
             <TextView
                 android:id="@+id/tvBranchAddress"
+                style="@style/TextStyle.Subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dirección"
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp"/>
+                android:text="Dirección"/>
 
         </LinearLayout>
 
         <!-- BOTÓN (DERECHA) -->
         <Button
             android:id="@+id/btnViewBranch"
+            style="@style/ButtonStyle.PrimarySmall"
             android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:backgroundTint="@color/button_orange"
-            android:elevation="2dp"
-            android:paddingHorizontal="16dp"
+            android:layout_height="@dimen/button_height_sm"
+            android:paddingHorizontal="@dimen/spacing_lg"
             android:text="Ver"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"/>
+            app:cornerRadius="@dimen/button_corner_radius"/>
 
     </LinearLayout>
 

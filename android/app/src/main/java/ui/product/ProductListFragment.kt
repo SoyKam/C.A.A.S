@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.caas.app.R
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.Product
 import com.caas.app.databinding.FragmentProductListBinding
@@ -187,16 +188,19 @@ class ProductListFragment : Fragment() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        val progressBar = binding.root.findViewById<View>(R.id.progressBar)
+        progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showEmptyState() {
-        binding.tvEmptyState.visibility = View.VISIBLE
+        val emptyState = binding.root.findViewById<View>(R.id.tvEmptyState)
+        emptyState.visibility = View.VISIBLE
         binding.rvProductList.visibility = View.GONE
     }
 
     private fun showProducts(products: List<Product>) {
-        binding.tvEmptyState.visibility = View.GONE
+        val emptyState = binding.root.findViewById<View>(R.id.tvEmptyState)
+        emptyState.visibility = View.GONE
         binding.rvProductList.visibility = View.VISIBLE
         adapter.submitList(products)
     }

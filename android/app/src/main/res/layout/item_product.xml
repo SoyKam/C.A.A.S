@@ -5,13 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="4dp"
-    android:layout_marginTop="6dp"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginTop="10dp"
     android:layout_marginBottom="6dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="6dp"
     app:cardBackgroundColor="@color/card_background"
     app:strokeColor="@color/divider"
     app:strokeWidth="1dp">
@@ -22,19 +23,22 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="14dp">
+        android:paddingVertical="16dp">
 
-        <!-- IMAGEN del producto -->
+        <!-- IMAGEN -->
+
         <ImageView
             android:id="@+id/ivProductImage"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginEnd="14dp"
             android:scaleType="centerCrop"
             android:background="@color/surface"
+            android:padding="6dp"
             android:src="@android:drawable/ic_menu_gallery"/>
 
-        <!-- COLUMNA CENTRAL: nombre, categoría, precio -->
+        <!-- INFO -->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,9 +51,9 @@
                 android:layout_height="wrap_content"
                 android:text="Nombre del producto"
                 android:textColor="@color/text_primary"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="3dp"/>
+                android:layout_marginBottom="2dp"/>
 
             <TextView
                 android:id="@+id/tvProductCategory"
@@ -58,27 +62,28 @@
                 android:text="Categoría"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="6dp"/>
 
             <TextView
                 android:id="@+id/tvProductSalePrice"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$ 0.00"
                 android:textColor="@color/button_orange"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
 
         </LinearLayout>
 
-        <!-- FLECHA derecha -->
+        <!-- FLECHA -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="›"
             android:textColor="@color/text_secondary"
-            android:textSize="24sp"
-            android:layout_marginStart="8dp"/>
+            android:textSize="26sp"
+            android:layout_marginStart="10dp"/>
 
     </LinearLayout>
 
