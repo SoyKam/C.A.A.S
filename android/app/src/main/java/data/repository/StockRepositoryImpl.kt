@@ -2,6 +2,7 @@ package com.caas.app.data.repository
 
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.Stock
+import com.caas.app.data.model.StockAlert
 import com.caas.app.data.model.StockMovement
 import com.caas.app.data.source.FirestoreStockDataSource
 import com.caas.app.domain.repository.StockRepository
@@ -78,6 +79,45 @@ class StockRepositoryImpl(
             Result.Success(dataSource.getLowStockByBranch(businessId, branchId))
         } catch (e: Exception) {
             Result.Error(e.message ?: "Error al obtener alertas de stock", e)
+        }
+    }
+
+    override suspend fun getAllLowStockByBusiness(businessId: String): Result<List<Stock>> {
+        return try {
+            if (businessId.isBlank()) return Result.Error("El ID del negocio es requerido")
+            Result.Success(dataSource.getAllLowStockByBusiness(businessId))
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Error al obtener stock crítico del negocio", e)
+        }
+    }
+
+    override suspend fun saveStockAlert(alert: StockAlert): Result<Unit> {
+        return try {
+            if (alert.id.isBlank()) return Result.Error("El ID de la alerta es requerido")
+            dataSource.saveStockAlert(alert)
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Error al guardar la alerta", e)
+        }
+    }
+
+    override suspend fun getUnreadAlerts(businessId: String): Result<List<StockAlert>> {
+        return try {
+            if (businessId.isBlank()) return Result.Error("El ID del negocio es requerido")
+            Result.Success(dataSource.getUnreadAlerts(businessId))
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Error al obtener alertas no leídas", e)
+        }
+    }
+
+    override suspend fun markAlertAsRead(businessId: String, alertId: String): Result<Unit> {
+        return try {
+            if (businessId.isBlank()) return Result.Error("El ID del negocio es requerido")
+            if (alertId.isBlank()) return Result.Error("El ID de la alerta es requerido")
+            dataSource.markAlertAsRead(businessId, alertId)
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Error al marcar alerta como leída", e)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.caas.app.data.source
 
 import com.caas.app.data.model.Stock
+import com.caas.app.data.model.StockAlert
 import com.caas.app.data.model.StockMovement
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -64,5 +65,44 @@ class FirestoreStockDataSource(
     suspend fun getLowStockByBranch(businessId: String, branchId: String): List<Stock> {
         val allStock = getStockByBranch(businessId, branchId)
         return allStock.filter { it.quantity <= it.minStock }
+    }
+
+    suspend fun getAllLowStockByBusiness(businessId: String): List<Stock> {
+        val branchDocs = firestore.collection("businesses")
+            .document(businessId)
+            .collection("branches")
+            .whereEqualTo("isActive", true)
+            .get()
+            .await()
+        return branchDocs.documents.flatMap { branchDoc ->
+            getLowStockByBranch(businessId, branchDoc.id)
+        }
+    }
+
+    private fun alertsRef(businessId: String) =
+        firestore.collection("businesses")
+            .document(businessId)
+            .collection("stockAlerts")
+
+    suspend fun saveStockAlert(alert: StockAlert) {
+        alertsRef(alert.businessId)
+            .document(alert.id)
+            .set(alert)
+            .await()
+    }
+
+    suspend fun getUnreadAlerts(businessId: String): List<StockAlert> {
+        return alertsRef(businessId)
+            .whereEqualTo("isRead", false)
+            .get()
+            .await()
+            .toObjects(StockAlert::class.java)
+    }
+
+    suspend fun markAlertAsRead(businessId: String, alertId: String) {
+        alertsRef(businessId)
+            .document(alertId)
+            .update("isRead", true)
+            .await()
     }
 }

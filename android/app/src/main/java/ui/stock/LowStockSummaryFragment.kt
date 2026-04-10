@@ -9,22 +9,23 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.StockAlert
-import com.caas.app.databinding.FragmentStockAlertsBinding
+import com.caas.app.databinding.FragmentLowStockSummaryBinding
 import com.caas.app.ui.stock.adapter.LowStockSummaryAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
-class StockAlertsFragment : Fragment() {
+class LowStockSummaryFragment : Fragment() {
 
-    private var _binding: FragmentStockAlertsBinding? = null
+    private var _binding: FragmentLowStockSummaryBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: StockViewModel by activityViewModels()
-    private val args: StockAlertsFragmentArgs by navArgs()
+    private val args: LowStockSummaryFragmentArgs by navArgs()
     private lateinit var adapter: LowStockSummaryAdapter
 
     override fun onCreateView(
@@ -32,7 +33,7 @@ class StockAlertsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentStockAlertsBinding.inflate(inflater, container, false)
+        _binding = FragmentLowStockSummaryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,16 +41,19 @@ class StockAlertsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeStates()
-        binding.btnMarkAllRead.setOnClickListener {
-            val state = viewModel.unreadAlertsState.value
-            if (state is Result.Success && state.data.isNotEmpty()) {
-                viewModel.markAllAlertsAsRead(args.businessId, state.data.map { it.id })
-            }
+        binding.btnViewAlerts.setOnClickListener {
+            findNavController().navigate(
+                LowStockSummaryFragmentDirections.actionLowStockSummaryToStockAlerts(
+                    businessId = args.businessId,
+                    branchId = ""
+                )
+            )
         }
     }
 
     override fun onStart() {
         super.onStart()
+        viewModel.checkAndSaveAlerts(args.businessId)
         viewModel.getUnreadAlerts(args.businessId)
     }
 
@@ -57,8 +61,8 @@ class StockAlertsFragment : Fragment() {
         adapter = LowStockSummaryAdapter { alert ->
             viewModel.markAlertAsRead(args.businessId, alert.id)
         }
-        binding.rvAlertList.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvAlertList.adapter = adapter
+        binding.rvLowStock.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvLowStock.adapter = adapter
     }
 
     private fun observeStates() {
@@ -100,17 +104,14 @@ class StockAlertsFragment : Fragment() {
 
     private fun showEmptyState() {
         binding.tvEmptyState.visibility = View.VISIBLE
-        binding.rvAlertList.visibility = View.GONE
-        binding.btnMarkAllRead.visibility = View.GONE
-        binding.tvAlertBadge.visibility = View.GONE
+        binding.rvLowStock.visibility = View.GONE
+        binding.btnViewAlerts.visibility = View.GONE
     }
 
     private fun showAlerts(alerts: List<StockAlert>) {
         binding.tvEmptyState.visibility = View.GONE
-        binding.rvAlertList.visibility = View.VISIBLE
-        binding.btnMarkAllRead.visibility = View.VISIBLE
-        binding.tvAlertBadge.text = alerts.size.toString()
-        binding.tvAlertBadge.visibility = View.VISIBLE
+        binding.rvLowStock.visibility = View.VISIBLE
+        binding.btnViewAlerts.visibility = View.VISIBLE
 
         val items = alerts
             .sortedBy { it.branchName }
