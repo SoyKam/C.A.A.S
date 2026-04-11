@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background"
+    android:background="#FAFAFA"
     android:fitsSystemWindows="true">
 
-    <!-- HEADER compacto -->
+    <!-- HEADER MÁS ELEGANTE -->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="90dp"
         android:background="@color/button_orange"
         android:gravity="center_vertical"
         android:paddingHorizontal="20dp"
@@ -22,25 +23,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Stock de Sucursal"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/white"/>
     </LinearLayout>
 
     <!-- CONTENIDO -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- TARJETA PRINCIPAL -->
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="-24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
             app:cardBackgroundColor="@color/card_background"
             app:strokeColor="@color/divider"
             app:strokeWidth="1dp">
@@ -52,6 +56,7 @@
                 android:padding="20dp">
 
                 <!-- LOADING -->
+
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
@@ -61,6 +66,7 @@
                     android:layout_marginBottom="16dp"/>
 
                 <!-- EMPTY STATE -->
+
                 <TextView
                     android:id="@+id/tvEmptyState"
                     android:layout_width="match_parent"
@@ -74,56 +80,61 @@
                     android:padding="40dp"/>
 
                 <!-- LISTA -->
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvStockList"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:clipToPadding="false"
-                    android:paddingBottom="8dp"
+                    android:paddingBottom="12dp"
                     android:visibility="gone"/>
 
-                <!-- BOTÓN ENTRADA (primario, full-width) -->
+                <!-- BOTÓN ENTRADA -->
+
                 <Button
                     android:id="@+id/btnRegisterEntry"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                    android:layout_height="54dp"
                     android:layout_marginTop="16dp"
                     android:backgroundTint="@color/button_orange"
                     android:text="↑  Registrar Entrada"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="14sp"
-                    app:cornerRadius="12dp"/>
+                    android:elevation="6dp"
+                    app:cornerRadius="14dp"/>
 
-                <!-- BOTÓN SALIDA (outline, diferenciado) -->
+                <!-- BOTÓN SALIDA -->
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRegisterExit"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="12dp"
                     android:text="↓  Registrar Salida"
                     android:textColor="@color/button_orange"
                     android:textStyle="bold"
                     android:textSize="14sp"
                     app:strokeColor="@color/button_orange"
                     app:strokeWidth="1dp"
-                    app:cornerRadius="12dp"/>
+                    app:cornerRadius="14dp"/>
 
-                <!-- BOTÓN ALERTAS (outline secundario) -->
+                <!-- BOTÓN ALERTAS -->
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnViewAlerts"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="10dp"
                     android:text="Ver Alertas de Stock"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp"
                     app:strokeColor="@color/divider"
                     app:strokeWidth="1dp"
-                    app:cornerRadius="12dp"/>
+                    app:cornerRadius="14dp"/>
 
             </LinearLayout>
 

@@ -10,39 +10,24 @@
     android:fitsSystemWindows="true">
 
     <!-- HEADER compacto -->
-    <LinearLayout
+    <include
+        android:id="@+id/header"
+        layout="@layout/component_header"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/button_orange"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="20dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Productos"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-    </LinearLayout>
+        android:layout_height="@dimen/header_height"/>
 
     <!-- CONTENIDO -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/spacing_lg">
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/CardStyle.Container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@color/card_background"
-            app:strokeColor="@color/divider"
-            app:strokeWidth="1dp">
+            android:layout_marginTop="@dimen/spacing_xxl">
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
@@ -52,14 +37,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/spacing_lg">
 
                     <!-- BÚSQUEDA -->
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="@dimen/spacing_md"
                         android:hint="Buscar por nombre..."
                         app:startIconDrawable="@android:drawable/ic_menu_search">
 
@@ -78,7 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scrollbars="none"
-                        android:layout_marginBottom="12dp">
+                        android:layout_marginBottom="@dimen/spacing_md">
 
                         <com.google.android.material.chip.ChipGroup
                             android:id="@+id/chipGroupCategories"
@@ -99,26 +84,18 @@
                     </HorizontalScrollView>
 
                     <!-- LOADING -->
-                    <ProgressBar
+                    <include
                         android:id="@+id/progressBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="16dp"/>
+                        layout="@layout/component_loading_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
                     <!-- EMPTY STATE -->
-                    <TextView
+                    <include
                         android:id="@+id/tvEmptyState"
+                        layout="@layout/component_empty_state"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="No hay productos registrados"
-                        android:textSize="15sp"
-                        android:textColor="@color/text_secondary"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:padding="40dp"/>
+                        android:layout_height="wrap_content"/>
 
                     <!-- LISTA -->
                     <androidx.recyclerview.widget.RecyclerView
@@ -127,7 +104,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:clipToPadding="false"
-                        android:paddingBottom="72dp"
+                        android:paddingBottom="@dimen/rv_padding_bottom"
                         android:visibility="gone"/>
 
                 </LinearLayout>
@@ -138,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
-                    android:layout_margin="16dp"
+                    android:layout_margin="@dimen/fab_margin"
                     android:contentDescription="Crear producto"
                     android:src="@android:drawable/ic_input_add"
                     app:backgroundTint="@color/button_orange"

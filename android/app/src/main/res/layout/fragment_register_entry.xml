@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="#FAFAFA"
     android:fillViewport="true">
 
     <LinearLayout
@@ -13,33 +13,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- HEADER compacto -->
+        <!-- HEADER -->
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="110dp"
             android:background="@color/button_orange"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="20dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Registrar Entrada"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"/>
         </LinearLayout>
 
         <!-- TARJETA -->
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="-20dp"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
+            android:layout_margin="20dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="10dp"
             app:cardBackgroundColor="@color/card_background"
             app:strokeColor="@color/divider"
             app:strokeWidth="1dp">
@@ -48,9 +48,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="22dp">
 
                 <!-- PROGRESS -->
+
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="wrap_content"
@@ -59,13 +60,14 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"/>
 
-                <!-- SELECTOR DE PRODUCTO -->
+                <!-- PRODUCTO -->
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilProduct"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="18dp"
                     android:hint="Producto">
 
                     <AutoCompleteTextView
@@ -78,11 +80,12 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- CANTIDAD -->
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="18dp"
                     android:hint="Cantidad a ingresar">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -94,6 +97,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- STOCK MÍNIMO -->
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
@@ -110,15 +114,18 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- BOTÓN -->
+
                 <Button
                     android:id="@+id/btnRegisterEntry"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                    android:layout_height="56dp"
                     android:backgroundTint="@color/button_orange"
+                    android:elevation="8dp"
                     android:text="↑  Registrar Entrada"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    app:cornerRadius="12dp"/>
+                    android:textSize="15sp"
+                    app:cornerRadius="16dp"/>
 
             </LinearLayout>
 

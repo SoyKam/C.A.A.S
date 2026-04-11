@@ -64,4 +64,70 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!-- ================== TEXT STYLES ================== -->
+    <style name="TextStyle" />
+
+    <style name="TextStyle.Title">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_body_lg</item>
+    </style>
+
+    <style name="TextStyle.Subtitle">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/text_size_body_sm</item>
+    </style>
+
+    <style name="TextStyle.Caption">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/text_size_caption</item>
+    </style>
+
+    <style name="TextStyle.CaptionXs">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/text_size_caption_xs</item>
+    </style>
+
+    <!-- ================== CARD STYLES ================== -->
+    <style name="CardStyle" />
+
+    <style name="CardStyle.ListItem">
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="cardBackgroundColor">@color/card_background</item>
+        <item name="strokeColor">@color/divider</item>
+        <item name="strokeWidth">@dimen/card_stroke_width</item>
+    </style>
+
+    <style name="CardStyle.Container">
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">@dimen/card_elevation_high</item>
+        <item name="cardBackgroundColor">@color/card_background</item>
+        <item name="strokeColor">@color/divider</item>
+        <item name="strokeWidth">@dimen/card_stroke_width</item>
+    </style>
+
+    <!-- ================== BUTTON STYLES ================== -->
+    <style name="ButtonStyle" />
+
+    <style name="ButtonStyle.Primary">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="backgroundTint">@color/button_orange</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ButtonStyle.PrimarySmall">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="backgroundTint">@color/button_orange</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_caption</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ButtonStyle.TextButton">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/text_size_caption_xs</item>
+    </style>
+
 </resources>

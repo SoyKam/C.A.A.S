@@ -3,24 +3,20 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardStyle.ListItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="4dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/card_background"
-    app:strokeColor="@color/divider"
-    app:strokeWidth="1dp">
+    android:layout_marginHorizontal="@dimen/spacing_xs"
+    android:layout_marginTop="@dimen/spacing_sm"
+    android:layout_marginBottom="@dimen/spacing_sm">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="16dp">
+        android:paddingHorizontal="@dimen/spacing_xl"
+        android:paddingVertical="@dimen/spacing_lg">
 
         <!-- IZQUIERDA: nombre + badge crítico -->
         <LinearLayout
@@ -28,17 +24,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginEnd="12dp">
+            android:layout_marginEnd="@dimen/spacing_md">
 
             <TextView
                 android:id="@+id/tvProductName"
+                style="@style/TextStyle.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nombre del producto"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="6dp"/>
+                android:layout_marginBottom="@dimen/spacing_sm"/>
 
             <!-- BADGE stock crítico (oculto por defecto) -->
             <TextView
@@ -46,11 +40,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/error_red"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="2dp"
+                android:paddingHorizontal="@dimen/spacing_sm"
+                android:paddingVertical="@dimen/spacing_xs"
                 android:text="Stock crítico"
                 android:textColor="@color/white"
-                android:textSize="10sp"
+                android:textSize="@dimen/text_size_caption_xxs"
                 android:textStyle="bold"
                 android:visibility="gone"/>
 
@@ -69,16 +63,15 @@
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:textColor="@color/button_orange"
-                android:textSize="28sp"
+                android:textSize="@dimen/text_size_title"
                 android:textStyle="bold"/>
 
             <TextView
+                style="@style/TextStyle.CaptionXs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="uds"
-                android:textColor="@color/text_secondary"
-                android:textSize="11sp"
-                android:layout_marginBottom="6dp"/>
+                android:layout_marginBottom="@dimen/spacing_sm"/>
 
             <!-- Botón movimientos: texto sutil -->
             <Button
@@ -90,7 +83,7 @@
                 android:paddingHorizontal="0dp"
                 android:text="Movimientos"
                 android:textColor="@color/text_secondary"
-                android:textSize="11sp"/>
+                android:textSize="@dimen/text_size_caption_xs"/>
 
         </LinearLayout>
 

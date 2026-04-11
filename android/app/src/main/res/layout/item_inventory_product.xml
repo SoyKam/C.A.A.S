@@ -5,11 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="4dp"
-    android:layout_marginTop="6dp"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginTop="10dp"
     android:layout_marginBottom="6dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="6dp"
     app:cardBackgroundColor="@color/card_background"
     app:strokeColor="@color/divider"
     app:strokeWidth="1dp">
@@ -20,9 +20,10 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingHorizontal="20dp"
-        android:paddingVertical="16dp">
+        android:paddingVertical="18dp">
 
-        <!-- IZQUIERDA: nombre, SKU, badge crítico -->
+        <!-- IZQUIERDA -->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -36,9 +37,9 @@
                 android:layout_height="wrap_content"
                 android:text="Nombre del producto"
                 android:textColor="@color/text_primary"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="2dp"/>
+                android:layout_marginBottom="4dp"/>
 
             <TextView
                 android:id="@+id/tvSku"
@@ -47,20 +48,25 @@
                 android:text="SKU: —"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="6dp"/>
 
-            <!-- Mínimo requerido -->
+            <!-- MIN STOCK con estilo más limpio -->
+
             <TextView
                 android:id="@+id/tvMinStock"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mínimo: 0"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:background="#F5F5F5"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"/>
 
         </LinearLayout>
 
-        <!-- DERECHA: cantidad + indicador de estado -->
+        <!-- DERECHA -->
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="28sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:textColor="@color/button_orange"/>
 
@@ -84,17 +90,19 @@
                 android:textSize="11sp"
                 android:layout_marginBottom="8dp"/>
 
-            <!-- Indicador visual: CRÍTICO (rojo) u OK (verde) -->
+            <!-- BADGE ESTADO -->
+
             <TextView
                 android:id="@+id/tvStockStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="3dp"
                 android:text="OK"
                 android:textColor="@color/white"
                 android:textSize="11sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:backgroundTint="@color/button_orange"/>
 
         </LinearLayout>
 

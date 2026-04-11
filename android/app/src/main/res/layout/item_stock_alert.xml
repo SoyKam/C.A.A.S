@@ -3,37 +3,34 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardStyle.ListItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="4dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/card_background"
-    app:strokeColor="@color/error_red"
-    app:strokeWidth="1dp">
+    android:layout_marginHorizontal="@dimen/spacing_xs"
+    android:layout_marginTop="@dimen/spacing_sm"
+    android:layout_marginBottom="@dimen/spacing_sm"
+    app:strokeColor="@color/error_red">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="16dp">
+        android:paddingHorizontal="@dimen/spacing_xl"
+        android:paddingVertical="@dimen/spacing_lg">
 
         <!-- BADGE rojo -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/error_red"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
+            android:paddingHorizontal="@dimen/spacing_sm"
+            android:paddingVertical="@dimen/spacing_xs"
             android:text="!"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_body"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:layout_marginEnd="16dp"/>
+            android:layout_marginEnd="@dimen/spacing_lg"/>
 
         <!-- CONTENIDO -->
         <LinearLayout
@@ -44,13 +41,11 @@
 
             <TextView
                 android:id="@+id/tvAlertProductName"
+                style="@style/TextStyle.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nombre del producto"
-                android:textColor="@color/text_primary"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="@dimen/spacing_xs"/>
 
             <TextView
                 android:id="@+id/tvAlertStockInfo"
@@ -58,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:text="Stock actual: 0 | Mínimo: 0"
                 android:textColor="@color/error_red"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_size_caption"
                 android:textStyle="bold"/>
 
         </LinearLayout>
