@@ -57,7 +57,7 @@ class BusinessListFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        binding.btnCreateNewBusiness.setOnClickListener {
+        binding.fabCreateBusiness.setOnClickListener {
             findNavController().navigate(
                 com.caas.app.R.id.action_businessList_to_createBusiness
             )
@@ -82,7 +82,6 @@ class BusinessListFragment : Fragment() {
                         is Result.Error -> {
                             showLoading(false)
                             showError(state.message)
-                            showCreateButton()
                         }
                         null -> showLoading(false)
                     }
@@ -96,20 +95,14 @@ class BusinessListFragment : Fragment() {
     }
 
     private fun showEmptyState() {
-        binding.tvEmptyState.visibility = View.VISIBLE
+        binding.layoutEmptyState.visibility = View.VISIBLE
         binding.rvBusinessList.visibility = View.GONE
-        binding.btnCreateNewBusiness.visibility = View.VISIBLE
     }
 
     private fun showBusinesses(businesses: List<Business>) {
-        binding.tvEmptyState.visibility = View.GONE
+        binding.layoutEmptyState.visibility = View.GONE
         binding.rvBusinessList.visibility = View.VISIBLE
-        binding.btnCreateNewBusiness.visibility = View.VISIBLE
         adapter.submitList(businesses)
-    }
-
-    private fun showCreateButton() {
-        binding.btnCreateNewBusiness.visibility = View.VISIBLE
     }
 
     private fun navigateToBusinessDetail(businessId: String) {

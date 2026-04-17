@@ -1,5 +1,7 @@
 package com.caas.app.ui.business.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -26,12 +28,15 @@ class BusinessListAdapter(
         fun bind(business: Business) {
             binding.tvBusinessName.text = business.name
             binding.tvBusinessSector.text = business.sector
+            binding.tvBusinessInitial.text = business.name.firstOrNull()?.uppercaseChar()?.toString() ?: "N"
 
-            binding.btnViewDetails.setOnClickListener {
-                onBusinessClick(business.id)
-            }
+            val (statusLabel, statusColor) = if (business.isActive)
+                "Activo" to Color.parseColor("#4CAF50")
+            else
+                "Inactivo" to Color.parseColor("#9E9E9E")
+            binding.tvBusinessStatus.text = statusLabel
+            binding.tvBusinessStatus.backgroundTintList = ColorStateList.valueOf(statusColor)
 
-            // Permitir click en todo el card
             binding.root.setOnClickListener {
                 onBusinessClick(business.id)
             }
