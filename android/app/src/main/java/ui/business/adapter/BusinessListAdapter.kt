@@ -27,15 +27,14 @@ class BusinessListAdapter(
 
         fun bind(business: Business) {
             binding.tvBusinessName.text = business.name
-            binding.tvBusinessSector.text = business.sector
-            binding.tvBusinessInitial.text = business.name.firstOrNull()?.uppercaseChar()?.toString() ?: "N"
+            binding.tvSector.text = business.sector
 
             val (statusLabel, statusColor) = if (business.isActive)
                 "Activo" to Color.parseColor("#4CAF50")
             else
                 "Inactivo" to Color.parseColor("#9E9E9E")
-            binding.tvBusinessStatus.text = statusLabel
-            binding.tvBusinessStatus.backgroundTintList = ColorStateList.valueOf(statusColor)
+            binding.tvStatus.text = statusLabel
+            binding.tvStatus.backgroundTintList = ColorStateList.valueOf(statusColor)
 
             binding.root.setOnClickListener {
                 onBusinessClick(business.id)

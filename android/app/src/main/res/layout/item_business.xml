@@ -1,99 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- item_business.xml — Business card for RecyclerView in Home screen -->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/CardStyle.ListItem"
+    style="@style/CardStyle.Default"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/spacing_xs"
-    android:layout_marginBottom="@dimen/spacing_xs">
+    android:layout_marginBottom="@dimen/spacing_md">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="@dimen/spacing_lg">
+        android:gravity="center_vertical"
+        android:padding="@dimen/card_padding_sm">
 
-        <!-- AVATAR con inicial -->
+        <!-- Icon -->
         <FrameLayout
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:background="@drawable/circle_orange_bg"
-            android:layout_marginEnd="@dimen/spacing_md">
+            android:layout_width="@dimen/icon_container_md"
+            android:layout_height="@dimen/icon_container_md"
+            android:background="@drawable/icon_bg_orange"
+            android:padding="12dp"
+            android:layout_marginEnd="@dimen/spacing_sm">
 
-            <TextView
-                android:id="@+id/tvBusinessInitial"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="N"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
+                android:src="@drawable/ic_business"
+                app:tint="@color/orange"/>
         </FrameLayout>
 
-        <!-- CONTENIDO principal -->
+        <!-- Info -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvBusinessName"
-                style="@style/TextStyle.Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nombre del Negocio"
-                android:singleLine="true"
-                android:ellipsize="end"/>
-
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/tvBusinessSector"
-                    style="@style/TextStyle.Subtitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sector"
-                    android:singleLine="true"
-                    android:ellipsize="end"/>
-
-                <!-- BADGE de estado -->
-                <TextView
-                    android:id="@+id/tvBusinessStatus"
+                    android:id="@+id/tvBusinessName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_sm"
-                    android:background="@drawable/status_badge_bg"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="3dp"
-                    android:text="Activo"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_caption_xs"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_body"
                     android:textStyle="bold"/>
 
+                <!-- Status badge -->
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/icon_bg_green"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:textColor="@color/green"
+                    android:textSize="9sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvSector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_size_caption"/>
         </LinearLayout>
 
-        <!-- FLECHA derecha -->
+        <!-- Right info -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end"
+            android:layout_marginEnd="@dimen/spacing_sm">
+
+            <TextView
+                android:id="@+id/tvBranchCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_size_caption"/>
+
+            <TextView
+                android:id="@+id/tvProductCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_size_caption_xs"/>
+        </LinearLayout>
+
         <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="@dimen/spacing_sm"
-            android:contentDescription="Ver detalles"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:src="@drawable/ic_chevron_right"
-            app:tint="@color/text_secondary"/>
-
+            app:tint="@color/text_tertiary"/>
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

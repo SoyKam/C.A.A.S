@@ -18,11 +18,13 @@
             <!-- ===== HEADER ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/header_gradient"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="20dp">
+                android:paddingHorizontal="@dimen/header_padding_horizontal"
+                android:paddingVertical="16dp"
+                android:minHeight="@dimen/header_height">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -34,121 +36,196 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mis Negocios"
-                        android:textColor="@color/white"
-                        android:textSize="22sp"
-                        android:textStyle="bold"/>
+                        android:textColor="@color/header_text"
+                        android:textSize="@dimen/text_size_title"
+                        android:textStyle="bold"
+                        android:letterSpacing="-0.01"/>
 
                     <TextView
                         android:id="@+id/tvWelcomeUser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Hola, Usuario"
-                        android:textColor="#CCCCCC"
-                        android:textSize="13sp"/>
+                        android:layout_marginTop="4dp"
+                        android:text="Hola, Carlos 👋"
+                        android:textColor="#A0FFFFFF"
+                        android:textSize="@dimen/text_size_body_sm"/>
                 </LinearLayout>
 
-                <ImageView
+                <!-- Profile avatar -->
+                <FrameLayout
+                    android:id="@+id/btnProfile"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:background="@drawable/circle_orange_bg"
-                    android:contentDescription="Perfil"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_profile"
-                    app:tint="@color/white"/>
+                    android:background="@drawable/icon_bg_orange"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_profile"
+                        app:tint="@color/white"
+                        android:contentDescription="Perfil"/>
+                </FrameLayout>
             </LinearLayout>
 
-            <!-- ===== STATS SECTION ===== -->
+            <!-- ===== STATS ROW ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:padding="@dimen/spacing_lg">
 
                 <!-- Total -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_sm"
                     android:layout_weight="1"
                     android:background="@drawable/stat_box_bg"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="14dp">
 
                     <TextView
                         android:id="@+id/tvStatTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="3"
                         android:textColor="@color/text_primary"
-                        android:textSize="28sp"
-                        android:textStyle="bold"/>
+                        android:textSize="@dimen/stat_value_size"
+                        android:textStyle="bold"
+                        android:letterSpacing="-0.04"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="11sp"/>
+                        android:textColor="@color/text_tertiary"
+                        android:textSize="@dimen/text_size_caption_xs"/>
                 </LinearLayout>
 
                 <!-- Activos -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_marginHorizontal="3dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/stat_box_bg"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="14dp">
 
                     <TextView
                         android:id="@+id/tvStatActive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="#4CAF50"
-                        android:textSize="28sp"
-                        android:textStyle="bold"/>
+                        android:text="2"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/stat_value_size"
+                        android:textStyle="bold"
+                        android:letterSpacing="-0.04"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Activos"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="11sp"/>
+                        android:textColor="@color/text_tertiary"
+                        android:textSize="@dimen/text_size_caption_xs"/>
                 </LinearLayout>
 
                 <!-- Inactivos -->
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="6dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_sm"
                     android:layout_weight="1"
                     android:background="@drawable/stat_box_bg"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="14dp">
 
                     <TextView
                         android:id="@+id/tvStatPending"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="@color/button_orange"
-                        android:textSize="28sp"
-                        android:textStyle="bold"/>
+                        android:text="1"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/stat_value_size"
+                        android:textStyle="bold"
+                        android:letterSpacing="-0.04"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Inactivos"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="11sp"/>
+                        android:textColor="@color/text_tertiary"
+                        android:textSize="@dimen/text_size_caption_xs"/>
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- ===== ALERT BANNER ===== -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/alertBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_lg"
+                android:layout_marginBottom="@dimen/spacing_lg"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/red_light"
+                app:strokeColor="@color/red_light"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/card_padding_sm">
+
+                    <FrameLayout
+                        android:layout_width="@dimen/icon_container_xs"
+                        android:layout_height="@dimen/icon_container_xs"
+                        android:background="@drawable/icon_bg_red"
+                        android:padding="8dp"
+                        android:layout_marginEnd="@dimen/spacing_md">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_alert"
+                            app:tint="@color/white"/>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3 productos en stock crítico"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_size_body_sm"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Requieren atención inmediata"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="@dimen/text_size_caption_xs"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/red"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- ===== SECTION HEADER ===== -->
             <LinearLayout
@@ -156,8 +233,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="16dp"
-                android:paddingBottom="4dp">
+                android:paddingHorizontal="@dimen/spacing_lg"
+                android:paddingBottom="@dimen/spacing_md">
 
                 <TextView
                     android:layout_width="0dp"
@@ -165,7 +242,7 @@
                     android:layout_weight="1"
                     android:text="Mis Negocios"
                     android:textColor="@color/text_primary"
-                    android:textSize="17sp"
+                    android:textSize="@dimen/text_size_body_lg"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -174,9 +251,9 @@
                     android:layout_height="wrap_content"
                     android:padding="4dp"
                     android:text="Ver todos →"
-                    android:textColor="@color/button_orange"
-                    android:textSize="13sp"
-                    android:visibility="gone"/>
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/text_size_caption"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <!-- ===== LOADING ===== -->
@@ -186,16 +263,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="24dp"
+                android:indeterminateTint="@color/orange"
                 android:visibility="gone"/>
 
-            <!-- ===== BUSINESS PREVIEW LIST ===== -->
+            <!-- ===== BUSINESS LIST ===== -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvBusinessPreview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
-                android:paddingHorizontal="12dp"
-                android:paddingBottom="8dp"
+                android:paddingHorizontal="@dimen/spacing_lg"
+                android:clipToPadding="false"
                 android:visibility="gone"/>
 
             <!-- ===== EMPTY STATE ===== -->
@@ -208,27 +286,49 @@
                 android:padding="40dp"
                 android:visibility="gone">
 
+                <!-- Icon container -->
+                <FrameLayout
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/icon_bg_orange"
+                    android:padding="14dp"
+                    android:layout_marginBottom="@dimen/spacing_lg">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_business"
+                        app:tint="@color/orange"/>
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No tienes negocios aún"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="No tienes negocios aún.\nComienza creando el primero."
+                    android:text="Comienza creando el primero"
                     android:textColor="@color/text_secondary"
-                    android:textSize="15sp"/>
+                    android:textSize="@dimen/text_size_body_sm"
+                    android:layout_marginBottom="@dimen/spacing_lg"/>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCreateFirstBusiness"
+                    style="@style/Widget.CAAS.Button.Primary"
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="20dp"
-                    android:backgroundTint="@color/button_orange"
-                    android:paddingHorizontal="24dp"
-                    android:text="Crear negocio"
-                    android:textColor="@color/white"
-                    app:cornerRadius="12dp"/>
+                    android:layout_height="@dimen/button_height_sm"
+                    android:paddingHorizontal="20dp"
+                    android:text="Crear negocio"/>
             </LinearLayout>
 
-            <!-- Bottom space so FAB doesn't overlap last item -->
+            <!-- Bottom spacer for FAB -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="80dp"/>
@@ -239,13 +339,12 @@
     <!-- ===== FAB ===== -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabCreateBusiness"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.CAAS.FAB"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/fab_margin"
         android:contentDescription="Crear negocio"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/button_orange"
-        app:tint="@color/white"/>
+        android:src="@android:drawable/ic_input_add"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

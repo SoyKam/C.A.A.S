@@ -92,4 +92,7 @@ dependencies {
 
     // ML Kit para escaneo
     implementation("com.google.mlkit:barcode-scanning:17.2.0")
+
+    // GridLayout para Business Detail
+    implementation("androidx.gridlayout:gridlayout:1.0.0")
 }

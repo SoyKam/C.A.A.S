@@ -117,20 +117,15 @@ class BusinessDetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 stockViewModel.unreadAlertsState.collect { state ->
-                    if (state is Result.Success) {
-                        val count = state.data.size
-                        binding.btnCriticalStock.text = if (count > 0) {
-                            "VER STOCK CRÍTICO  ($count)"
-                        } else {
-                            "VER STOCK CRÍTICO"
-                        }
-                    }
+                    // Alerts badge removed from new layout
                 }
             }
         }
     }
 
     private fun displayBusiness(business: Business) {
+        val initials = business.name.trim().split(" ")
+            .take(2).joinToString("") { it.take(1) }.uppercase()
         binding.tvBusinessName.text = business.name
         binding.tvSector.text = business.sector
         binding.tvTaxId.text = business.taxId

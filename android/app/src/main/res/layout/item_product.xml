@@ -1,44 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- item_product.xml — Product card for RecyclerView -->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardStyle.Default"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="6dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="6dp"
-    app:cardBackgroundColor="@color/card_background"
-    app:strokeColor="@color/divider"
-    app:strokeWidth="1dp">
+    android:layout_marginBottom="@dimen/spacing_sm">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="16dp">
+        android:padding="@dimen/card_padding_sm">
 
-        <!-- IMAGEN -->
+        <!-- Product image / placeholder -->
+        <FrameLayout
+            android:layout_width="@dimen/icon_container_md"
+            android:layout_height="@dimen/icon_container_md"
+            android:background="@drawable/icon_bg_neutral"
+            android:layout_marginEnd="@dimen/spacing_sm">
 
-        <ImageView
-            android:id="@+id/ivProductImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="14dp"
-            android:scaleType="centerCrop"
-            android:background="@color/surface"
-            android:padding="6dp"
-            android:src="@android:drawable/ic_menu_gallery"/>
+            <ImageView
+                android:id="@+id/ivProductImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:src="@drawable/ic_product"
+                app:tint="@color/text_tertiary"
+                android:scaleType="centerCrop"/>
+        </FrameLayout>
 
-        <!-- INFO -->
-
+        <!-- Info -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -49,42 +43,41 @@
                 android:id="@+id/tvProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre del producto"
                 android:textColor="@color/text_primary"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_body"
                 android:textStyle="bold"
-                android:layout_marginBottom="2dp"/>
+                android:ellipsize="end"
+                android:maxLines="1"/>
 
             <TextView
-                android:id="@+id/tvProductCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Categoría"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:layout_marginBottom="6dp"/>
-
-            <TextView
-                android:id="@+id/tvProductSalePrice"
+                android:id="@+id/tvSkuCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$ 0.00"
-                android:textColor="@color/button_orange"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_size_caption_xs"/>
         </LinearLayout>
 
-        <!-- FLECHA -->
-
-        <TextView
+        <!-- Price + Stock -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="›"
-            android:textColor="@color/text_secondary"
-            android:textSize="26sp"
-            android:layout_marginStart="10dp"/>
+            android:orientation="vertical"
+            android:gravity="end">
 
+            <TextView
+                android:id="@+id/tvSalePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/text_size_body"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_size_caption_xs"/>
+        </LinearLayout>
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

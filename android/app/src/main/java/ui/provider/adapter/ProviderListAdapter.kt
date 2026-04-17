@@ -18,8 +18,7 @@ class ProviderListAdapter(
 
         fun bind(provider: Provider) {
             binding.tvProviderName.text = provider.name
-            binding.tvProviderEmail.text = provider.email
-            binding.tvProviderPhone.text = provider.phone
+            binding.tvPhone.text = provider.phone
             binding.root.setOnClickListener { onItemClick(provider) }
         }
     }

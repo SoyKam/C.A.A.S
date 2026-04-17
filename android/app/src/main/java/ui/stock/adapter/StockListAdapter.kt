@@ -19,12 +19,19 @@ class StockListAdapter(
 
         fun bind(stock: Stock) {
             binding.tvProductName.text = stock.productName
-            binding.tvStockQuantity.text = "Stock: ${stock.quantity}"
+            binding.tvQuantity.text = stock.quantity.toString()
 
             val isCritical = stock.quantity <= stock.minStock
-            binding.tvLowStockAlert.visibility = if (isCritical) View.VISIBLE else View.GONE
+            val statusText = if (isCritical) "Crítico" else "Normal"
+            val statusColor = if (isCritical) 
+                binding.root.context.getColor(android.R.color.holo_red_light)
+            else
+                binding.root.context.getColor(android.R.color.holo_green_light)
+            
+            binding.tvStatus.text = statusText
+            binding.tvStatus.setTextColor(statusColor)
 
-            binding.btnViewMovements.setOnClickListener {
+            binding.root.setOnClickListener {
                 onViewMovementsClick(stock)
             }
         }

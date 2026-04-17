@@ -1,63 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- item_stock_alert.xml — Alert card with left red accent -->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/CardStyle.ListItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/spacing_xs"
-    android:layout_marginTop="@dimen/spacing_sm"
     android:layout_marginBottom="@dimen/spacing_sm"
-    app:strokeColor="@color/error_red">
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation"
+    app:cardBackgroundColor="@color/card_background"
+    app:strokeColor="@color/border"
+    app:strokeWidth="@dimen/card_stroke_width">
 
+    <!-- Red left border via layered background -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="@dimen/spacing_xl"
-        android:paddingVertical="@dimen/spacing_lg">
+        android:background="@drawable/alert_card_bg">
 
-        <!-- BADGE rojo -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/error_red"
-            android:paddingHorizontal="@dimen/spacing_sm"
-            android:paddingVertical="@dimen/spacing_xs"
-            android:text="!"
-            android:textSize="@dimen/text_size_body"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_marginEnd="@dimen/spacing_lg"/>
+        <!-- Red accent strip -->
+        <View
+            android:layout_width="3dp"
+            android:layout_height="match_parent"
+            android:background="@color/red"/>
 
-        <!-- CONTENIDO -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:gravity="top"
+            android:padding="@dimen/card_padding_sm">
 
-            <TextView
-                android:id="@+id/tvAlertProductName"
-                style="@style/TextStyle.Title"
-                android:layout_width="match_parent"
+            <!-- Alert icon -->
+            <FrameLayout
+                android:layout_width="@dimen/icon_container_xs"
+                android:layout_height="@dimen/icon_container_xs"
+                android:background="@drawable/icon_bg_red"
+                android:padding="8dp"
+                android:layout_marginEnd="@dimen/spacing_md">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_alert"
+                    app:tint="@color/red"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Nombre del producto"
-                android:layout_marginBottom="@dimen/spacing_xs"/>
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvAlertStockInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Stock actual: 0 | Mínimo: 0"
-                android:textColor="@color/error_red"
-                android:textSize="@dimen/text_size_caption"
-                android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tvProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_body"
+                    android:textStyle="bold"/>
 
+                <TextView
+                    android:id="@+id/tvBranchTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_caption"/>
+
+                <TextView
+                    android:id="@+id/tvStockInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/text_size_caption"
+                    android:textStyle="bold"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>
