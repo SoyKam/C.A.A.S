@@ -12,21 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="28dp">
+        android:padding="32dp">
 
-        <!-- BRAND -->
-
+        <!-- Header: Brand Name -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CAAS"
             android:textColor="@color/button_orange"
-            android:textSize="26sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginBottom="56dp"/>
+            android:layout_marginBottom="64dp"/>
 
-        <!-- SUBTITLE -->
-
+        <!-- Subtitle -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,34 +32,34 @@
             android:textColor="@color/text_secondary"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:letterSpacing="0.12"
-            android:layout_marginBottom="6dp"/>
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp"/>
 
-        <!-- TITLE -->
-
+        <!-- Main Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="REGÍSTRATE"
             android:textColor="@color/text_primary"
-            android:textSize="30sp"
+            android:textSize="32sp"
             android:textStyle="bold"
-            android:layout_marginBottom="36dp"/>
+            android:layout_marginBottom="40dp"/>
 
-        <!-- NOMBRE -->
-
+        <!-- Full Name Field -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="NOMBRE COMPLETO"
             android:textColor="@color/text_primary"
             android:textSize="11sp"
             android:textStyle="bold"
-            android:layout_marginBottom="6dp"/>
+            android:layout_marginBottom="8dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.CAAS.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="22dp"
+            android:layout_marginBottom="24dp"
             app:hintEnabled="false"
             app:boxBackgroundColor="@color/input_fill"
             app:boxStrokeColor="@color/input_stroke">
@@ -70,27 +68,29 @@
                 android:id="@+id/nameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
                 android:hint="Juan Pérez"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_hint"
                 android:textSize="15sp"
-                android:paddingVertical="18dp"/>
+                android:paddingVertical="16dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- EMAIL -->
-
+        <!-- Email Field -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="CORREO ELECTRÓNICO"
             android:textColor="@color/text_primary"
             android:textSize="11sp"
             android:textStyle="bold"
-            android:layout_marginBottom="6dp"/>
+            android:layout_marginBottom="8dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.CAAS.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="22dp"
+            android:layout_marginBottom="24dp"
             app:hintEnabled="false"
             app:boxBackgroundColor="@color/input_fill"
             app:boxStrokeColor="@color/input_stroke">
@@ -99,27 +99,29 @@
                 android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:hint="ejemplo@caas.com"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_hint"
                 android:textSize="15sp"
-                android:paddingVertical="18dp"/>
+                android:paddingVertical="16dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- PASSWORD -->
-
+        <!-- Password Field -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="CONTRASEÑA"
             android:textColor="@color/text_primary"
             android:textSize="11sp"
             android:textStyle="bold"
-            android:layout_marginBottom="6dp"/>
+            android:layout_marginBottom="8dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.CAAS.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
+            android:layout_marginBottom="40dp"
             app:hintEnabled="false"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/text_hint"
@@ -130,26 +132,25 @@
                 android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:hint="••••••••••••"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_hint"
                 android:textSize="15sp"
-                android:paddingVertical="18dp"/>
+                android:paddingVertical="16dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- BOTÓN -->
-
+        <!-- Register Button -->
         <Button
             android:id="@+id/registerButton"
             style="@style/Widget.CAAS.Button.Main"
             android:layout_width="match_parent"
-            android:layout_height="58dp"
+            android:layout_height="56dp"
             android:text="CREAR CUENTA"
             android:textColor="@color/white"
-            android:layout_marginBottom="28dp"/>
+            android:layout_marginBottom="32dp"/>
 
-        <!-- LINK -->
-
+        <!-- Register Flow Link -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -157,19 +158,21 @@
             android:layout_gravity="center">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="¿Ya tienes cuenta? "
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/goToLoginTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Inicia sesión"
                 android:textColor="@color/text_link"
                 android:textStyle="bold"
                 android:textSize="14sp"/>
         </LinearLayout>
-
-        <!-- LOADING -->
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -179,20 +182,17 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"/>
 
-        <!-- ESPACIO FLEX -->
-
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-        <!-- FOOTER -->
-
+        <!-- Footer -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="64dp"
             android:text="© 2026 CAAS"
             android:textColor="@color/text_secondary"
             android:textSize="10sp" />
