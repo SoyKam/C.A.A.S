@@ -1,6 +1,7 @@
 package com.caas.app.domain.repository
 
 import com.caas.app.core.result.Result
+import com.caas.app.data.model.MovementType
 import com.caas.app.data.model.Stock
 import com.caas.app.data.model.StockAlert
 import com.caas.app.data.model.StockMovement
@@ -26,4 +27,10 @@ interface StockRepository {
     suspend fun getUnreadAlerts(businessId: String): Result<List<StockAlert>>
 
     suspend fun markAlertAsRead(businessId: String, alertId: String): Result<Unit>
+
+    suspend fun getMovementsByType(businessId: String, branchId: String, type: MovementType): Result<List<StockMovement>>
+
+    suspend fun getMovementsByDateRange(businessId: String, branchId: String, startDate: Long, endDate: Long): Result<List<StockMovement>>
+
+    suspend fun getMovementsByProduct(businessId: String, branchId: String, productId: String): Result<List<StockMovement>>
 }

@@ -87,6 +87,14 @@ class StockListFragment : Fragment() {
                 )
             )
         }
+
+        binding.btnViewMovements.setOnClickListener {
+            findNavController().navigate(
+                StockListFragmentDirections.actionStockListToStockMovements(
+                    args.businessId, args.branchId
+                )
+            )
+        }
     }
 
     private fun observeStockListState() {

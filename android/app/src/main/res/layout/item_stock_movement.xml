@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_sm"
+    app:cardBackgroundColor="@color/card_background"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation"
+    app:strokeColor="@color/border"
+    app:strokeWidth="@dimen/card_stroke_width">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Left accent strip — color set programmatically per type -->
+        <View
+            android:id="@+id/viewAccent"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/green"/>
+
+        <!-- Type icon container — bg set programmatically -->
+        <FrameLayout
+            android:id="@+id/iconContainer"
+            android:layout_width="@dimen/icon_container_xs"
+            android:layout_height="@dimen/icon_container_xs"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/spacing_md"
+            android:layout_marginTop="@dimen/card_padding_sm"
+            android:layout_marginBottom="@dimen/card_padding_sm"
+            android:layout_marginEnd="@dimen/spacing_md"
+            android:background="@drawable/icon_bg_green"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/ivMovementIcon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_arrow_up"
+                app:tint="@color/green"/>
+        </FrameLayout>
+
+        <!-- Left text column -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/card_padding_sm">
+
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_size_body"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvMovementType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_size_caption"/>
+
+            <TextView
+                android:id="@+id/tvReason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_size_caption"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <!-- Right column: quantity + date -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/card_padding_sm"
+            android:paddingVertical="@dimen/card_padding_sm">
+
+            <TextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_size_body_lg"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_size_caption_xs"/>
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

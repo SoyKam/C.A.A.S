@@ -1,9 +1,11 @@
 package com.caas.app.data.source
 
+import com.caas.app.data.model.MovementType
 import com.caas.app.data.model.Stock
 import com.caas.app.data.model.StockAlert
 import com.caas.app.data.model.StockMovement
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 
 class FirestoreStockDataSource(
@@ -57,6 +59,48 @@ class FirestoreStockDataSource(
 
     suspend fun getMovementsByBranch(businessId: String, branchId: String): List<StockMovement> {
         return movementsRef(businessId, branchId)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .get()
+            .await()
+            .toObjects(StockMovement::class.java)
+    }
+
+    suspend fun getMovementsByType(
+        businessId: String,
+        branchId: String,
+        type: MovementType
+    ): List<StockMovement> {
+        return movementsRef(businessId, branchId)
+            .whereEqualTo("type", type.name)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .get()
+            .await()
+            .toObjects(StockMovement::class.java)
+    }
+
+    suspend fun getMovementsByDateRange(
+        businessId: String,
+        branchId: String,
+        startDate: Long,
+        endDate: Long
+    ): List<StockMovement> {
+        return movementsRef(businessId, branchId)
+            .whereGreaterThanOrEqualTo("createdAt", startDate)
+            .whereLessThanOrEqualTo("createdAt", endDate)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .get()
+            .await()
+            .toObjects(StockMovement::class.java)
+    }
+
+    suspend fun getMovementsByProduct(
+        businessId: String,
+        branchId: String,
+        productId: String
+    ): List<StockMovement> {
+        return movementsRef(businessId, branchId)
+            .whereEqualTo("productId", productId)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .await()
             .toObjects(StockMovement::class.java)

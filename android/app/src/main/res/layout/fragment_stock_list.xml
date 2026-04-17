@@ -120,5 +120,17 @@
             app:icon="@drawable/ic_bell"
             app:iconTint="@color/text_secondary"
             app:iconGravity="textStart"/>
+
+        <!-- MOVEMENTS BUTTON -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnViewMovements"
+            style="@style/Widget.CAAS.Button.Ghost"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_sm"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:text="Ver Historial de Movimientos"
+            app:icon="@drawable/ic_inventory"
+            app:iconTint="@color/text_secondary"
+            app:iconGravity="textStart"/>
     </LinearLayout>
 </LinearLayout>

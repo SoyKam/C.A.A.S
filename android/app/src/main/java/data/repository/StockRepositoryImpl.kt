@@ -1,6 +1,7 @@
 package com.caas.app.data.repository
 
 import com.caas.app.core.result.Result
+import com.caas.app.data.model.MovementType
 import com.caas.app.data.model.Stock
 import com.caas.app.data.model.StockAlert
 import com.caas.app.data.model.StockMovement
@@ -118,6 +119,50 @@ class StockRepositoryImpl(
             Result.Success(Unit)
         } catch (e: Exception) {
             Result.Error(e.message ?: "Error al marcar alerta como leída", e)
+        }
+    }
+
+    override suspend fun getMovementsByType(
+        businessId: String,
+        branchId: String,
+        type: MovementType
+    ): Result<List<StockMovement>> {
+        return try {
+            if (businessId.isBlank()) return Result.Error("El ID del negocio es requerido")
+            if (branchId.isBlank()) return Result.Error("El ID de la sucursal es requerido")
+            Result.Success(dataSource.getMovementsByType(businessId, branchId, type))
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Error al filtrar movimientos por tipo", e)
+        }
+    }
+
+    override suspend fun getMovementsByDateRange(
+        businessId: String,
+        branchId: String,
+        startDate: Long,
+        endDate: Long
+    ): Result<List<StockMovement>> {
+        return try {
+            if (businessId.isBlank()) return Result.Error("El ID del negocio es requerido")
+            if (branchId.isBlank()) return Result.Error("El ID de la sucursal es requerido")
+            Result.Success(dataSource.getMovementsByDateRange(businessId, branchId, startDate, endDate))
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Error al filtrar movimientos por fecha", e)
+        }
+    }
+
+    override suspend fun getMovementsByProduct(
+        businessId: String,
+        branchId: String,
+        productId: String
+    ): Result<List<StockMovement>> {
+        return try {
+            if (businessId.isBlank()) return Result.Error("El ID del negocio es requerido")
+            if (branchId.isBlank()) return Result.Error("El ID de la sucursal es requerido")
+            if (productId.isBlank()) return Result.Error("El ID del producto es requerido")
+            Result.Success(dataSource.getMovementsByProduct(businessId, branchId, productId))
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Error al filtrar movimientos por producto", e)
         }
     }
 }

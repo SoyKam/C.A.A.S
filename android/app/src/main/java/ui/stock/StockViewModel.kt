@@ -20,6 +20,9 @@ import com.caas.app.domain.usecase.CheckAndSaveStockAlertsUseCase
 import com.caas.app.domain.usecase.GetAllLowStockByBusinessUseCase
 import com.caas.app.domain.usecase.GetLowStockUseCase
 import com.caas.app.domain.usecase.GetMovementsByBranchUseCase
+import com.caas.app.domain.usecase.GetMovementsByDateRangeUseCase
+import com.caas.app.domain.usecase.GetMovementsByProductUseCase
+import com.caas.app.domain.usecase.GetMovementsByTypeUseCase
 import com.caas.app.domain.usecase.GetStockByBranchUseCase
 import com.caas.app.domain.usecase.GetUnreadAlertsUseCase
 import com.caas.app.domain.usecase.MarkAlertAsReadUseCase
@@ -48,6 +51,9 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
     private val getStockByBranchUseCase = GetStockByBranchUseCase(repository)
     private val getLowStockUseCase = GetLowStockUseCase(repository)
     private val getMovementsByBranchUseCase = GetMovementsByBranchUseCase(repository)
+    private val getMovementsByTypeUseCase = GetMovementsByTypeUseCase(repository)
+    private val getMovementsByDateRangeUseCase = GetMovementsByDateRangeUseCase(repository)
+    private val getMovementsByProductUseCase = GetMovementsByProductUseCase(repository)
     private val getAllLowStockByBusinessUseCase = GetAllLowStockByBusinessUseCase(repository)
     private val getUnreadAlertsUseCase = GetUnreadAlertsUseCase(repository)
     private val markAlertAsReadUseCase = MarkAlertAsReadUseCase(repository)
@@ -74,6 +80,64 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _businessProductsState = MutableStateFlow<Result<List<Product>>?>(null)
     val businessProductsState: StateFlow<Result<List<Product>>?> = _businessProductsState.asStateFlow()
+
+    // ── Movimientos recientes para pantalla Reports ─────────────────────────
+
+    private val _recentMovementsState = MutableStateFlow<Result<List<StockMovement>>?>(null)
+    val recentMovementsState: StateFlow<Result<List<StockMovement>>?> = _recentMovementsState.asStateFlow()
+
+    fun loadRecentMovements(businessIds: List<String>) {
+        if (businessIds.isEmpty()) {
+            _recentMovementsState.value = Result.Success(emptyList())
+            return
+        }
+        viewModelScope.launch {
+            _recentMovementsState.value = Result.Loading
+            _recentMovementsState.value = try {
+                val all = mutableListOf<StockMovement>()
+                for (businessId in businessIds) {
+                    val branchResult = branchRepository.getBranchesByBusinessId(businessId)
+                    if (branchResult is Result.Success) {
+                        for (branch in branchResult.data) {
+                            try {
+                                val movements = dataSource.getMovementsByBranch(businessId, branch.id)
+                                    .map { m ->
+                                        val branchTag = "Suc: ${branch.name}"
+                                        m.copy(reason = if (m.reason.isBlank()) branchTag else "$branchTag · ${m.reason}")
+                                    }
+                                all.addAll(movements)
+                            } catch (_: Exception) {}
+                        }
+                    }
+                }
+                Result.Success(all.sortedByDescending { it.createdAt }.take(10))
+            } catch (e: Exception) {
+                Result.Error(e.message ?: "Error al cargar movimientos recientes", e)
+            }
+        }
+    }
+
+    fun resetRecentMovementsState() { _recentMovementsState.value = null }
+
+    // ── Movimiento seleccionado para detalle ────────────────────────────────
+
+    private val _selectedMovement = MutableStateFlow<com.caas.app.data.model.StockMovement?>(null)
+    val selectedMovement: StateFlow<com.caas.app.data.model.StockMovement?> = _selectedMovement.asStateFlow()
+
+    fun selectMovement(movement: com.caas.app.data.model.StockMovement) {
+        _selectedMovement.value = movement
+    }
+
+    // ── Estados movimientos filtrados ───────────────────────────────────────
+
+    private val _movementsByTypeState = MutableStateFlow<Result<List<StockMovement>>?>(null)
+    val movementsByTypeState: StateFlow<Result<List<StockMovement>>?> = _movementsByTypeState.asStateFlow()
+
+    private val _movementsByDateState = MutableStateFlow<Result<List<StockMovement>>?>(null)
+    val movementsByDateState: StateFlow<Result<List<StockMovement>>?> = _movementsByDateState.asStateFlow()
+
+    private val _movementsByProductState = MutableStateFlow<Result<List<StockMovement>>?>(null)
+    val movementsByProductState: StateFlow<Result<List<StockMovement>>?> = _movementsByProductState.asStateFlow()
 
     // ── Estados nuevos RF-22 / RF-23 ────────────────────────────────────────
 
@@ -167,6 +231,29 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // ── Métodos movimientos filtrados ───────────────────────────────────────
+
+    fun getMovementsByType(businessId: String, branchId: String, type: MovementType) {
+        viewModelScope.launch {
+            _movementsByTypeState.value = Result.Loading
+            _movementsByTypeState.value = getMovementsByTypeUseCase(businessId, branchId, type)
+        }
+    }
+
+    fun getMovementsByDateRange(businessId: String, branchId: String, startDate: Long, endDate: Long) {
+        viewModelScope.launch {
+            _movementsByDateState.value = Result.Loading
+            _movementsByDateState.value = getMovementsByDateRangeUseCase(businessId, branchId, startDate, endDate)
+        }
+    }
+
+    fun getMovementsByProduct(businessId: String, branchId: String, productId: String) {
+        viewModelScope.launch {
+            _movementsByProductState.value = Result.Loading
+            _movementsByProductState.value = getMovementsByProductUseCase(businessId, branchId, productId)
+        }
+    }
+
     // ── Métodos nuevos RF-22 / RF-23 ────────────────────────────────────────
 
     fun getAllLowStockByBusiness(businessId: String) {
@@ -218,4 +305,7 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
     fun resetUnreadAlertsState() { _unreadAlertsState.value = null }
     fun resetMarkReadState() { _markReadState.value = null }
     fun resetCheckAlertsState() { _checkAlertsState.value = null }
+    fun resetMovementsByTypeState() { _movementsByTypeState.value = null }
+    fun resetMovementsByDateState() { _movementsByDateState.value = null }
+    fun resetMovementsByProductState() { _movementsByProductState.value = null }
 }
