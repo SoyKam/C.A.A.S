@@ -17,6 +17,7 @@ import com.caas.app.data.model.Business
 import com.caas.app.databinding.FragmentHomeBinding
 import com.caas.app.ui.business.BusinessViewModel
 import com.caas.app.ui.business.adapter.BusinessListAdapter
+import com.caas.app.ui.stock.StockViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -27,7 +28,9 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: BusinessViewModel by activityViewModels()
+    private val stockViewModel: StockViewModel by activityViewModels()
     private lateinit var previewAdapter: BusinessListAdapter
+    private var alertBusinessId: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +47,7 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         setupClickListeners()
         observeBusinessListState()
+        observeAlertsState()
         viewModel.getBusinessesByOwner()
     }
 
@@ -81,6 +85,13 @@ class HomeFragment : Fragment() {
                 HomeFragmentDirections.actionHomeToCreateBusiness()
             )
         }
+        binding.alertBanner.setOnClickListener {
+            if (alertBusinessId.isNotEmpty()) {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeToLowStockSummary(alertBusinessId)
+                )
+            }
+        }
     }
 
     private fun observeBusinessListState() {
@@ -113,8 +124,12 @@ class HomeFragment : Fragment() {
         binding.tvStatActive.text = active.toString()
         binding.tvStatPending.text = inactive.toString()
 
-        // Update alert banner
-        binding.alertBanner.visibility = View.GONE
+        if (businesses.isNotEmpty()) {
+            alertBusinessId = businesses.first().id
+            stockViewModel.getUnreadAlerts(alertBusinessId)
+        } else {
+            binding.alertBanner.visibility = View.GONE
+        }
 
         if (businesses.isEmpty()) {
             binding.rvBusinessPreview.visibility = View.GONE
@@ -125,6 +140,29 @@ class HomeFragment : Fragment() {
             binding.layoutEmptyState.visibility = View.GONE
             binding.btnSeeAll.visibility = if (businesses.size > 3) View.VISIBLE else View.GONE
             previewAdapter.submitList(businesses.take(3))
+        }
+    }
+
+    private fun observeAlertsState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                stockViewModel.unreadAlertsState.collect { state ->
+                    when (state) {
+                        is Result.Success -> {
+                            val count = state.data.size
+                            if (count > 0) {
+                                binding.alertBanner.visibility = View.VISIBLE
+                                binding.tvAlertTitle.text = "¡Hay $count alerta${if (count > 1) "s" else ""} de stock!"
+                                binding.tvAlertSubtitle.text = "Productos por debajo del stock mínimo"
+                            } else {
+                                binding.alertBanner.visibility = View.GONE
+                            }
+                        }
+                        is Result.Error -> binding.alertBanner.visibility = View.GONE
+                        else -> Unit
+                    }
+                }
+            }
         }
     }
 

@@ -62,7 +62,7 @@ class BranchListFragment : Fragment() {
     private fun setupClickListeners() {
         binding.btnBack.setOnClickListener { findNavController().navigateUp() }
 
-        binding.btnAddBranch.setOnClickListener {
+        binding.fabAddBranch.setOnClickListener {
             findNavController().navigate(
                 BranchListFragmentDirections.actionBranchListToCreateBranch(args.businessId)
             )
@@ -95,12 +95,12 @@ class BranchListFragment : Fragment() {
     }
 
     private fun showEmptyState() {
-        binding.tvEmptyState.visibility = View.VISIBLE
+        binding.layoutEmptyState.visibility = View.VISIBLE
         binding.rvBranchList.visibility = View.GONE
     }
 
     private fun showBranches(branches: List<Branch>) {
-        binding.tvEmptyState.visibility = View.GONE
+        binding.layoutEmptyState.visibility = View.GONE
         binding.rvBranchList.visibility = View.VISIBLE
         adapter.submitList(branches)
     }
