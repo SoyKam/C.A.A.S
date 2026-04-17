@@ -1,57 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- item_business.xml — Business card for RecyclerView in Home screen -->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/CardStyle.ListItem"
+    style="@style/CardStyle.Default"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/spacing_md"
-    android:layout_marginTop="@dimen/spacing_sm"
-    android:layout_marginBottom="@dimen/spacing_sm">
+    android:layout_marginBottom="@dimen/spacing_md">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="@dimen/spacing_lg">
+        android:gravity="center_vertical"
+        android:padding="@dimen/card_padding_sm">
 
-        <!-- CONTENIDO (IZQUIERDA) -->
+        <!-- Icon -->
+        <FrameLayout
+            android:layout_width="@dimen/icon_container_md"
+            android:layout_height="@dimen/icon_container_md"
+            android:background="@drawable/icon_bg_orange"
+            android:padding="12dp"
+            android:layout_marginEnd="@dimen/spacing_sm">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_business"
+                app:tint="@color/orange"/>
+        </FrameLayout>
+
+        <!-- Info -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginEnd="@dimen/spacing_md">
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvBusinessName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_body"
+                    android:textStyle="bold"/>
+
+                <!-- Status badge -->
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/icon_bg_green"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:textColor="@color/green"
+                    android:textSize="9sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tvBusinessName"
-                style="@style/TextStyle.Title"
-                android:layout_width="match_parent"
+                android:id="@+id/tvSector"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_xs"
-                android:text="Nombre del Negocio"/>
-
-            <TextView
-                android:id="@+id/tvBusinessSector"
-                style="@style/TextStyle.Subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sector"/>
-
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_size_caption"/>
         </LinearLayout>
 
-        <!-- BOTÓN (DERECHA) -->
-        <Button
-            android:id="@+id/btnViewDetails"
-            style="@style/ButtonStyle.PrimarySmall"
+        <!-- Right info -->
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height_sm"
-            android:paddingHorizontal="@dimen/spacing_lg"
-            android:text="Ver"
-            app:cornerRadius="@dimen/button_corner_radius"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end"
+            android:layout_marginEnd="@dimen/spacing_sm">
 
+            <TextView
+                android:id="@+id/tvBranchCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_size_caption"/>
+
+            <TextView
+                android:id="@+id/tvProductCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_size_caption_xs"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_chevron_right"
+            app:tint="@color/text_tertiary"/>
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

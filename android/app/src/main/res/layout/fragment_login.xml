@@ -1,141 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_light"
+    android:background="@color/background"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="32dp">
+        android:padding="24dp">
 
-        <!-- Header: Brand Name -->
+        <!-- Brand -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CAAS"
-            android:textColor="@color/button_orange"
-            android:textSize="24sp"
+            android:textColor="@color/orange"
+            android:textSize="26sp"
             android:textStyle="bold"
-            android:layout_marginBottom="64dp"/>
+            android:letterSpacing="-0.02"
+            android:layout_marginBottom="48dp"/>
 
-        <!-- Subtitle -->
+        <!-- Overline -->
         <TextView
+            style="@style/TextStyle.Overline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BIENVENIDO DE NUEVO"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.1"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="6dp"/>
 
-        <!-- Main Title -->
+        <!-- Title -->
         <TextView
+            style="@style/TextStyle.Display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="INICIAR SESIÓN"
-            android:textColor="@color/text_primary"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="48dp"/>
+            android:text="Iniciar Sesión"
+            android:layout_marginBottom="36dp"/>
 
-        <!-- Email Field -->
+        <!-- Email Label -->
         <TextView
+            style="@style/TextStyle.Overline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CORREO ELECTRÓNICO"
-            android:textColor="@color/text_primary"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="6dp"/>
 
+        <!-- Email Input -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.CAAS.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="20dp"
             app:hintEnabled="false"
-            app:boxBackgroundColor="@color/input_fill"
-            app:boxStrokeColor="@color/input_stroke">
+            app:startIconDrawable="@drawable/ic_mail"
+            app:startIconTint="@color/text_tertiary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/input_height"
                 android:inputType="textEmailAddress"
                 android:hint="ejemplo@caas.com"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_hint"
-                android:textSize="15sp"
-                android:paddingVertical="16dp"/>
+                android:textSize="15sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Password Label Row -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="6dp">
 
             <TextView
+                style="@style/TextStyle.Overline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CONTRASEÑA"
-                android:textColor="@color/text_primary"
-                android:textSize="11sp"
-                android:textStyle="bold"
+                android:textColor="@color/text_secondary"
                 android:layout_alignParentStart="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¿OLVIDASTE TU CONTRASEÑA?"
-                android:textColor="@color/text_link"
-                android:textSize="10sp"
+                android:text="¿Olvidaste?"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/text_size_caption_xs"
                 android:textStyle="bold"
                 android:layout_alignParentEnd="true"/>
         </RelativeLayout>
 
-        <!-- Password Field -->
+        <!-- Password Input -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.CAAS.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="32dp"
             app:hintEnabled="false"
             app:endIconMode="password_toggle"
-            app:endIconTint="@color/text_hint"
-            app:boxBackgroundColor="@color/input_fill"
-            app:boxStrokeColor="@color/input_stroke">
+            app:endIconTint="@color/text_tertiary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/input_height"
                 android:inputType="textPassword"
-                android:hint="••••••••••••"
+                android:hint="••••••••"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_hint"
-                android:textSize="15sp"
-                android:paddingVertical="16dp"/>
+                android:textSize="15sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Login Button -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/loginButton"
-            style="@style/Widget.CAAS.Button.Main"
+            style="@style/Widget.CAAS.Button.PrimaryLg"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="@dimen/button_height_lg"
             android:text="INICIAR SESIÓN"
-            android:textColor="@color/white"
-            android:layout_marginBottom="32dp"/>
+            android:layout_marginBottom="24dp"/>
 
-        <!-- Register Flow Link -->
+        <!-- Register Link -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -154,11 +143,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Regístrate"
-                android:textColor="@color/text_link"
+                android:textColor="@color/orange"
                 android:textStyle="bold"
                 android:textSize="14sp"/>
         </LinearLayout>
 
+        <!-- Loading -->
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
@@ -166,8 +156,9 @@
             android:visibility="gone"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:indeterminateTint="@color/button_orange"/>
+            android:indeterminateTint="@color/orange"/>
 
+        <!-- Spacer -->
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -177,12 +168,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="© 2026 CAAS"
-            android:textColor="@color/text_secondary"
-            android:textSize="10sp"
+            android:text="© 2026 CAAS — Control de Almacén"
+            android:textColor="@color/text_tertiary"
+            android:textSize="@dimen/text_size_caption_xxs"
             android:layout_gravity="center"
-            android:layout_marginTop="64dp"/>
+            android:layout_marginTop="48dp"/>
 
     </LinearLayout>
-
 </ScrollView>

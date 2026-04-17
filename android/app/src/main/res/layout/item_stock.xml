@@ -1,92 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- item_stock.xml — Stock item with progress bar -->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/CardStyle.ListItem"
+    style="@style/CardStyle.Default"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/spacing_xs"
-    android:layout_marginTop="@dimen/spacing_sm"
     android:layout_marginBottom="@dimen/spacing_sm">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="@dimen/spacing_xl"
-        android:paddingVertical="@dimen/spacing_lg">
+        android:orientation="vertical"
+        android:padding="@dimen/card_padding_sm">
 
-        <!-- IZQUIERDA: nombre + badge crítico -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginEnd="@dimen/spacing_md">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/tvProductName"
-                style="@style/TextStyle.Title"
-                android:layout_width="match_parent"
+            <!-- Icon -->
+            <FrameLayout
+                android:id="@+id/iconContainer"
+                android:layout_width="@dimen/icon_container_sm"
+                android:layout_height="@dimen/icon_container_sm"
+                android:background="@drawable/icon_bg_neutral"
+                android:padding="10dp"
+                android:layout_marginEnd="@dimen/spacing_sm">
+
+                <ImageView
+                    android:id="@+id/ivIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_stock"
+                    app:tint="@color/text_tertiary"/>
+            </FrameLayout>
+
+            <!-- Name + min -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Nombre del producto"
-                android:layout_marginBottom="@dimen/spacing_sm"/>
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <!-- BADGE stock crítico (oculto por defecto) -->
-            <TextView
-                android:id="@+id/tvLowStockAlert"
+                <TextView
+                    android:id="@+id/tvProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_body"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvMinStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="@dimen/text_size_caption_xs"/>
+            </LinearLayout>
+
+            <!-- Quantity + status -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/error_red"
-                android:paddingHorizontal="@dimen/spacing_sm"
-                android:paddingVertical="@dimen/spacing_xs"
-                android:text="Stock crítico"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_caption_xxs"
-                android:textStyle="bold"
-                android:visibility="gone"/>
+                android:orientation="vertical"
+                android:gravity="end">
 
+                <TextView
+                    android:id="@+id/tvQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_caption_xxs"
+                    android:textStyle="bold"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- DERECHA: cantidad grande + botón movimientos -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/tvStockQuantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textColor="@color/button_orange"
-                android:textSize="@dimen/text_size_title"
-                android:textStyle="bold"/>
-
-            <TextView
-                style="@style/TextStyle.CaptionXs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="uds"
-                android:layout_marginBottom="@dimen/spacing_sm"/>
-
-            <!-- Botón movimientos: texto sutil -->
-            <Button
-                android:id="@+id/btnViewMovements"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:minWidth="0dp"
-                android:paddingHorizontal="0dp"
-                android:text="Movimientos"
-                android:textColor="@color/text_secondary"
-                android:textSize="@dimen/text_size_caption_xs"/>
-
-        </LinearLayout>
-
+        <!-- Progress bar -->
+        <ProgressBar
+            android:id="@+id/progressStock"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/progress_bar_height"
+            android:layout_marginTop="@dimen/spacing_md"
+            android:progressDrawable="@drawable/progress_track"
+            android:max="100"/>
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

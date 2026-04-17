@@ -15,8 +15,8 @@ class StockAlertAdapter : ListAdapter<Stock, StockAlertAdapter.AlertViewHolder>(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(stock: Stock) {
-            binding.tvAlertProductName.text = stock.productName
-            binding.tvAlertStockInfo.text = "Stock actual: ${stock.quantity} | Mínimo: ${stock.minStock}"
+            binding.tvProductName.text = stock.productName
+            binding.tvStockInfo.text = "Stock actual: ${stock.quantity} | Mínimo: ${stock.minStock}"
         }
     }
 

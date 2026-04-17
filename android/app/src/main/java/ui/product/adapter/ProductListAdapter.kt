@@ -19,8 +19,8 @@ class ProductListAdapter(
 
         fun bind(product: Product) {
             binding.tvProductName.text = product.name
-            binding.tvProductCategory.text = product.category
-            binding.tvProductSalePrice.text =
+            binding.tvSkuCategory.text = product.category
+            binding.tvSalePrice.text =
                 binding.root.context.getString(R.string.price_currency_format, product.salePrice)
             binding.root.setOnClickListener { onItemClick(product) }
         }

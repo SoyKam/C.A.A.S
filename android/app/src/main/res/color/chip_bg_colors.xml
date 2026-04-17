@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Checked state: Orange background, White text -->
+    <item android:state_checked="true">
+        <color>@color/orange</color>
+    </item>
+    <!-- Unchecked state: Surface alt background, Text secondary color -->
+    <item android:state_checked="false">
+        <color>@color/surface_alt</color>
+    </item>
+    <!-- Default -->
+    <item android:color="@color/surface_alt" />
+</selector>
+
