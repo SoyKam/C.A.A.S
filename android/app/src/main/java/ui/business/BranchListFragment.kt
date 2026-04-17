@@ -60,6 +60,8 @@ class BranchListFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnAddBranch.setOnClickListener {
             findNavController().navigate(
                 BranchListFragmentDirections.actionBranchListToCreateBranch(args.businessId)

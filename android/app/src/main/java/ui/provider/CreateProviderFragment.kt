@@ -40,6 +40,8 @@ class CreateProviderFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnCreateProvider.setOnClickListener {
             val name = binding.etName.text?.toString()?.trim() ?: ""
             val phone = binding.etPhone.text?.toString()?.trim() ?: ""

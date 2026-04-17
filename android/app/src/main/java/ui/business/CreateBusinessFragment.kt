@@ -38,6 +38,8 @@ class CreateBusinessFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnCreateBusiness.setOnClickListener {
             val name = binding.etBusinessName.text.toString().trim()
             val sector = binding.etSector.text.toString().trim()

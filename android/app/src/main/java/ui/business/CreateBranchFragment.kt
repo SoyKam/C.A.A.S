@@ -40,6 +40,8 @@ class CreateBranchFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnCreateBranch.setOnClickListener {
             val name = binding.etBranchName.text.toString().trim()
             val address = binding.etBranchAddress.text.toString().trim()

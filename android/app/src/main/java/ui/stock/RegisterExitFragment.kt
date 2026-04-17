@@ -61,6 +61,8 @@ class RegisterExitFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnRegisterExit.setOnClickListener {
             val stock = selectedStock
             val quantityText = binding.etQuantity.text.toString().trim()

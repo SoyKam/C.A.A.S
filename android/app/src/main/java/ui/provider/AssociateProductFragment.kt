@@ -75,6 +75,8 @@ class AssociateProductFragment : Fragment() {
     }
 
     private fun setupConfirmButton() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnConfirm.setOnClickListener {
             val selectedIds = adapter.getSelectedIds()
             if (selectedIds.isEmpty()) {

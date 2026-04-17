@@ -57,6 +57,8 @@ class RegisterEntryFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnRegisterEntry.setOnClickListener {
             val product = selectedProduct
             val quantityText = binding.etQuantity.text.toString().trim()
