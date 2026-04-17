@@ -123,11 +123,52 @@ class BusinessDetailFragment : Fragment() {
         }
     }
 
+    private fun observeBranchCount() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.branchCountState.collect { count ->
+                    binding.tvBranchesCount.text = count.toString()
+                    view?.findViewById<android.widget.TextView>(com.caas.app.R.id.tvBranchCount)?.text = count.toString()
+                }
+            }
+        }
+    }
+
+    private fun observeProductCount() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.productCountState.collect { count ->
+                    view?.findViewById<android.widget.TextView>(com.caas.app.R.id.tvProductCount)?.text = count.toString()
+                }
+            }
+        }
+    }
+
+    private fun observeTotalStock() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.totalStockState.collect { stock ->
+                    view?.findViewById<android.widget.TextView>(com.caas.app.R.id.tvTotalStock)?.text = stock.toString()
+                }
+            }
+        }
+    }
+
+    private fun observeAlertCount() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.alertCountState.collect { count ->
+                    binding.tvAlertCount.text = count.toString()
+                }
+            }
+        }
+    }
+
     private fun displayBusiness(business: Business) {
         val initials = business.name.trim().split(" ")
             .take(2).joinToString("") { it.take(1) }.uppercase()
         binding.tvBusinessName.text = business.name
-        binding.tvSector.text = business.sector
+        binding.tvSector.text = "Sector: ${business.sector}"
         binding.tvTaxId.text = business.taxId
     }
 

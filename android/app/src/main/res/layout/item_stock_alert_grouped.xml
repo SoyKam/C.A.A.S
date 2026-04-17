@@ -38,7 +38,7 @@
                 android:id="@+id/tvAlertProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre del producto"
+                android:text=""
                 android:textColor="@color/text_primary"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -48,7 +48,7 @@
                 android:id="@+id/tvAlertBranchName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sucursal: —"
+                android:text=""
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:layout_marginBottom="6dp"/>
@@ -64,7 +64,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Stock actual: 0 | Mínimo: 0"
+                    android:text=""
                     android:textColor="@color/error_red"
                     android:textSize="12sp"
                     android:textStyle="bold"/>

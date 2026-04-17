@@ -113,6 +113,9 @@ class HomeFragment : Fragment() {
         binding.tvStatActive.text = active.toString()
         binding.tvStatPending.text = inactive.toString()
 
+        // Update alert banner
+        binding.alertBanner.visibility = View.GONE
+
         if (businesses.isEmpty()) {
             binding.rvBusinessPreview.visibility = View.GONE
             binding.layoutEmptyState.visibility = View.VISIBLE

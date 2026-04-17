@@ -105,7 +105,7 @@
             android:id="@+id/tvProductCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6 productos"
+            android:text=""
             android:textColor="@color/text_tertiary"
             android:textSize="@dimen/text_size_caption"
             android:layout_marginBottom="@dimen/spacing_sm"/>
