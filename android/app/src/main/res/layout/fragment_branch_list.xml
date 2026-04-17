@@ -1,105 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background"
-    android:fitsSystemWindows="true">
+    android:background="@color/background">
 
-    <!-- HEADER -->
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@color/button_orange"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sucursales"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-    </LinearLayout>
-
-    <!-- CONTENIDO -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- TARJETA -->
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="-30dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:cardBackgroundColor="@color/card_background"
-            app:strokeColor="@color/divider"
-            app:strokeWidth="1dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <!-- ===== HEADER ===== -->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="wrap_content"
+                android:background="@drawable/header_gradient"
+                android:paddingHorizontal="@dimen/header_padding_horizontal"
+                android:paddingVertical="16dp"
+                android:minHeight="@dimen/header_height">
 
-                <!-- LOADING -->
-                <ProgressBar
-                    android:id="@+id/progressBar"
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/white"
+                    android:padding="4dp"
+                    android:contentDescription="Volver"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/btnBack"
+                    android:layout_toStartOf="@+id/ivHeaderIcon"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sucursales"
+                        android:textColor="@color/header_text"
+                        android:textSize="@dimen/text_size_title"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Gestiona tus sucursales"
+                        android:textColor="#CCCCCC"
+                        android:textSize="@dimen/text_size_caption"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivHeaderIcon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/circle_orange_bg"
+                    android:contentDescription="Sucursales"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_branch"
+                    app:tint="@color/white"/>
+            </RelativeLayout>
+
+            <!-- ===== LOADING ===== -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="24dp"
+                android:indeterminateTint="@color/orange"
+                android:visibility="gone"/>
+
+            <!-- ===== LISTA ===== -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBranchList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="8dp"
+                android:visibility="gone"/>
+
+            <!-- ===== EMPTY STATE ===== -->
+            <LinearLayout
+                android:id="@+id/layoutEmptyState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="60dp"
+                android:paddingHorizontal="40dp"
+                android:paddingBottom="40dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/ic_branch"
+                    android:alpha="0.3"
+                    android:contentDescription="Sin sucursales"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="16dp"/>
-
-                <!-- EMPTY STATE -->
-                <TextView
-                    android:id="@+id/tvEmptyState"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No hay sucursales registradas"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_secondary"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:visibility="gone"
-                    android:padding="40dp"/>
-
-                <!-- LISTA -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvBranchList"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:clipToPadding="false"
-                    android:paddingBottom="8dp"
-                    android:visibility="gone"/>
-
-                <Button
-                    android:id="@+id/btnAddBranch"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:layout_gravity="center"
                     android:layout_marginTop="16dp"
-                    android:backgroundTint="@color/button_orange"
-                    android:elevation="6dp"
-                    android:text="Agregar Sucursal"
-                    android:textColor="@color/white"
+                    android:text="Sin sucursales aún"
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
                     android:textStyle="bold"
-                    app:cornerRadius="12dp"/>
+                    android:gravity="center"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Agrega tu primera sucursal\npara comenzar a gestionar."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    android:gravity="center"/>
             </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
 
-    </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+    <!-- ===== FAB ===== -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddBranch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="Agregar sucursal"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/button_orange"
+        app:tint="@color/white"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

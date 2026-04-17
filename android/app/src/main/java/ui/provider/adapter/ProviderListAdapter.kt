@@ -19,6 +19,8 @@ class ProviderListAdapter(
         fun bind(provider: Provider) {
             binding.tvProviderName.text = provider.name
             binding.tvPhone.text = provider.phone
+            val count = provider.productIds.size
+            binding.tvProductCount.text = if (count > 0) "$count producto${if (count != 1) "s" else ""}" else ""
             binding.root.setOnClickListener { onItemClick(provider) }
         }
     }

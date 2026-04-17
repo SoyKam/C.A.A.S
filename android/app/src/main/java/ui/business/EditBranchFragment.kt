@@ -46,6 +46,8 @@ class EditBranchFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnSaveBranch.setOnClickListener {
             val branch = currentBranch ?: return@setOnClickListener
             val name = binding.etBranchName.text.toString().trim()

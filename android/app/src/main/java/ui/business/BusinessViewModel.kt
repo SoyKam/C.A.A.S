@@ -20,12 +20,14 @@ import com.caas.app.domain.usecase.CreateBusinessUseCase
 import com.caas.app.domain.usecase.UpdateBusinessUseCase
 import com.caas.app.domain.usecase.GetBusinessesByOwnerUseCase
 import com.caas.app.domain.usecase.GetBusinessByIdUseCase
+import com.caas.app.core.constants.FirestoreCollections
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class BusinessViewModel : ViewModel() {
 
@@ -75,6 +77,9 @@ class BusinessViewModel : ViewModel() {
 
     private val _alertCountState = MutableStateFlow<Int>(0)
     val alertCountState: StateFlow<Int> = _alertCountState.asStateFlow()
+
+    private val _providerCountState = MutableStateFlow<Int>(0)
+    val providerCountState: StateFlow<Int> = _providerCountState.asStateFlow()
 
     /**
      * Crea un nuevo negocio.
@@ -190,6 +195,22 @@ class BusinessViewModel : ViewModel() {
                 else -> {
                     _alertCountState.value = 0
                 }
+            }
+        }
+    }
+
+    fun getProviderCount(businessId: String) {
+        viewModelScope.launch {
+            _providerCountState.value = try {
+                firestore.collection(FirestoreCollections.BUSINESSES)
+                    .document(businessId)
+                    .collection("providers")
+                    .whereEqualTo("isActive", true)
+                    .get()
+                    .await()
+                    .size()
+            } catch (e: Exception) {
+                0
             }
         }
     }

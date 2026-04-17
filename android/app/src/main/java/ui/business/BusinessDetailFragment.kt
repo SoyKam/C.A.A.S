@@ -41,7 +41,17 @@ class BusinessDetailFragment : Fragment() {
         setupClickListeners()
         observeBusinessState()
         observeAlertBadge()
+        observeBranchCount()
+        observeProductCount()
+        observeTotalStock()
+        observeAlertCount()
+        observeProviderCount()
         viewModel.getBusiness(args.businessId)
+        viewModel.getBranchCount(args.businessId)
+        viewModel.getProductCount(args.businessId)
+        viewModel.getTotalStock(args.businessId)
+        viewModel.getAlertCount(args.businessId)
+        viewModel.getProviderCount(args.businessId)
     }
 
     override fun onStart() {
@@ -75,6 +85,12 @@ class BusinessDetailFragment : Fragment() {
         }
 
         binding.btnInventorySummary.setOnClickListener {
+            findNavController().navigate(
+                BusinessDetailFragmentDirections.actionBusinessDetailToInventorySummary(args.businessId)
+            )
+        }
+
+        binding.btnViewStock.setOnClickListener {
             findNavController().navigate(
                 BusinessDetailFragmentDirections.actionBusinessDetailToInventorySummary(args.businessId)
             )
@@ -138,7 +154,8 @@ class BusinessDetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.productCountState.collect { count ->
-                    view?.findViewById<android.widget.TextView>(com.caas.app.R.id.tvProductCount)?.text = count.toString()
+                    binding.tvProductCount.text = count.toString()
+                    binding.tvProductsGridCount.text = count.toString()
                 }
             }
         }
@@ -148,7 +165,7 @@ class BusinessDetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.totalStockState.collect { stock ->
-                    view?.findViewById<android.widget.TextView>(com.caas.app.R.id.tvTotalStock)?.text = stock.toString()
+                    binding.tvTotalStock.text = stock.toString()
                 }
             }
         }
@@ -159,6 +176,16 @@ class BusinessDetailFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.alertCountState.collect { count ->
                     binding.tvAlertCount.text = count.toString()
+                }
+            }
+        }
+    }
+
+    private fun observeProviderCount() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.providerCountState.collect { count ->
+                    binding.tvProviderCount.text = count.toString()
                 }
             }
         }

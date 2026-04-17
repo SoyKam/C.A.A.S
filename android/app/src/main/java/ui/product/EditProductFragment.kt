@@ -64,6 +64,8 @@ class EditProductFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnSelectImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK).apply { type = "image/*" }
             pickImageLauncher.launch(intent)

@@ -40,6 +40,7 @@ class LowStockSummaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupClickListeners()
         observeStates()
         binding.btnViewAlerts.setOnClickListener {
             findNavController().navigate(
@@ -55,6 +56,10 @@ class LowStockSummaryFragment : Fragment() {
         super.onStart()
         viewModel.checkAndSaveAlerts(args.businessId)
         viewModel.getUnreadAlerts(args.businessId)
+    }
+
+    private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
     }
 
     private fun setupRecyclerView() {

@@ -1,206 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
-    android:fillViewport="true"
-    android:fitsSystemWindows="true">
+    android:background="@color/background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- HEADER -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@color/button_orange"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="20dp">
-
-            <TextView
-                android:text="Detalle del Proveedor"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-
-        <!-- TARJETA -->
-
-        <com.google.android.material.card.MaterialCardView
+        <!-- ===== HEADER ===== -->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/header_gradient"
+            android:paddingHorizontal="@dimen/header_padding_horizontal"
+            android:paddingVertical="16dp"
+            android:minHeight="@dimen/header_height">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_back"
+                app:tint="@color/white"
+                android:padding="4dp"
+                android:contentDescription="Volver"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/btnBack"
+                android:layout_marginStart="8dp"
+                android:text="Detalle del Proveedor"
+                android:textColor="@color/header_text"
+                android:textSize="@dimen/text_size_title"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/btnEdit"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_edit"
+                app:tint="@color/white"
+                android:padding="4dp"
+                android:contentDescription="Editar"/>
+        </RelativeLayout>
+
+        <!-- ===== LOADING ===== -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
             android:layout_margin="16dp"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:cardBackgroundColor="@color/card_background"
-            app:strokeColor="@color/divider"
-            app:strokeWidth="1dp">
+            android:indeterminateTint="@color/orange"/>
+
+        <!-- ===== INFO CARD ===== -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/CardStyle.Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_lg">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="@dimen/card_padding">
 
-                <!-- LOADING -->
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="12dp"/>
-
-                <!-- BLOQUES INFO -->
-
-                <!-- NOMBRE -->
+                <!-- Avatar + Name -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/surface"
-                    android:padding="16dp"
-                    android:layout_marginBottom="10dp">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/spacing_sm">
 
-                    <TextView
-                        android:text="Nombre"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginBottom="4dp"/>
+                    <FrameLayout
+                        android:layout_width="@dimen/icon_container_lg"
+                        android:layout_height="@dimen/icon_container_lg"
+                        android:background="@drawable/icon_bg_blue"
+                        android:padding="14dp"
+                        android:layout_marginEnd="@dimen/spacing_sm">
 
-                    <TextView
-                        android:id="@+id/tvName"
-                        android:text="—"
-                        android:textColor="@color/text_primary"
-                        android:textSize="17sp"
-                        android:textStyle="bold"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_provider"
+                            app:tint="@color/blue"/>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_size_body_lg"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Proveedor"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="@dimen/text_size_caption"/>
+                    </LinearLayout>
                 </LinearLayout>
 
-                <!-- TELÉFONO -->
+                <!-- Phone + Email row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/surface"
-                    android:padding="16dp"
-                    android:layout_marginBottom="10dp">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:text="Teléfono"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginBottom="4dp"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/spacing_sm"
+                        android:background="@drawable/stat_box_bg"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
 
-                    <TextView
-                        android:id="@+id/tvPhone"
-                        android:text="—"
-                        android:textColor="@color/text_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Teléfono"
+                            android:textColor="@color/text_tertiary"
+                            android:textSize="@dimen/text_size_caption_xs"/>
+
+                        <TextView
+                            android:id="@+id/tvPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_size_body_sm"
+                            android:textStyle="bold"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/stat_box_bg"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Correo"
+                            android:textColor="@color/text_tertiary"
+                            android:textSize="@dimen/text_size_caption_xs"/>
+
+                        <TextView
+                            android:id="@+id/tvEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_size_body_sm"
+                            android:textStyle="bold"
+                            android:layout_marginTop="2dp"
+                            android:maxLines="1"
+                            android:ellipsize="end"/>
+                    </LinearLayout>
                 </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                <!-- CORREO -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/surface"
-                    android:padding="16dp"
-                    android:layout_marginBottom="20dp">
+        <!-- ===== PRODUCTS CARD ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Productos que suministra"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_size_body"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/spacing_lg"
+            android:layout_marginBottom="@dimen/spacing_md"/>
 
-                    <TextView
-                        android:text="Correo"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginBottom="4dp"/>
+        <com.google.android.material.card.MaterialCardView
+            style="@style/CardStyle.Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_lg"
+            android:layout_marginBottom="@dimen/spacing_lg">
 
-                    <TextView
-                        android:id="@+id/tvEmail"
-                        android:text="—"
-                        android:textColor="@color/text_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-                <!-- PRODUCTOS -->
-
-                <TextView
-                    android:text="Productos que suministra"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/card_padding">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvProducts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:paddingBottom="6dp"
-                    android:layout_marginBottom="8dp"/>
+                    android:paddingBottom="4dp"/>
 
                 <TextView
                     android:id="@+id/tvNoProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="Sin productos asociados"
-                    android:textSize="13sp"
                     android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_body_sm"
                     android:gravity="center"
-                    android:padding="12dp"
-                    android:visibility="gone"
-                    android:layout_marginBottom="10dp"/>
+                    android:padding="16dp"
+                    android:visibility="gone"/>
 
-                <!-- BOTÓN ASOCIAR -->
-
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAssociateProduct"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:backgroundTint="@color/button_orange"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="@dimen/spacing_sm"
                     android:text="Asociar Producto"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:textSize="13sp"
-                    android:layout_marginBottom="18dp"
-                    app:cornerRadius="14dp"/>
-
-                <!-- BOTONES -->
-
-                <Button
-                    android:id="@+id/btnEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:backgroundTint="@color/button_orange"
-                    android:text="Editar"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp"
-                    app:cornerRadius="14dp"/>
-
-                <Button
-                    android:id="@+id/btnBack"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:backgroundTint="@color/surface"
-                    android:text="Volver"
-                    android:textColor="@color/text_primary"
-                    android:textStyle="bold"
-                    app:cornerRadius="14dp"/>
-
+                    app:backgroundTint="@color/button_orange"
+                    app:cornerRadius="12dp"/>
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
-
 </ScrollView>

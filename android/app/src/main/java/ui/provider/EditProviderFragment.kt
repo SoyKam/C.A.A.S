@@ -45,6 +45,8 @@ class EditProviderFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnSave.setOnClickListener {
             val provider = currentProvider ?: return@setOnClickListener
             val name = binding.etName.text?.toString()?.trim() ?: ""

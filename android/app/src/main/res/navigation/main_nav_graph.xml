@@ -17,6 +17,13 @@
         <action
             android:id="@+id/action_home_to_createBusiness"
             app:destination="@id/createBusinessFragment"/>
+        <action
+            android:id="@+id/action_home_to_lowStockSummary"
+            app:destination="@id/lowStockSummaryFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string"/>
+        </action>
     </fragment>
 
     <fragment
@@ -304,6 +311,24 @@
         <argument
             android:name="businessId"
             app:argType="string"/>
+        <action
+            android:id="@+id/action_inventorySummary_to_registerEntry"
+            app:destination="@id/registerEntryFragment">
+            <argument android:name="businessId" app:argType="string"/>
+            <argument android:name="branchId" app:argType="string"/>
+        </action>
+        <action
+            android:id="@+id/action_inventorySummary_to_registerExit"
+            app:destination="@id/registerExitFragment">
+            <argument android:name="businessId" app:argType="string"/>
+            <argument android:name="branchId" app:argType="string"/>
+        </action>
+        <action
+            android:id="@+id/action_inventorySummary_to_stockAlerts"
+            app:destination="@id/stockAlertsFragment">
+            <argument android:name="businessId" app:argType="string"/>
+            <argument android:name="branchId" app:argType="string" android:defaultValue=""/>
+        </action>
     </fragment>
 
     <!-- ===== LOW STOCK SUMMARY ===== -->

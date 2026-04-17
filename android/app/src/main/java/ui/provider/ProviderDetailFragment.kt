@@ -66,24 +66,32 @@ class ProviderDetailFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.btnEdit.setOnClickListener {
-            findNavController().navigate(
-                ProviderDetailFragmentDirections.actionProviderDetailToEditProvider(
-                    args.businessId, args.providerId
+            if (findNavController().currentDestination?.id ==
+                com.caas.app.R.id.providerDetailFragment
+            ) {
+                findNavController().navigate(
+                    ProviderDetailFragmentDirections.actionProviderDetailToEditProvider(
+                        args.businessId, args.providerId
+                    )
                 )
-            )
+            }
         }
 
         binding.btnAssociateProduct.setOnClickListener {
-            findNavController().navigate(
-                ProviderDetailFragmentDirections.actionProviderDetailToAssociateProduct(
-                    args.businessId, args.providerId
+            if (findNavController().currentDestination?.id ==
+                com.caas.app.R.id.providerDetailFragment
+            ) {
+                findNavController().navigate(
+                    ProviderDetailFragmentDirections.actionProviderDetailToAssociateProduct(
+                        args.businessId, args.providerId
+                    )
                 )
-            )
-        }
-
-        binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            }
         }
     }
 
