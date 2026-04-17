@@ -8,24 +8,37 @@
     android:orientation="vertical"
     android:background="@color/background"
     android:fitsSystemWindows="true">
-
-    <!-- HEADER compacto -->
-    <LinearLayout
+    <!-- ===== HEADER ===== -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/button_orange"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="20dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_gradient"
+        android:paddingHorizontal="@dimen/header_padding_horizontal"
+        android:paddingVertical="16dp"
+        android:minHeight="@dimen/header_height">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back"
+            app:tint="@color/white"
+            android:padding="4dp"
+            android:contentDescription="Volver"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/btnBack"
+            android:layout_marginStart="8dp"
             android:text="Asociar Producto"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-    </LinearLayout>
+            android:textColor="@color/header_text"
+            android:textSize="@dimen/text_size_title"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
 
     <!-- CONTENIDO -->
     <LinearLayout
@@ -37,7 +50,6 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-24dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="8dp"
             app:cardBackgroundColor="@color/card_background"

@@ -40,6 +40,7 @@ class ProviderListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupFab()
+        setupClickListeners()
         observeProviderListState()
     }
 
@@ -50,11 +51,15 @@ class ProviderListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = ProviderListAdapter { provider ->
-            findNavController().navigate(
-                ProviderListFragmentDirections.actionProviderListToProviderDetail(
-                    args.businessId, provider.id
+            if (findNavController().currentDestination?.id ==
+                com.caas.app.R.id.providerListFragment
+            ) {
+                findNavController().navigate(
+                    ProviderListFragmentDirections.actionProviderListToProviderDetail(
+                        args.businessId, provider.id
+                    )
                 )
-            )
+            }
         }
         binding.rvProviderList.layoutManager = LinearLayoutManager(requireContext())
         binding.rvProviderList.adapter = adapter
@@ -65,6 +70,12 @@ class ProviderListFragment : Fragment() {
             findNavController().navigate(
                 ProviderListFragmentDirections.actionProviderListToCreateProvider(args.businessId)
             )
+        }
+    }
+
+    private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
@@ -99,12 +110,12 @@ class ProviderListFragment : Fragment() {
     }
 
     private fun showEmptyState() {
-        binding.tvEmptyState.visibility = View.VISIBLE
+        binding.layoutEmptyState.visibility = View.VISIBLE
         binding.rvProviderList.visibility = View.GONE
     }
 
     private fun showList() {
-        binding.tvEmptyState.visibility = View.GONE
+        binding.layoutEmptyState.visibility = View.GONE
         binding.rvProviderList.visibility = View.VISIBLE
     }
 

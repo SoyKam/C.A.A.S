@@ -5,8 +5,8 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.caas.app.R
 import com.caas.app.core.notifications.StockAlertNotificationHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -34,7 +34,49 @@ class HomeActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
-        bottomNav.setupWithNavController(navController)
+        setupBottomNavigation(bottomNav)
+    }
+
+    private fun setupBottomNavigation(bottomNav: BottomNavigationView) {
+        val topLevelIds = setOf(
+            R.id.homeFragment,
+            R.id.businessListFragment,
+            R.id.reportsFragment,
+            R.id.profileFragment
+        )
+
+        // Sync bottom nav highlight with current destination
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id in topLevelIds) {
+                bottomNav.menu.findItem(destination.id)?.isChecked = true
+            }
+        }
+
+        bottomNav.setOnItemSelectedListener { item ->
+            val currentId = navController.currentDestination?.id
+            if (currentId == item.itemId) {
+                // Same tab tapped: pop to root of this tab
+                navController.popBackStack(item.itemId, false)
+            } else {
+                navController.navigate(
+                    item.itemId,
+                    null,
+                    NavOptions.Builder()
+                        .setLaunchSingleTop(true)
+                        .setRestoreState(true)
+                        .setPopUpTo(
+                            navController.graph.startDestinationId,
+                            inclusive = false,
+                            saveState = true
+                        )
+                        .build()
+                )
+            }
+            true
+        }
+
+        // Tapping same tab when already at root: no action needed
+        bottomNav.setOnItemReselectedListener { }
     }
 
     private fun requestNotificationPermissionIfNeeded() {

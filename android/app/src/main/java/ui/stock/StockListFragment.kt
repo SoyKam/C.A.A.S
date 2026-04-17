@@ -62,6 +62,8 @@ class StockListFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnRegisterEntry.setOnClickListener {
             findNavController().navigate(
                 StockListFragmentDirections.actionStockListToRegisterEntry(

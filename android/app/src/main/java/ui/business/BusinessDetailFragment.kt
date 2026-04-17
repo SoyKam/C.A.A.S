@@ -41,7 +41,17 @@ class BusinessDetailFragment : Fragment() {
         setupClickListeners()
         observeBusinessState()
         observeAlertBadge()
+        observeBranchCount()
+        observeProductCount()
+        observeTotalStock()
+        observeAlertCount()
+        observeProviderCount()
         viewModel.getBusiness(args.businessId)
+        viewModel.getBranchCount(args.businessId)
+        viewModel.getProductCount(args.businessId)
+        viewModel.getTotalStock(args.businessId)
+        viewModel.getAlertCount(args.businessId)
+        viewModel.getProviderCount(args.businessId)
     }
 
     override fun onStart() {
@@ -75,6 +85,12 @@ class BusinessDetailFragment : Fragment() {
         }
 
         binding.btnInventorySummary.setOnClickListener {
+            findNavController().navigate(
+                BusinessDetailFragmentDirections.actionBusinessDetailToInventorySummary(args.businessId)
+            )
+        }
+
+        binding.btnViewStock.setOnClickListener {
             findNavController().navigate(
                 BusinessDetailFragmentDirections.actionBusinessDetailToInventorySummary(args.businessId)
             )
@@ -123,11 +139,63 @@ class BusinessDetailFragment : Fragment() {
         }
     }
 
+    private fun observeBranchCount() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.branchCountState.collect { count ->
+                    binding.tvBranchesCount.text = count.toString()
+                    view?.findViewById<android.widget.TextView>(com.caas.app.R.id.tvBranchCount)?.text = count.toString()
+                }
+            }
+        }
+    }
+
+    private fun observeProductCount() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.productCountState.collect { count ->
+                    binding.tvProductCount.text = count.toString()
+                    binding.tvProductsGridCount.text = count.toString()
+                }
+            }
+        }
+    }
+
+    private fun observeTotalStock() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.totalStockState.collect { stock ->
+                    binding.tvTotalStock.text = stock.toString()
+                }
+            }
+        }
+    }
+
+    private fun observeAlertCount() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.alertCountState.collect { count ->
+                    binding.tvAlertCount.text = count.toString()
+                }
+            }
+        }
+    }
+
+    private fun observeProviderCount() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.providerCountState.collect { count ->
+                    binding.tvProviderCount.text = count.toString()
+                }
+            }
+        }
+    }
+
     private fun displayBusiness(business: Business) {
         val initials = business.name.trim().split(" ")
             .take(2).joinToString("") { it.take(1) }.uppercase()
         binding.tvBusinessName.text = business.name
-        binding.tvSector.text = business.sector
+        binding.tvSector.text = "Sector: ${business.sector}"
         binding.tvTaxId.text = business.taxId
     }
 

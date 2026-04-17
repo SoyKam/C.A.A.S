@@ -45,7 +45,7 @@
             android:layout_height="22dp"
             android:layout_marginStart="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:src="@drawable/ic_close"
             android:tint="@color/button_orange"
             android:contentDescription="Eliminar producto"/>
 

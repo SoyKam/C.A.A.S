@@ -5,31 +5,51 @@ import androidx.lifecycle.viewModelScope
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.Business
 import com.caas.app.data.repository.BusinessRepositoryImpl
+import com.caas.app.data.repository.BranchRepositoryImpl
+import com.caas.app.data.repository.ProductRepositoryImpl
+import com.caas.app.data.repository.StockRepositoryImpl
 import com.caas.app.data.source.FirestoreBusinessDataSource
+import com.caas.app.data.source.FirestoreBranchDataSource
+import com.caas.app.data.source.FirestoreProductDataSource
+import com.caas.app.data.source.FirestoreStockDataSource
 import com.caas.app.domain.repository.BusinessRepository
+import com.caas.app.domain.repository.BranchRepository
+import com.caas.app.domain.repository.ProductRepository
+import com.caas.app.domain.repository.StockRepository
 import com.caas.app.domain.usecase.CreateBusinessUseCase
 import com.caas.app.domain.usecase.UpdateBusinessUseCase
 import com.caas.app.domain.usecase.GetBusinessesByOwnerUseCase
 import com.caas.app.domain.usecase.GetBusinessByIdUseCase
+import com.caas.app.core.constants.FirestoreCollections
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class BusinessViewModel : ViewModel() {
 
     // Instanciación manual del repositorio
     private val firestore = FirebaseFirestore.getInstance()
     private val firebaseAuth = FirebaseAuth.getInstance()
-    private val dataSource = FirestoreBusinessDataSource(firestore)
-    private val repository: BusinessRepository = BusinessRepositoryImpl(dataSource)
+    private val businessDataSource = FirestoreBusinessDataSource(firestore)
+    private val businessRepository: BusinessRepository = BusinessRepositoryImpl(businessDataSource)
 
-    private val createBusinessUseCase = CreateBusinessUseCase(repository, firebaseAuth)
-    private val updateBusinessUseCase = UpdateBusinessUseCase(repository)
-    private val getBusinessesByOwnerUseCase = GetBusinessesByOwnerUseCase(repository, firebaseAuth)
-    private val getBusinessByIdUseCase = GetBusinessByIdUseCase(repository)
+    private val branchDataSource = FirestoreBranchDataSource(firestore)
+    private val branchRepository: BranchRepository = BranchRepositoryImpl(branchDataSource)
+
+    private val productDataSource = FirestoreProductDataSource(firestore)
+    private val productRepository: ProductRepository = ProductRepositoryImpl(productDataSource)
+
+    private val stockDataSource = FirestoreStockDataSource(firestore)
+    private val stockRepository: StockRepository = StockRepositoryImpl(stockDataSource)
+
+    private val createBusinessUseCase = CreateBusinessUseCase(businessRepository, firebaseAuth)
+    private val updateBusinessUseCase = UpdateBusinessUseCase(businessRepository)
+    private val getBusinessesByOwnerUseCase = GetBusinessesByOwnerUseCase(businessRepository, firebaseAuth)
+    private val getBusinessByIdUseCase = GetBusinessByIdUseCase(businessRepository)
 
     // Estados existentes
     private val _createBusinessState = MutableStateFlow<Result<Business>?>(null)
@@ -44,6 +64,22 @@ class BusinessViewModel : ViewModel() {
 
     private val _businessState = MutableStateFlow<Result<Business?>?>(null)
     val businessState: StateFlow<Result<Business?>?> = _businessState.asStateFlow()
+
+    // Estados para conteos
+    private val _branchCountState = MutableStateFlow<Int>(0)
+    val branchCountState: StateFlow<Int> = _branchCountState.asStateFlow()
+
+    private val _productCountState = MutableStateFlow<Int>(0)
+    val productCountState: StateFlow<Int> = _productCountState.asStateFlow()
+
+    private val _totalStockState = MutableStateFlow<Int>(0)
+    val totalStockState: StateFlow<Int> = _totalStockState.asStateFlow()
+
+    private val _alertCountState = MutableStateFlow<Int>(0)
+    val alertCountState: StateFlow<Int> = _alertCountState.asStateFlow()
+
+    private val _providerCountState = MutableStateFlow<Int>(0)
+    val providerCountState: StateFlow<Int> = _providerCountState.asStateFlow()
 
     /**
      * Crea un nuevo negocio.
@@ -86,6 +122,96 @@ class BusinessViewModel : ViewModel() {
             _businessState.value = Result.Loading
             val result = getBusinessByIdUseCase(businessId)
             _businessState.value = result
+        }
+    }
+
+    /**
+     * Obtiene el conteo de sucursales de un negocio.
+     */
+    fun getBranchCount(businessId: String) {
+        viewModelScope.launch {
+            when (val result = branchRepository.getBranchesByBusinessId(businessId)) {
+                is Result.Success -> {
+                    _branchCountState.value = result.data.size
+                }
+                else -> {
+                    _branchCountState.value = 0
+                }
+            }
+        }
+    }
+
+    /**
+     * Obtiene el conteo de productos de un negocio.
+     */
+    fun getProductCount(businessId: String) {
+        viewModelScope.launch {
+            when (val result = productRepository.getProductsByBusiness(businessId)) {
+                is Result.Success -> {
+                    _productCountState.value = result.data.size
+                }
+                else -> {
+                    _productCountState.value = 0
+                }
+            }
+        }
+    }
+
+    /**
+     * Obtiene el stock total de un negocio.
+     */
+    fun getTotalStock(businessId: String) {
+        viewModelScope.launch {
+            // Obtener todas las sucursales primero
+            when (val branchResult = branchRepository.getBranchesByBusinessId(businessId)) {
+                is Result.Success -> {
+                    var totalStock = 0
+                    for (branch in branchResult.data) {
+                        when (val stockResult = stockRepository.getStockByBranch(businessId, branch.id)) {
+                            is Result.Success -> {
+                                totalStock += stockResult.data.sumOf { it.quantity }
+                            }
+                            else -> {}
+                        }
+                    }
+                    _totalStockState.value = totalStock
+                }
+                else -> {
+                    _totalStockState.value = 0
+                }
+            }
+        }
+    }
+
+    /**
+     * Obtiene el conteo de alertas de stock de un negocio.
+     */
+    fun getAlertCount(businessId: String) {
+        viewModelScope.launch {
+            when (val result = stockRepository.getUnreadAlerts(businessId)) {
+                is Result.Success -> {
+                    _alertCountState.value = result.data.size
+                }
+                else -> {
+                    _alertCountState.value = 0
+                }
+            }
+        }
+    }
+
+    fun getProviderCount(businessId: String) {
+        viewModelScope.launch {
+            _providerCountState.value = try {
+                firestore.collection(FirestoreCollections.BUSINESSES)
+                    .document(businessId)
+                    .collection("providers")
+                    .whereEqualTo("isActive", true)
+                    .get()
+                    .await()
+                    .size()
+            } catch (e: Exception) {
+                0
+            }
         }
     }
 

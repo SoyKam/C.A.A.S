@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caas.app.core.result.Result
@@ -38,6 +39,7 @@ class InventorySummaryFragment : Fragment() {
     }
 
     private var branches: List<Branch> = emptyList()
+    private var selectedBranchId: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,8 +53,51 @@ class InventorySummaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupClickListeners()
         observeSummaryState()
         loadBranches()
+    }
+
+    private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
+        binding.btnRegisterEntry.setOnClickListener {
+            if (selectedBranchId.isEmpty()) {
+                Snackbar.make(binding.root, "Selecciona una sucursal primero", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (findNavController().currentDestination?.id == com.caas.app.R.id.inventorySummaryFragment) {
+                findNavController().navigate(
+                    InventorySummaryFragmentDirections.actionInventorySummaryToRegisterEntry(
+                        args.businessId, selectedBranchId
+                    )
+                )
+            }
+        }
+
+        binding.btnRegisterExit.setOnClickListener {
+            if (selectedBranchId.isEmpty()) {
+                Snackbar.make(binding.root, "Selecciona una sucursal primero", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (findNavController().currentDestination?.id == com.caas.app.R.id.inventorySummaryFragment) {
+                findNavController().navigate(
+                    InventorySummaryFragmentDirections.actionInventorySummaryToRegisterExit(
+                        args.businessId, selectedBranchId
+                    )
+                )
+            }
+        }
+
+        binding.btnViewAlerts.setOnClickListener {
+            if (findNavController().currentDestination?.id == com.caas.app.R.id.inventorySummaryFragment) {
+                findNavController().navigate(
+                    InventorySummaryFragmentDirections.actionInventorySummaryToStockAlerts(
+                        args.businessId, selectedBranchId
+                    )
+                )
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -92,8 +137,8 @@ class InventorySummaryFragment : Fragment() {
         binding.spinnerBranch.adapter = spinnerAdapter
         binding.spinnerBranch.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val branchId = branches[position].id
-                viewModel.getInventorySummary(args.businessId, branchId)
+                selectedBranchId = branches[position].id
+                viewModel.getInventorySummary(args.businessId, selectedBranchId)
             }
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }

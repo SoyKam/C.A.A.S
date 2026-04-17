@@ -48,7 +48,7 @@
                 android:id="@+id/tvProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre del producto"
+                android:text=""
                 android:textColor="@color/text_primary"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -58,7 +58,7 @@
                 android:id="@+id/tvProductSku"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SKU"
+                android:text=""
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp"/>
 

@@ -19,14 +19,7 @@ class BranchListAdapter(
         fun bind(branch: Branch) {
             binding.tvBranchName.text = branch.name
             binding.tvBranchAddress.text = branch.address
-
-            binding.btnViewBranch.setOnClickListener {
-                onBranchClick(branch.id)
-            }
-
-            binding.root.setOnClickListener {
-                onBranchClick(branch.id)
-            }
+            binding.root.setOnClickListener { onBranchClick(branch.id) }
         }
     }
 

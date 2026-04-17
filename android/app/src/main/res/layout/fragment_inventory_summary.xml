@@ -75,7 +75,7 @@
                         android:id="@+id/tvTotalValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$434.70"
+                        android:text="$0"
                         android:textColor="@color/orange"
                         android:textSize="@dimen/text_size_title"
                         android:textStyle="bold"
@@ -107,7 +107,7 @@
                         android:id="@+id/tvProductCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
+                        android:text="0"
                         android:textColor="@color/text_primary"
                         android:textSize="@dimen/text_size_title"
                         android:textStyle="bold"
@@ -169,5 +169,41 @@
             android:clipToPadding="false"
             android:paddingBottom="@dimen/spacing_sm"
             android:visibility="gone"/>
+
+        <!-- ENTRY BUTTON -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegisterEntry"
+            style="@style/Widget.CAAS.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:text="↑  Registrar Entrada"
+            app:icon="@drawable/ic_arrow_up"
+            app:iconTint="@color/white"
+            app:iconGravity="textStart"/>
+
+        <!-- EXIT BUTTON -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegisterExit"
+            style="@style/Widget.CAAS.Button.Outline"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:text="↓  Registrar Salida"
+            app:icon="@drawable/ic_arrow_down"
+            app:iconTint="@color/orange"
+            app:iconGravity="textStart"/>
+
+        <!-- ALERTS BUTTON -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnViewAlerts"
+            style="@style/Widget.CAAS.Button.Ghost"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_sm"
+            android:layout_marginTop="@dimen/spacing_sm"
+            android:text="Ver Alertas de Stock"
+            app:icon="@drawable/ic_bell"
+            app:iconTint="@color/text_secondary"
+            app:iconGravity="textStart"/>
     </LinearLayout>
 </LinearLayout>

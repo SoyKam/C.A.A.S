@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.caas.app.core.result.Result
 import com.caas.app.databinding.FragmentEditBusinessBinding
 import com.google.android.material.snackbar.Snackbar
@@ -44,6 +45,8 @@ class EditBusinessFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
+
         binding.btnUpdateBusiness.setOnClickListener {
             val name = binding.etBusinessName.text.toString().trim()
             val sector = binding.etSector.text.toString().trim()
