@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("com.google.gms.google-services")
+    // id("com.google.gms.google-services") // Desactivado para evitar el error de archivo faltante
     id("androidx.navigation.safeargs.kotlin")
 }
 

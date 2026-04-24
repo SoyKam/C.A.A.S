@@ -7,9 +7,9 @@
         android:title="Inicio"/>
 
     <item
-        android:id="@+id/businessListFragment"
-        android:icon="@drawable/ic_business"
-        android:title="Negocios"/>
+        android:id="@+id/chartsFragment"
+        android:icon="@drawable/ic_reports"
+        android:title="Gráficos"/>
 
     <item
         android:id="@+id/reportsFragment"

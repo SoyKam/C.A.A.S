@@ -40,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setupBottomNavigation(bottomNav: BottomNavigationView) {
         val topLevelIds = setOf(
             R.id.homeFragment,
-            R.id.businessListFragment,
+            R.id.chartsFragment,
             R.id.reportsFragment,
             R.id.profileFragment
         )

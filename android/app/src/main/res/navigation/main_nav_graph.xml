@@ -24,7 +24,15 @@
                 android:name="businessId"
                 app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/action_home_to_businessList"
+            app:destination="@id/businessListFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/chartsFragment"
+        android:name="com.caas.app.ui.reports.ChartsFragment"
+        android:label="Estadísticas"/>
 
     <fragment
         android:id="@+id/businessListFragment"
@@ -391,6 +399,16 @@
                 android:name="branchId"
                 app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/action_stockList_to_stockMovements"
+            app:destination="@id/stockMovementsFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="branchId"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -428,6 +446,36 @@
             android:name="branchId"
             app:argType="string"
             android:defaultValue=""/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/stockMovementsFragment"
+        android:name="com.caas.app.ui.stock.StockMovementsFragment"
+        android:label="Movimientos">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="branchId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_stockMovements_to_movementDetail"
+            app:destination="@id/movementDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movementDetailFragment"
+        android:name="com.caas.app.ui.stock.MovementDetailFragment"
+        android:label="Detalle del Movimiento">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="branchId"
+            app:argType="string" />
+        <argument
+            android:name="movementId"
+            app:argType="string" />
     </fragment>
 
     <!-- ===== PROVIDER MANAGEMENT ===== -->

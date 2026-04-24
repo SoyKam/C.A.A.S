@@ -81,12 +81,12 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
     private val _businessProductsState = MutableStateFlow<Result<List<Product>>?>(null)
     val businessProductsState: StateFlow<Result<List<Product>>?> = _businessProductsState.asStateFlow()
 
-    // ── Movimientos recientes para pantalla Reports ─────────────────────────
+    // ── Movimientos recientes para pantalla Reports y Charts ─────────────────
 
     private val _recentMovementsState = MutableStateFlow<Result<List<StockMovement>>?>(null)
     val recentMovementsState: StateFlow<Result<List<StockMovement>>?> = _recentMovementsState.asStateFlow()
 
-    fun loadRecentMovements(businessIds: List<String>) {
+    fun loadRecentMovements(businessIds: List<String>, limit: Int = 10) {
         if (businessIds.isEmpty()) {
             _recentMovementsState.value = Result.Success(emptyList())
             return
@@ -110,9 +110,10 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
                         }
                     }
                 }
-                Result.Success(all.sortedByDescending { it.createdAt }.take(10))
+                val sorted = all.sortedByDescending { it.createdAt }
+                Result.Success(if (limit > 0) sorted.take(limit) else sorted)
             } catch (e: Exception) {
-                Result.Error(e.message ?: "Error al cargar movimientos recientes", e)
+                Result.Error(e.message ?: "Error al cargar movimientos", e)
             }
         }
     }
