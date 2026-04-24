@@ -72,8 +72,9 @@ class HomeFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.btnSeeAll.setOnClickListener {
-            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
-                .selectedItemId = R.id.businessListFragment
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeToBusinessList()
+            )
         }
         binding.fabCreateBusiness.setOnClickListener {
             findNavController().navigate(
