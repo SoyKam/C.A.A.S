@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">CAAS</string>
     <string name="price_currency_format">$ %1$.2f</string>
+    <string name="purchase_orders">Órdenes de Compra</string>
+    <string name="new_purchase_order">Nueva Orden de Compra</string>
+    <string name="order_detail">Detalle de Orden</string>
+    <string name="status_pending">Pendiente</string>
+    <string name="status_sent">Enviada</string>
+    <string name="status_received">Recibida</string>
+    <string name="status_cancelled">Cancelada</string>
+    <string name="auto_generate_orders">Generar automáticamente</string>
+    <string name="confirm_receive_order">¿Confirmar recepción? Esto actualizará el stock automáticamente.</string>
+    <string name="confirm_cancel_order">¿Cancelar esta orden de compra?</string>
+    <string name="order_auto_generated">Generada automáticamente</string>
+    <string name="add_product">Agregar producto</string>
+    <string name="select_provider">Seleccionar proveedor</string>
 </resources>

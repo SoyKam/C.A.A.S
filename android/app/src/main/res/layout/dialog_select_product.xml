@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_xl">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Producto"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_size_headline"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/spacing_lg"/>
+
+    <!-- BÚSQUEDA -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Buscar producto..."
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/input_border"
+        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+        android:layout_marginBottom="@dimen/spacing_lg">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:inputType="text"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_size_body"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- LISTA -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStockItems"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:nestedScrollingEnabled="true"/>
+
+    <!-- CANTIDAD -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Cantidad a pedir"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/input_border"
+        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+        android:layout_marginTop="@dimen/spacing_lg">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:inputType="number"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_size_body"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

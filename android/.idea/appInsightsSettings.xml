@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.caas.app" />
+                  <option name="mobileSdkAppId" value="1:134353714726:android:70f95566ba847010eef0e7" />
+                  <option name="projectId" value="caas-8443d" />
+                  <option name="projectNumber" value="134353714726" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
