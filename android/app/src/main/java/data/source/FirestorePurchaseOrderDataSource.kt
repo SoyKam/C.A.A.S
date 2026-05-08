@@ -57,10 +57,10 @@ class FirestorePurchaseOrderDataSource(
     ): List<PurchaseOrder> {
         return ordersRef(businessId)
             .whereEqualTo("status", status.name)
-            .orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .await()
             .toObjects(PurchaseOrder::class.java)
+            .sortedByDescending { it.createdAt }
     }
 
     suspend fun getPurchaseOrdersByProvider(
@@ -69,10 +69,10 @@ class FirestorePurchaseOrderDataSource(
     ): List<PurchaseOrder> {
         return ordersRef(businessId)
             .whereEqualTo("providerId", providerId)
-            .orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .await()
             .toObjects(PurchaseOrder::class.java)
+            .sortedByDescending { it.createdAt }
     }
 
     suspend fun getPurchaseOrdersByDateRange(

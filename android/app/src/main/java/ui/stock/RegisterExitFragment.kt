@@ -106,14 +106,20 @@ class RegisterExitFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.stockListState.collect { state ->
                     when (state) {
+                        is Result.Loading -> showLoading(true)
                         is Result.Success -> {
+                            showLoading(false)
                             if (state.data.isEmpty()) {
                                 Snackbar.make(binding.root, "No hay stock registrado en esta sucursal", Snackbar.LENGTH_LONG).show()
                             } else {
                                 setupStockDropdown(state.data)
                             }
                         }
-                        else -> {}
+                        is Result.Error -> {
+                            showLoading(false)
+                            Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
+                        }
+                        null -> Unit
                     }
                 }
             }

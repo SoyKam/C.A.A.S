@@ -30,6 +30,7 @@ import com.caas.app.domain.usecase.RegisterStockEntryUseCase
 import com.caas.app.domain.usecase.RegisterStockExitUseCase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import android.util.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -106,7 +107,9 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
                                         m.copy(reason = if (m.reason.isBlank()) branchTag else "$branchTag · ${m.reason}")
                                     }
                                 all.addAll(movements)
-                            } catch (_: Exception) {}
+                            } catch (e: Exception) {
+                                Log.e("StockViewModel", "Failed to load movements for branch ${branch.id}", e)
+                            }
                         }
                     }
                 }
@@ -271,6 +274,22 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun getUnreadAlertsForBusinesses(businessIds: List<String>) {
+        if (businessIds.isEmpty()) {
+            _unreadAlertsState.value = Result.Success(emptyList())
+            return
+        }
+        viewModelScope.launch {
+            _unreadAlertsState.value = Result.Loading
+            val all = mutableListOf<com.caas.app.data.model.StockAlert>()
+            for (id in businessIds) {
+                val result = getUnreadAlertsUseCase(id)
+                if (result is Result.Success) all.addAll(result.data)
+            }
+            _unreadAlertsState.value = Result.Success(all)
+        }
+    }
+
     fun markAlertAsRead(businessId: String, alertId: String) {
         viewModelScope.launch {
             _markReadState.value = Result.Loading
@@ -282,7 +301,11 @@ class StockViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             _markReadState.value = Result.Loading
             for (alertId in alertIds) {
-                markAlertAsReadUseCase(businessId, alertId)
+                val result = markAlertAsReadUseCase(businessId, alertId)
+                if (result is Result.Error) {
+                    _markReadState.value = result
+                    return@launch
+                }
             }
             _markReadState.value = Result.Success(Unit)
         }

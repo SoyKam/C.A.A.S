@@ -165,4 +165,24 @@ class StockRepositoryImpl(
             Result.Error(e.message ?: "Error al filtrar movimientos por producto", e)
         }
     }
+
+    override suspend fun updateStockWithMovement(stock: Stock, movement: StockMovement): Result<Unit> {
+        return try {
+            if (stock.id.isBlank()) return Result.Error("El ID del stock es requerido")
+            if (movement.id.isBlank()) return Result.Error("El ID del movimiento es requerido")
+            dataSource.updateStockWithMovement(stock, movement)
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Error al registrar movimiento de stock", e)
+        }
+    }
+
+    override suspend fun updateStocksWithMovements(stocks: List<Stock>, movements: List<StockMovement>): Result<Unit> {
+        return try {
+            dataSource.updateStocksWithMovements(stocks, movements)
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Error al registrar movimientos de stock", e)
+        }
+    }
 }

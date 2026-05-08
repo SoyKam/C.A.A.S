@@ -10,7 +10,7 @@ data class Stock(
     val productName: String = "",
     val quantity: Int = 0,
     val minStock: Int = 0,
-    @get:PropertyName("isActive") val isActive: Boolean = true,
+    @get:PropertyName("isActive") @set:PropertyName("isActive") var isActive: Boolean = true,
     val createdAt: Long = 0L,
     val updatedAt: Long = 0L
 )

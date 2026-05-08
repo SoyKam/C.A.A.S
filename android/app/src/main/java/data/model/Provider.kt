@@ -9,7 +9,7 @@ data class Provider(
     val phone: String = "",
     val email: String = "",
     val productIds: List<String> = emptyList(),
-    @get:PropertyName("isActive") val isActive: Boolean = true,
+    @get:PropertyName("isActive") @set:PropertyName("isActive") var isActive: Boolean = true,
     val createdAt: Long = 0L,
     val updatedAt: Long = 0L
 )

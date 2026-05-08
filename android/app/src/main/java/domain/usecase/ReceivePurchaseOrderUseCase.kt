@@ -8,6 +8,7 @@ import com.caas.app.data.model.Stock
 import com.caas.app.data.model.StockMovement
 import com.caas.app.domain.repository.PurchaseOrderRepository
 import com.caas.app.domain.repository.StockRepository
+import java.util.UUID
 
 /**
  * RF-43: Recibe una orden de compra, actualiza el stock y registra movimientos de entrada.
@@ -44,7 +45,9 @@ class ReceivePurchaseOrderUseCase(
         val now = System.currentTimeMillis()
         val branchId = order.branchId
 
-        // Actualizar stock y registrar movimientos por cada item
+        val stockUpdates = mutableListOf<Stock>()
+        val movements = mutableListOf<StockMovement>()
+
         for (item in order.items) {
             val existingResult = stockRepository.getStockByProduct(businessId, branchId, item.productId)
             val existing = if (existingResult is Result.Success) existingResult.data else null
@@ -66,11 +69,10 @@ class ReceivePurchaseOrderUseCase(
                     updatedAt = now
                 )
             }
+            stockUpdates.add(updatedStock)
 
-            stockRepository.updateStock(updatedStock)
-
-            val movement = StockMovement(
-                id = "${branchId}_${System.nanoTime()}",
+            movements.add(StockMovement(
+                id = UUID.randomUUID().toString(),
                 businessId = businessId,
                 branchId = branchId,
                 productId = item.productId,
@@ -80,10 +82,11 @@ class ReceivePurchaseOrderUseCase(
                 reason = "Recepción de orden de compra #$orderId",
                 createdAt = now,
                 createdBy = receivedBy
-            )
-
-            stockRepository.registerMovement(movement)
+            ))
         }
+
+        val batchResult = stockRepository.updateStocksWithMovements(stockUpdates, movements)
+        if (batchResult is Result.Error) return batchResult
 
         return Result.Success(order.copy(status = PurchaseOrderStatus.RECEIVED, updatedAt = now))
     }

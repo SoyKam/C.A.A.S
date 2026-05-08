@@ -5,8 +5,8 @@ import com.caas.app.data.model.Stock
 import com.caas.app.data.model.StockAlert
 import com.caas.app.data.model.StockMovement
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
+import com.google.firebase.firestore.Query
 
 class FirestoreStockDataSource(
     private val firestore: FirebaseFirestore
@@ -72,10 +72,10 @@ class FirestoreStockDataSource(
     ): List<StockMovement> {
         return movementsRef(businessId, branchId)
             .whereEqualTo("type", type.name)
-            .orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .await()
             .toObjects(StockMovement::class.java)
+            .sortedByDescending { it.createdAt }
     }
 
     suspend fun getMovementsByDateRange(
@@ -100,10 +100,10 @@ class FirestoreStockDataSource(
     ): List<StockMovement> {
         return movementsRef(businessId, branchId)
             .whereEqualTo("productId", productId)
-            .orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .await()
             .toObjects(StockMovement::class.java)
+            .sortedByDescending { it.createdAt }
     }
 
     suspend fun getLowStockByBranch(businessId: String, branchId: String): List<Stock> {
@@ -148,5 +148,27 @@ class FirestoreStockDataSource(
             .document(alertId)
             .update("isRead", true)
             .await()
+    }
+
+    suspend fun updateStockWithMovement(stock: Stock, movement: StockMovement) {
+        val stockRef = stockRef(stock.businessId, stock.branchId).document(stock.id)
+        val movRef = movementsRef(movement.businessId, movement.branchId).document(movement.id)
+        firestore.batch()
+            .set(stockRef, stock)
+            .set(movRef, movement)
+            .commit()
+            .await()
+    }
+
+    suspend fun updateStocksWithMovements(stocks: List<Stock>, movements: List<StockMovement>) {
+        if (stocks.isEmpty()) return
+        val batch = firestore.batch()
+        stocks.forEach { stock ->
+            batch.set(stockRef(stock.businessId, stock.branchId).document(stock.id), stock)
+        }
+        movements.forEach { movement ->
+            batch.set(movementsRef(movement.businessId, movement.branchId).document(movement.id), movement)
+        }
+        batch.commit().await()
     }
 }

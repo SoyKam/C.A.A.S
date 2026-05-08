@@ -16,13 +16,10 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.Branch
-import com.caas.app.data.repository.BranchRepositoryImpl
-import com.caas.app.data.source.FirestoreBranchDataSource
 import com.caas.app.databinding.FragmentInventorySummaryBinding
 import com.caas.app.domain.model.InventorySummaryItem
 import com.caas.app.ui.inventory.adapter.InventorySummaryAdapter
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
 class InventorySummaryFragment : Fragment() {
@@ -33,10 +30,6 @@ class InventorySummaryFragment : Fragment() {
     private val viewModel: InventoryViewModel by activityViewModels()
     private val args: InventorySummaryFragmentArgs by navArgs()
     private lateinit var adapter: InventorySummaryAdapter
-
-    private val branchRepository by lazy {
-        BranchRepositoryImpl(FirestoreBranchDataSource(FirebaseFirestore.getInstance()))
-    }
 
     private var branches: List<Branch> = emptyList()
     private var selectedBranchId: String = ""
@@ -55,7 +48,8 @@ class InventorySummaryFragment : Fragment() {
         setupRecyclerView()
         setupClickListeners()
         observeSummaryState()
-        loadBranches()
+        observeBranchesState()
+        viewModel.loadBranches(args.businessId)
     }
 
     private fun setupClickListeners() {
@@ -106,17 +100,24 @@ class InventorySummaryFragment : Fragment() {
         binding.rvInventory.adapter = adapter
     }
 
-    private fun loadBranches() {
+    private fun observeBranchesState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            when (val result = branchRepository.getBranchesByBusinessId(args.businessId)) {
-                is Result.Success -> {
-                    branches = result.data.filter { it.isActive }
-                    setupBranchSpinner()
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.branchesState.collect { state ->
+                    when (state) {
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            branches = state.data.filter { it.isActive }
+                            setupBranchSpinner()
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                            Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
+                        }
+                        null -> Unit
+                    }
                 }
-                is Result.Error -> {
-                    Snackbar.make(binding.root, result.message, Snackbar.LENGTH_LONG).show()
-                }
-                is Result.Loading -> Unit
             }
         }
     }

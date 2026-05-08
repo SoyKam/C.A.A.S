@@ -61,7 +61,12 @@ class ReportsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        businessViewModel.getBusinessesByOwner()
+        val current = businessViewModel.businessListState.value
+        if (current is Result.Success && current.data.isNotEmpty()) {
+            stockViewModel.loadRecentMovements(current.data.map { it.id })
+        } else {
+            businessViewModel.getBusinessesByOwner()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -75,9 +80,9 @@ class ReportsFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     businessViewModel.businessListState.collect { state ->
-                        if (state is Result.Success && state.data.isNotEmpty()) {
-                            val ids = state.data.map { it.id }
-                            stockViewModel.loadRecentMovements(ids)
+                        if (state is Result.Success && state.data.isNotEmpty() &&
+                            stockViewModel.recentMovementsState.value == null) {
+                            stockViewModel.loadRecentMovements(state.data.map { it.id })
                         }
                     }
                 }
@@ -130,6 +135,7 @@ class ReportsFragment : Fragment() {
             return
         }
         val business = businessResult.data.first()
+        reportsViewModel.resetBranchesState()
         reportsViewModel.loadBranches(business.id)
 
         viewLifecycleOwner.lifecycleScope.launch {

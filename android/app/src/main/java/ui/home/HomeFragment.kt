@@ -127,7 +127,7 @@ class HomeFragment : Fragment() {
 
         if (businesses.isNotEmpty()) {
             alertBusinessId = businesses.first().id
-            stockViewModel.getUnreadAlerts(alertBusinessId)
+            stockViewModel.getUnreadAlertsForBusinesses(businesses.map { it.id })
         } else {
             binding.alertBanner.visibility = View.GONE
         }

@@ -8,7 +8,7 @@ data class Branch(
     val name: String = "",
     val address: String = "",
     val phone: String = "",
-    @get:PropertyName("isActive") val isActive: Boolean = true,
+    @get:PropertyName("isActive") @set:PropertyName("isActive") var isActive: Boolean = true,
     val createdAt: Long = 0L,
     val updatedAt: Long = 0L
 )
