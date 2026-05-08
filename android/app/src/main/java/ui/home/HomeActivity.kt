@@ -4,6 +4,9 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
@@ -17,6 +20,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
@@ -34,6 +38,11 @@ class HomeActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNav) { view, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(0, 0, 0, bars.bottom)
+            insets
+        }
         setupBottomNavigation(bottomNav)
     }
 
