@@ -14,4 +14,23 @@
     <string name="order_auto_generated">Generada automáticamente</string>
     <string name="add_product">Agregar producto</string>
     <string name="select_provider">Seleccionar proveedor</string>
+
+    <!-- RF-34 / RF-35 / RF-36 — Exportación de reportes -->
+    <string name="export_inventory_pdf">Exportar Reporte de Inventario</string>
+    <string name="export_movements_excel">Exportar Historial de Movimientos</string>
+    <string name="export_generating">Generando archivo…</string>
+    <string name="export_success_pdf">PDF generado correctamente</string>
+    <string name="export_success_excel">Excel generado correctamente</string>
+    <string name="export_error">Error al generar el archivo</string>
+    <string name="export_share">Compartir</string>
+    <string name="export_download_only">Solo guardar</string>
+    <string name="export_select_branch">Seleccionar sucursal</string>
+    <string name="export_date_from">Fecha desde</string>
+    <string name="export_date_to">Fecha hasta</string>
+    <string name="export_generate">Generar</string>
+    <string name="export_confirm_title">Confirmar exportación</string>
+    <string name="export_pdf_description">Genera un PDF con el estado actual del inventario por sucursal.</string>
+    <string name="export_excel_description">Descarga el historial filtrado en formato Excel (.xlsx).</string>
+    <string name="export_file_ready">Archivo listo. ¿Qué deseas hacer?</string>
+    <string name="action_cancel">Cancelar</string>
 </resources>
