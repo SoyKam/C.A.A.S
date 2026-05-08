@@ -58,6 +58,14 @@ class BranchDetailFragment : Fragment() {
             )
         }
 
+        binding.btnPurchaseOrders.setOnClickListener {
+            findNavController().navigate(
+                BranchDetailFragmentDirections.actionBranchDetailToPurchaseOrderList(
+                    args.businessId, args.branchId
+                )
+            )
+        }
+
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }

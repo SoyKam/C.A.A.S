@@ -177,6 +177,20 @@
                     app:strokeWidth="1dp"
                     app:cornerRadius="12dp"/>
 
+                <!-- BOTÓN SECUNDARIO: Órdenes de Compra -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPurchaseOrders"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Órdenes de Compra"
+                    android:textStyle="bold"
+                    android:textColor="@color/button_orange"
+                    android:layout_marginBottom="10dp"
+                    app:strokeColor="@color/button_orange"
+                    app:strokeWidth="1dp"
+                    app:cornerRadius="12dp"/>
+
                 <!-- BOTÓN GHOST: Volver -->
                 <Button
                     android:id="@+id/btnBack"
