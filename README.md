@@ -5,21 +5,21 @@ App Android para control de almacén y administración eficiente de stock en tie
 
 ## Estado de Requerimientos Funcionales
 
-> Última actualización: 10 de abril de 2026 — Rama: `main`
+> Última actualización: 8 de mayo de 2026 — Rama: `main`
 
 ### Progreso General
 
 | Métrica | Valor |
 |---|---|
 | Total de RF definidos | 52 |
-| Implementados | 25 |
+| Implementados | 34 |
 | Parciales | 0 |
-| Pendientes | 27 |
-| **% de avance** | **~48%** |
+| Pendientes | 18 |
+| **% de avance** | **~65%** |
 
 ---
 
-### RF Implementados
+## RF Implementados
 
 | ID | Descripción | Módulo |
 |---|---|---|
@@ -46,34 +46,36 @@ App Android para control de almacén y administración eficiente de stock en tie
 | RF-21 | Mostrar un resumen del estado del inventario según la sucursal seleccionada. | Inventario |
 | RF-22 | Listar los productos con stock crítico (por debajo del mínimo) en la pantalla principal. | Alertas |
 | RF-23 | Notificar al usuario cuando un producto alcance un nivel crítico de inventario. | Alertas |
+| RF-24 | Mostrar alertas dentro del sistema relacionadas con eventos importantes del inventario. | Alertas |
 | RF-26 | Asignar un rol (Propietario, Administrador, Empleado) a cada usuario del negocio. | Roles |
 | RF-27 | Restringir las funciones visibles y accesibles según el rol del usuario autenticado. | Roles |
+| RF-34 | Exportar el reporte de inventario de una sucursal en formato PDF. | Reportes |
+| RF-35 | Exportar el historial de movimientos de un período en formato Excel (.xlsx). | Reportes |
+| RF-36 | Compartir el informe generado mediante las opciones nativas de Android. | Reportes |
+| RF-40 | Generar automáticamente una orden de compra cuando el stock baje del mínimo configurado. | Órdenes de Compra |
+| RF-41 | Crear una orden de compra manual seleccionando proveedor, productos y cantidades. | Órdenes de Compra |
+| RF-42 | Cambiar el estado de una orden de compra (Pendiente, Enviada, Recibida, Cancelada). | Órdenes de Compra |
+| RF-43 | Actualizar automáticamente el stock cuando una orden de compra sea marcada como Recibida. | Órdenes de Compra |
+| RF-44 | Listar el historial de órdenes de compra filtrable por estado, proveedor y fecha. | Órdenes de Compra |
 
 ---
 
-### RF Pendientes
+## RF Pendientes
 
-#### Prioridad Alta — Funcionalidades clave
+### Prioridad Alta — Funcionalidades clave
 
 | ID | Descripción |
 |---|---|
-| RF-24 | Mostrar alertas dentro del sistema relacionadas con eventos importantes del inventario. |
 | RF-25 | Permitir al propietario invitar empleados al negocio mediante correo electrónico. |
 | RF-28 | Permitir al propietario revocar el acceso de un empleado en cualquier momento. |
 | RF-29 | Permitir asignar un empleado a una sucursal específica. |
-| RF-40 | Generar automáticamente una orden de compra cuando el stock baje del mínimo configurado. |
-| RF-41 | Crear una orden de compra manual seleccionando proveedor, productos y cantidades. |
-| RF-42 | Cambiar el estado de una orden de compra (Pendiente, Enviada, Recibida, Cancelada). |
-| RF-43 | Actualizar automáticamente el stock cuando una orden de compra sea marcada como Recibida. |
-| RF-44 | Listar el historial de órdenes de compra filtrable por estado, proveedor y fecha. |
 
-#### Prioridad Media — Reportes y exportación
+---
+
+### Prioridad Media — Escaneo y precios
 
 | ID | Descripción |
 |---|---|
-| RF-34 | Exportar el reporte de inventario de una sucursal en formato PDF. |
-| RF-35 | Exportar el historial de movimientos de un período en formato Excel (.xlsx). |
-| RF-36 | Compartir el informe generado mediante las opciones nativas de Android. |
 | RF-37 | Escanear el código de barras o QR de un producto para autocompletar su SKU al crearlo. |
 | RF-38 | Buscar un producto en el inventario escaneando su código de barras o QR. |
 | RF-39 | Registrar una entrada o salida de inventario escaneando el código del producto. |
@@ -81,7 +83,9 @@ App Android para control de almacén y administración eficiente de stock en tie
 | RF-46 | Mostrar el historial de cambios de precio con valor anterior, nuevo valor, fecha y usuario. |
 | RF-47 | Visualizar la evolución del precio de costo y venta en un gráfico de línea. |
 
-#### Prioridad Baja — Dashboard y categorías
+---
+
+### Prioridad Baja — Dashboard y categorías
 
 | ID | Descripción |
 |---|---|
