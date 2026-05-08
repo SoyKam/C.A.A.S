@@ -207,6 +207,58 @@
                 android:name="branchId"
                 app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/action_branchDetail_to_purchaseOrderList"
+            app:destination="@id/purchaseOrderListFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string"/>
+            <argument
+                android:name="branchId"
+                app:argType="string"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/purchaseOrderListFragment"
+        android:name="com.caas.app.ui.purchase.PurchaseOrderListFragment"
+        android:label="Órdenes de Compra">
+        <argument
+            android:name="businessId"
+            app:argType="string"/>
+        <argument
+            android:name="branchId"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_purchaseOrderList_to_createOrder"
+            app:destination="@id/createPurchaseOrderFragment"/>
+        <action
+            android:id="@+id/action_purchaseOrderList_to_orderDetail"
+            app:destination="@id/purchaseOrderDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/createPurchaseOrderFragment"
+        android:name="com.caas.app.ui.purchase.CreatePurchaseOrderFragment"
+        android:label="Nueva Orden de Compra">
+        <argument
+            android:name="businessId"
+            app:argType="string"/>
+        <argument
+            android:name="branchId"
+            app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/purchaseOrderDetailFragment"
+        android:name="com.caas.app.ui.purchase.PurchaseOrderDetailFragment"
+        android:label="Detalle de Orden">
+        <argument
+            android:name="businessId"
+            app:argType="string"/>
+        <argument
+            android:name="orderId"
+            app:argType="string"/>
     </fragment>
 
     <fragment

@@ -82,7 +82,7 @@ class PurchaseOrderListFragment : Fragment() {
             }
         }
 
-        binding.fabAutoGenerate.setOnClickListener {
+        binding.ivHeaderIcon.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Generar órdenes automáticamente")
                 .setMessage("Se crearán órdenes de compra para todos los productos con stock crítico. ¿Continuar?")
