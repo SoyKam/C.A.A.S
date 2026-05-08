@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Opciones de exportación"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Sucursal -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilBranch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/export_select_branch"
+        android:layout_marginBottom="16dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+        app:boxStrokeColor="@color/input_border"
+        app:hintTextColor="@color/text_secondary">
+
+        <AutoCompleteTextView
+            android:id="@+id/actvBranch"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:inputType="none"
+            android:textColor="@color/input_text"
+            android:textSize="@dimen/text_size_body"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Fecha desde (solo visible en exportación Excel) -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDateFrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/export_date_from"
+        android:layout_marginBottom="16dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+        app:boxStrokeColor="@color/input_border"
+        app:hintTextColor="@color/text_secondary"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_reports">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDateFrom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
+            android:textColor="@color/input_text"
+            android:textSize="@dimen/text_size_body"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Fecha hasta (solo visible en exportación Excel) -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDateTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/export_date_to"
+        android:layout_marginBottom="24dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+        app:boxStrokeColor="@color/input_border"
+        app:hintTextColor="@color/text_secondary"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_reports">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDateTo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
+            android:textColor="@color/input_text"
+            android:textSize="@dimen/text_size_body"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Botones -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGenerate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_lg"
+        android:text="@string/export_generate"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/button_orange"
+        app:cornerRadius="@dimen/button_corner_radius"
+        android:layout_marginBottom="8dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDialogCancel"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:text="@string/action_cancel"
+        android:textColor="@color/text_secondary"/>
+
+</LinearLayout>

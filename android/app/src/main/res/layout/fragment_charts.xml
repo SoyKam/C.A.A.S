@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -187,6 +188,60 @@
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+        <!-- SECCIÓN EXPORTAR PDF -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/surface"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            android:layout_marginTop="@dimen/spacing_md">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/card_padding">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/export_inventory_pdf"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_size_body_lg"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/export_pdf_description"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_size_body_sm"
+                    android:layout_marginBottom="@dimen/spacing_md"/>
+
+                <ProgressBar
+                    android:id="@+id/progressExportPdf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/orange"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/spacing_sm"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnExportPdf"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height_lg"
+                    android:text="@string/export_inventory_pdf"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/button_orange"
+                    app:cornerRadius="@dimen/button_corner_radius"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
