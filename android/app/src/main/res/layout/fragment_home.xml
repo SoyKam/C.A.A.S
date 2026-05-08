@@ -300,7 +300,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_business"
-                        app:tint="@color/orange"/>
+                        app:tint="@color/white"/>
                 </FrameLayout>
 
                 <TextView
@@ -347,6 +347,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="Crear negocio"
-        android:src="@android:drawable/ic_input_add"/>
+        app:srcCompat="@drawable/ic_add"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

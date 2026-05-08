@@ -51,20 +51,131 @@
             android:indeterminateTint="@color/orange"
             android:visibility="gone"/>
 
-        <!-- EMPTY STATE -->
-        <TextView
-            android:id="@+id/tvEmptyState"
+        <!-- EMPTY STATE — NEW ID: layoutEmptyState (update Kotlin: binding.layoutEmptyState.visibility) -->
+        <LinearLayout
+            android:id="@+id/layoutEmptyState"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="40dp"
-            android:text="No hay movimientos recientes"
-            android:textColor="@color/text_secondary"
-            android:textSize="15sp"
-            android:visibility="gone"/>
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/spacing_xxxl"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/icon_bg_neutral"
+                android:padding="16dp"
+                android:layout_marginBottom="@dimen/spacing_lg">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_reports"
+                    app:tint="@color/text_secondary"
+                    android:contentDescription="@null"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvEmptyState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sin movimientos recientes"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_size_body_lg"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/spacing_sm"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Los últimos movimientos de inventario aparecerán aquí"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_size_body_sm"/>
+        </LinearLayout>
 
         <!-- SECCIÓN EXPORTAR EXCEL -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/surface"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            android:layout_marginBottom="@dimen/spacing_sm">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/card_padding">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/spacing_sm">
+
+                    <FrameLayout
+                        android:layout_width="@dimen/icon_container_xs"
+                        android:layout_height="@dimen/icon_container_xs"
+                        android:background="@drawable/icon_bg_green"
+                        android:padding="8dp"
+                        android:layout_marginEnd="@dimen/spacing_sm">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_reports"
+                            app:tint="@color/green"
+                            android:contentDescription="@null"/>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/export_movements_excel"
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_size_body"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/export_excel_description"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="@dimen/text_size_caption"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressExportExcel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/orange"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/spacing_sm"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnExportExcel"
+                    style="@style/Widget.CAAS.Button.Outline"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:text="@string/export_movements_excel"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- SECCIÓN EXPORTAR PDF — NEW ID: btnExportPdf, progressExportPdf -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,25 +190,53 @@
                 android:orientation="vertical"
                 android:padding="@dimen/card_padding">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/export_movements_excel"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/text_size_body_lg"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="4dp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/spacing_sm">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/export_excel_description"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_size_body_sm"
-                    android:layout_marginBottom="@dimen/spacing_md"/>
+                    <FrameLayout
+                        android:layout_width="@dimen/icon_container_xs"
+                        android:layout_height="@dimen/icon_container_xs"
+                        android:background="@drawable/icon_bg_red"
+                        android:padding="8dp"
+                        android:layout_marginEnd="@dimen/spacing_sm">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_alert"
+                            app:tint="@color/red"
+                            android:contentDescription="@null"/>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Exportar a PDF"
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_size_body"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Genera un reporte en PDF con los movimientos seleccionados"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="@dimen/text_size_caption"/>
+                    </LinearLayout>
+                </LinearLayout>
 
                 <ProgressBar
-                    android:id="@+id/progressExportExcel"
+                    android:id="@+id/progressExportPdf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -106,16 +245,11 @@
                     android:layout_marginBottom="@dimen/spacing_sm"/>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnExportExcel"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/btnExportPdf"
+                    style="@style/Widget.CAAS.Button.Ghost"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/button_height_lg"
-                    android:text="@string/export_movements_excel"
-                    android:textStyle="bold"
-                    android:textColor="@color/button_orange"
-                    app:strokeColor="@color/button_orange"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="@dimen/button_corner_radius"/>
+                    android:layout_height="@dimen/button_height"
+                    android:text="Exportar a PDF"/>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardStyle.Default"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="6dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="6dp"
-    app:cardBackgroundColor="@color/card_background"
-    app:strokeColor="@color/divider"
-    app:strokeWidth="1dp">
+    android:layout_marginBottom="@dimen/spacing_sm">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="18dp">
+        android:padding="@dimen/card_padding_sm">
 
         <!-- IZQUIERDA -->
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginEnd="12dp">
+            android:layout_marginEnd="@dimen/spacing_md">
 
             <TextView
                 android:id="@+id/tvProductName"
@@ -37,9 +28,11 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/text_primary"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_body_lg"
                 android:textStyle="bold"
-                android:layout_marginBottom="4dp"/>
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginBottom="@dimen/spacing_xs"/>
 
             <TextView
                 android:id="@+id/tvSku"
@@ -47,10 +40,8 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:layout_marginBottom="6dp"/>
-
-            <!-- MIN STOCK con estilo más limpio -->
+                android:textSize="@dimen/text_size_caption"
+                android:layout_marginBottom="@dimen/spacing_sm"/>
 
             <TextView
                 android:id="@+id/tvMinStock"
@@ -58,15 +49,14 @@
                 android:layout_height="wrap_content"
                 android:text="Mínimo: 0"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:background="#F5F5F5"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"/>
+                android:textSize="@dimen/text_size_caption_xs"
+                android:background="@drawable/stat_box_bg"
+                android:paddingHorizontal="@dimen/spacing_sm"
+                android:paddingVertical="@dimen/spacing_xs"/>
 
         </LinearLayout>
 
         <!-- DERECHA -->
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,19 +68,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="30sp"
+                android:textSize="@dimen/stat_value_size"
                 android:textStyle="bold"
-                android:textColor="@color/button_orange"/>
+                android:textColor="@color/orange"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="uds"
-                android:textColor="@color/text_secondary"
-                android:textSize="11sp"
-                android:layout_marginBottom="8dp"/>
-
-            <!-- BADGE ESTADO -->
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_size_caption_xxs"
+                android:layout_marginBottom="@dimen/spacing_sm"/>
 
             <TextView
                 android:id="@+id/tvStockStatus"
@@ -98,11 +86,12 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/white"
-                android:textSize="11sp"
+                android:textSize="@dimen/text_size_caption_xxs"
                 android:textStyle="bold"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:backgroundTint="@color/button_orange"/>
+                android:paddingHorizontal="@dimen/spacing_sm"
+                android:paddingVertical="@dimen/spacing_xs"
+                android:background="@drawable/status_badge_bg"
+                android:backgroundTint="@color/orange"/>
 
         </LinearLayout>
 

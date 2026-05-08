@@ -152,18 +152,50 @@
             android:indeterminateTint="@color/orange"
             android:visibility="gone"/>
 
-        <!-- EMPTY STATE -->
-        <TextView
-            android:id="@+id/tvEmptyState"
+        <!-- EMPTY STATE — NEW ID: layoutEmptyState (update Kotlin: binding.layoutEmptyState.visibility) -->
+        <LinearLayout
+            android:id="@+id/layoutEmptyState"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="40dp"
-            android:text="No hay movimientos registrados"
-            android:textColor="@color/text_secondary"
-            android:textSize="15sp"
-            android:visibility="gone"/>
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/spacing_xxxl"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/icon_bg_neutral"
+                android:padding="16dp"
+                android:layout_marginBottom="@dimen/spacing_lg">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_transfer"
+                    app:tint="@color/text_secondary"
+                    android:contentDescription="@null"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvEmptyState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sin movimientos registrados"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_size_body_lg"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/spacing_sm"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Los movimientos de entrada y salida aparecerán aquí"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_size_body_sm"/>
+        </LinearLayout>
 
         <!-- LIST -->
         <androidx.recyclerview.widget.RecyclerView

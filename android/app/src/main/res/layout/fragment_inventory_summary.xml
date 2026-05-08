@@ -148,17 +148,50 @@
             android:layout_gravity="center"
             android:indeterminateTint="@color/orange"/>
 
-        <!-- EMPTY STATE -->
-        <TextView
-            android:id="@+id/tvEmptyState"
+        <!-- EMPTY STATE — NEW ID: layoutEmptyState (update Kotlin: binding.layoutEmptyState.visibility) -->
+        <LinearLayout
+            android:id="@+id/layoutEmptyState"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="No hay productos en esta sucursal"
-            android:textSize="15sp"
-            android:textColor="@color/text_secondary"
             android:gravity="center"
-            android:visibility="gone"/>
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/spacing_xxxl"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/icon_bg_orange"
+                android:padding="16dp"
+                android:layout_marginBottom="@dimen/spacing_lg">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_inventory"
+                    app:tint="@color/white"
+                    android:contentDescription="@null"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvEmptyState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sin productos en esta sucursal"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_size_body_lg"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/spacing_sm"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Registra una entrada para comenzar a controlar el inventario"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_size_body_sm"/>
+        </LinearLayout>
 
         <!-- INVENTORY LIST -->
         <androidx.recyclerview.widget.RecyclerView
