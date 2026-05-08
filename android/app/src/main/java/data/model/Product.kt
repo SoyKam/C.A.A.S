@@ -11,7 +11,7 @@ data class Product(
     val costPrice: Double = 0.0,
     val salePrice: Double = 0.0,
     val imageUrl: String = "",
-    @get:PropertyName("isActive") val isActive: Boolean = true,
+    @get:PropertyName("isActive") @set:PropertyName("isActive") var isActive: Boolean = true,
     val createdAt: Long = 0L,
     val updatedAt: Long = 0L
 )

@@ -7,6 +7,7 @@ import com.caas.app.data.model.PurchaseOrderStatus
 import com.caas.app.domain.repository.PurchaseOrderRepository
 import com.caas.app.domain.repository.ProviderRepository
 import com.caas.app.domain.repository.StockRepository
+import java.util.UUID
 
 /**
  * RF-40: Genera automáticamente órdenes de compra por proveedor
@@ -65,7 +66,7 @@ class AutoGeneratePurchaseOrderUseCase(
             val providerName = providerItems.first().first
             val items = providerItems.map { it.second }
 
-            val orderId = "${businessId}_${System.nanoTime()}"
+            val orderId = UUID.randomUUID().toString()
             val order = PurchaseOrder(
                 id = orderId,
                 businessId = businessId,

@@ -13,13 +13,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- HEADER compacto -->
+        <!-- HEADER — se extiende detrás de la status bar vía WindowInsets en Fragment -->
         <LinearLayout
+            android:id="@+id/headerLayout"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
             android:background="@color/button_orange"
             android:gravity="center_vertical"
             android:paddingHorizontal="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:orientation="vertical">
 
             <TextView
@@ -39,8 +43,8 @@
             android:layout_marginTop="-20dp"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@color/card_background"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="?attr/colorSurface"
             app:strokeColor="@color/divider"
             app:strokeWidth="1dp">
 
@@ -156,20 +160,22 @@
                     android:id="@+id/btnEdit"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:text="Editar Sucursal"
+                    android:text="Editar sucursal"
+                    android:textAllCaps="false"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/button_orange"
                     android:layout_marginBottom="10dp"
                     app:cornerRadius="12dp"/>
 
-                <!-- BOTÓN SECUNDARIO: Ver Stock (outline) -->
+                <!-- BOTÓN SECUNDARIO: Ver Stock -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnViewStock"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:text="Ver Stock"
+                    android:text="Ver stock"
+                    android:textAllCaps="false"
                     android:textStyle="bold"
                     android:textColor="@color/button_orange"
                     android:layout_marginBottom="10dp"
@@ -183,7 +189,8 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:text="Órdenes de Compra"
+                    android:text="Órdenes de compra"
+                    android:textAllCaps="false"
                     android:textStyle="bold"
                     android:textColor="@color/button_orange"
                     android:layout_marginBottom="10dp"
@@ -192,13 +199,17 @@
                     app:cornerRadius="12dp"/>
 
                 <!-- BOTÓN GHOST: Volver -->
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnBack"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:text="Volver"
+                    android:textAllCaps="false"
                     android:textColor="@color/text_secondary"
+                    app:icon="@drawable/ic_back"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/text_secondary"
                     app:cornerRadius="12dp"/>
 
             </LinearLayout>

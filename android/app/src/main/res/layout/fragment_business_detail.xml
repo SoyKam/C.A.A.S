@@ -12,13 +12,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- ===== HEADER ===== -->
+        <!-- ===== HEADER — se extiende detrás de la status bar vía WindowInsets en Fragment ===== -->
         <RelativeLayout
+            android:id="@+id/headerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/header_gradient"
             android:paddingHorizontal="@dimen/header_padding_horizontal"
-            android:paddingVertical="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:minHeight="@dimen/header_height">
 
             <ImageView
@@ -75,7 +77,6 @@
                     android:gravity="center_vertical"
                     android:layout_marginBottom="@dimen/spacing_sm">
 
-                    <!-- Initials avatar -->
                     <FrameLayout
                         android:layout_width="@dimen/icon_container_lg"
                         android:layout_height="@dimen/icon_container_lg"
@@ -213,14 +214,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_lg">
+                    android:padding="8dp"
+                    android:minHeight="100dp">
 
                     <FrameLayout
                         android:layout_width="@dimen/icon_container_sm"
                         android:layout_height="@dimen/icon_container_sm"
                         android:background="@drawable/icon_bg_orange"
                         android:padding="10dp"
-                        android:layout_marginBottom="@dimen/spacing_sm">
+                        android:layout_marginBottom="6dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -235,7 +237,9 @@
                         android:text="Sucursales"
                         android:textColor="@color/text_primary"
                         android:textSize="@dimen/text_size_caption"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -260,14 +264,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_lg">
+                    android:padding="8dp"
+                    android:minHeight="100dp">
 
                     <FrameLayout
                         android:layout_width="@dimen/icon_container_sm"
                         android:layout_height="@dimen/icon_container_sm"
                         android:background="@drawable/icon_bg_orange"
                         android:padding="10dp"
-                        android:layout_marginBottom="@dimen/spacing_sm">
+                        android:layout_marginBottom="6dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -282,7 +287,9 @@
                         android:text="Productos"
                         android:textColor="@color/text_primary"
                         android:textSize="@dimen/text_size_caption"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:id="@+id/tvProductsGridCount"
@@ -308,19 +315,20 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_lg">
+                    android:padding="8dp"
+                    android:minHeight="100dp">
 
                     <FrameLayout
                         android:layout_width="@dimen/icon_container_sm"
                         android:layout_height="@dimen/icon_container_sm"
                         android:background="@drawable/icon_bg_orange"
                         android:padding="10dp"
-                        android:layout_marginBottom="@dimen/spacing_sm">
+                        android:layout_marginBottom="6dp">
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/ic_provider"
+                            android:src="@drawable/ic_people"
                             app:tint="@color/orange"/>
                     </FrameLayout>
 
@@ -330,7 +338,9 @@
                         android:text="Proveedores"
                         android:textColor="@color/text_primary"
                         android:textSize="@dimen/text_size_caption"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:id="@+id/tvProviderCount"
@@ -356,14 +366,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_lg">
+                    android:padding="8dp"
+                    android:minHeight="100dp">
 
                     <FrameLayout
                         android:layout_width="@dimen/icon_container_sm"
                         android:layout_height="@dimen/icon_container_sm"
                         android:background="@drawable/icon_bg_orange"
                         android:padding="10dp"
-                        android:layout_marginBottom="@dimen/spacing_sm">
+                        android:layout_marginBottom="6dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -378,7 +389,9 @@
                         android:text="Inventario"
                         android:textColor="@color/text_primary"
                         android:textSize="@dimen/text_size_caption"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -396,14 +409,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_lg">
+                    android:padding="8dp"
+                    android:minHeight="100dp">
 
                     <FrameLayout
                         android:layout_width="@dimen/icon_container_sm"
                         android:layout_height="@dimen/icon_container_sm"
                         android:background="@drawable/icon_bg_orange"
                         android:padding="10dp"
-                        android:layout_marginBottom="@dimen/spacing_sm">
+                        android:layout_marginBottom="6dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -418,7 +432,9 @@
                         android:text="Stock"
                         android:textColor="@color/text_primary"
                         android:textSize="@dimen/text_size_caption"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -436,14 +452,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/spacing_lg">
+                    android:padding="8dp"
+                    android:minHeight="100dp">
 
                     <FrameLayout
                         android:layout_width="@dimen/icon_container_sm"
                         android:layout_height="@dimen/icon_container_sm"
                         android:background="@drawable/icon_bg_red"
                         android:padding="10dp"
-                        android:layout_marginBottom="@dimen/spacing_sm">
+                        android:layout_marginBottom="6dp">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -458,7 +475,9 @@
                         android:text="Alertas"
                         android:textColor="@color/text_primary"
                         android:textSize="@dimen/text_size_caption"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
 
                     <TextView
                         android:id="@+id/tvAlertCount"
@@ -496,7 +515,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/orange"
                     android:textSize="@dimen/stat_value_size"
                     android:textStyle="bold"/>
 

@@ -11,6 +11,6 @@ data class StockAlert(
     val productName: String = "",
     val currentStock: Int = 0,
     val minStock: Int = 0,
-    @get:PropertyName("isRead") val isRead: Boolean = false,
+    @get:PropertyName("isRead") @set:PropertyName("isRead") var isRead: Boolean = false,
     val createdAt: Long = 0L
 )

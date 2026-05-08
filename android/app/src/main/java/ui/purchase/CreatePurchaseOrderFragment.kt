@@ -105,9 +105,16 @@ class CreatePurchaseOrderFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 providerViewModel.providerListState.collect { state ->
                     when (state) {
-                        is Result.Success -> setupProviderDropdown(state.data)
-                        is Result.Error -> Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
-                        else -> {}
+                        is Result.Loading -> showLoading(true)
+                        is Result.Success -> {
+                            showLoading(false)
+                            setupProviderDropdown(state.data)
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                            Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
+                        }
+                        null -> {}
                     }
                 }
             }
@@ -154,6 +161,7 @@ class CreatePurchaseOrderFragment : Fragment() {
         val names = providerList.map { it.name }
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, names)
         binding.actvProvider.setAdapter(adapter)
+        binding.actvProvider.setOnClickListener { binding.actvProvider.showDropDown() }
         binding.actvProvider.setOnItemClickListener { _, _, position, _ ->
             selectedProvider = providers[position]
         }

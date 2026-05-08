@@ -97,7 +97,9 @@
                             android:textColor="@color/text_primary"
                             android:textSize="@dimen/text_size_body"
                             android:inputType="none"
-                            android:completionThreshold="1"/>
+                            android:focusable="true"
+                            android:clickable="true"
+                            android:completionThreshold="0"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>

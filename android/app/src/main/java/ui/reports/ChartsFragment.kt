@@ -52,16 +52,15 @@ class ChartsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
-        loadData()
         setupExportButton()
         observeExportStates()
     }
 
-    private fun loadData() {
-        val businessesResult = businessViewModel.businessListState.value
-        if (businessesResult is Result.Success) {
-            val ids = businessesResult.data.map { it.id }
-            stockViewModel.loadRecentMovements(ids)
+    override fun onStart() {
+        super.onStart()
+        val current = businessViewModel.businessListState.value
+        if (current is Result.Success && current.data.isNotEmpty()) {
+            stockViewModel.loadRecentMovements(current.data.map { it.id })
         } else {
             businessViewModel.getBusinessesByOwner()
         }
@@ -72,7 +71,8 @@ class ChartsFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     businessViewModel.businessListState.collect { state ->
-                        if (state is Result.Success) {
+                        if (state is Result.Success && state.data.isNotEmpty() &&
+                            stockViewModel.recentMovementsState.value == null) {
                             stockViewModel.loadRecentMovements(state.data.map { it.id })
                         }
                     }
@@ -154,6 +154,7 @@ class ChartsFragment : Fragment() {
             return
         }
         val business = businessResult.data.first()
+        reportsViewModel.resetBranchesState()
         reportsViewModel.loadBranches(business.id)
 
         viewLifecycleOwner.lifecycleScope.launch {

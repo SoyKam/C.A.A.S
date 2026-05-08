@@ -33,4 +33,8 @@ interface StockRepository {
     suspend fun getMovementsByDateRange(businessId: String, branchId: String, startDate: Long, endDate: Long): Result<List<StockMovement>>
 
     suspend fun getMovementsByProduct(businessId: String, branchId: String, productId: String): Result<List<StockMovement>>
+
+    suspend fun updateStockWithMovement(stock: Stock, movement: StockMovement): Result<Unit>
+
+    suspend fun updateStocksWithMovements(stocks: List<Stock>, movements: List<StockMovement>): Result<Unit>
 }

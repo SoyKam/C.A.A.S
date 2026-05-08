@@ -5,6 +5,7 @@ import com.caas.app.data.model.MovementType
 import com.caas.app.data.model.Stock
 import com.caas.app.data.model.StockMovement
 import com.caas.app.domain.repository.StockRepository
+import java.util.UUID
 
 class RegisterStockEntryUseCase(
     private val stockRepository: StockRepository
@@ -55,11 +56,8 @@ class RegisterStockEntryUseCase(
             )
         }
 
-        val updateResult = stockRepository.updateStock(updatedStock)
-        if (updateResult is Result.Error) return updateResult
-
         val movement = StockMovement(
-            id = "${branchId}_${System.nanoTime()}",
+            id = UUID.randomUUID().toString(),
             businessId = businessId,
             branchId = branchId,
             productId = productId,
@@ -71,7 +69,8 @@ class RegisterStockEntryUseCase(
             createdBy = userId
         )
 
-        stockRepository.registerMovement(movement)
+        val batchResult = stockRepository.updateStockWithMovement(updatedStock, movement)
+        if (batchResult is Result.Error) return batchResult
 
         return Result.Success(updatedStock)
     }

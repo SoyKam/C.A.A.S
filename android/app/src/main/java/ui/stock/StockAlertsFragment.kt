@@ -85,9 +85,19 @@ class StockAlertsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.markReadState.collect { state ->
-                    if (state is Result.Success) {
-                        viewModel.resetMarkReadState()
-                        viewModel.getUnreadAlerts(args.businessId)
+                    when (state) {
+                        is Result.Loading -> binding.btnMarkAllRead.isEnabled = false
+                        is Result.Success -> {
+                            binding.btnMarkAllRead.isEnabled = true
+                            viewModel.resetMarkReadState()
+                            viewModel.getUnreadAlerts(args.businessId)
+                        }
+                        is Result.Error -> {
+                            binding.btnMarkAllRead.isEnabled = true
+                            Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
+                            viewModel.resetMarkReadState()
+                        }
+                        null -> binding.btnMarkAllRead.isEnabled = true
                     }
                 }
             }
