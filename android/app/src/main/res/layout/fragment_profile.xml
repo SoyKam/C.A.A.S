@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Usuario"
+                android:text="Cargando..."
                 android:textColor="@color/text_primary"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -76,11 +76,37 @@
                 android:textSize="14sp"
                 tools:text="alejo@caas.com" />
 
+            <!-- Nuevo: Nombre del Negocio -->
+            <TextView
+                android:id="@+id/tvBusinessName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="Mi Negocio"
+                android:textColor="@color/orange"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="C.A.A.S. Store" />
+
+            <!-- Nuevo: Rol -->
+            <TextView
+                android:id="@+id/tvUserRole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="Rol"
+                android:textColor="@color/text_tertiary"
+                android:textSize="12sp"
+                android:textAllCaps="true"
+                tools:text="ADMINISTRADOR" />
+
             <!-- Separador -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginVertical="24dp"
+                android:layout_marginVertical="20dp"
                 android:background="@color/border_light" />
 
             <!-- Opciones de Perfil -->
@@ -94,9 +120,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Editar Perfil -->
+                    <!-- Editar Perfil (btnEditProfile) -->
                     <LinearLayout
-                        android:id="@+id/optionEditProfile"
+                        android:id="@+id/btnEditProfile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
@@ -144,7 +170,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
-                            android:text="Cambiar contraseña"
+                            android:text="Restablecer contraseña"
                             android:textColor="@color/text_primary"
                             android:textSize="16sp" />
                         <ImageView
@@ -184,9 +210,9 @@
                             app:tint="@color/text_tertiary" />
                     </LinearLayout>
 
-                    <!-- Cerrar Sesión -->
+                    <!-- Cerrar Sesión (btnLogout) -->
                     <LinearLayout
-                        android:id="@+id/optionLogout"
+                        android:id="@+id/btnLogout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -222,9 +248,6 @@
         android:id="@+id/avatar_container"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
         app:cardCornerRadius="50dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toTopOf="@+id/card_profile_container"
