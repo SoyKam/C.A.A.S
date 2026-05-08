@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/reportsFragment"
-        android:icon="@drawable/ic_reports"
+        android:icon="@drawable/ic_transfer"
         android:title="Movimientos"/>
 
     <item
