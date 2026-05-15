@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,120 +7,139 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <!-- 1. Header -->
-    <View
-        android:id="@+id/header_bg"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@color/orange"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvHeaderTitle"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="Perfil"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-    <!-- 4. Contenedor principal -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_profile_container"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="@drawable/header_gradient" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="52dp"
+                android:text="Mi Perfil"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/avatarContainer"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="bottom|center_horizontal"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@color/white"
+                app:strokeWidth="4dp">
+
+                <ImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_light"
+                    android:padding="20dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_profile"
+                    app:tint="@color/orange" />
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="-40dp"
-        android:layout_marginBottom="24dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_bg"
-        app:strokeWidth="0dp">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="20dp">
 
-            <View
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
-
-            <!-- 3. Información del usuario -->
-            <TextView
-                android:id="@+id/tvUserName"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Cargando..."
-                android:textColor="@color/text_primary"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                tools:text="Alejandro Sánchez" />
-
-            <TextView
-                android:id="@+id/tvUserEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:text="usuario@ejemplo.com"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                tools:text="alejo@caas.com" />
-
-            <!-- Nuevo: Nombre del Negocio -->
-            <TextView
-                android:id="@+id/tvBusinessName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="2dp"
-                android:text="Mi Negocio"
-                android:textColor="@color/orange"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="C.A.A.S. Store" />
-
-            <!-- Nuevo: Rol -->
-            <TextView
-                android:id="@+id/tvUserRole"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="2dp"
-                android:text="Rol"
-                android:textColor="@color/text_tertiary"
-                android:textSize="12sp"
-                android:textAllCaps="true"
-                tools:text="ADMINISTRADOR" />
-
-            <!-- Separador -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="20dp"
-                android:background="@color/border_light" />
-
-            <!-- Opciones de Perfil -->
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none">
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
-                    <!-- Editar Perfil (btnEditProfile) -->
+                    <TextView
+                        android:id="@+id/tvUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Cargando..."
+                        android:textColor="@color/text_primary"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        tools:text="Alejandro Sánchez" />
+
+                    <TextView
+                        android:id="@+id/tvUserEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:text="usuario@ejemplo.com"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        tools:text="alejo@caas.com" />
+
+                    <TextView
+                        android:id="@+id/tvBusinessName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:text="Mi Negocio"
+                        android:textColor="@color/orange"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="C.A.A.S. Store" />
+
+                    <TextView
+                        android:id="@+id/tvUserRole"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/icon_bg_neutral"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        android:text="ADMINISTRADOR"
+                        android:textColor="@color/text_tertiary"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textAllCaps="true" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="24dp"
+                        android:background="@color/border_light" />
+
+                    <!-- OPTIONS -->
                     <LinearLayout
                         android:id="@+id/btnEditProfile"
                         android:layout_width="match_parent"
@@ -129,7 +148,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center_vertical"
-                        android:paddingVertical="12dp">
+                        android:paddingVertical="14dp">
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
@@ -150,7 +169,6 @@
                             app:tint="@color/text_tertiary" />
                     </LinearLayout>
 
-                    <!-- Cambiar Contraseña -->
                     <LinearLayout
                         android:id="@+id/optionPassword"
                         android:layout_width="match_parent"
@@ -159,7 +177,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center_vertical"
-                        android:paddingVertical="12dp">
+                        android:paddingVertical="14dp">
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
@@ -170,7 +188,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
-                            android:text="Restablecer contraseña"
+                            android:text="Seguridad"
                             android:textColor="@color/text_primary"
                             android:textSize="16sp" />
                         <ImageView
@@ -180,7 +198,6 @@
                             app:tint="@color/text_tertiary" />
                     </LinearLayout>
 
-                    <!-- Configuración -->
                     <LinearLayout
                         android:id="@+id/optionSettings"
                         android:layout_width="match_parent"
@@ -189,7 +206,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center_vertical"
-                        android:paddingVertical="12dp">
+                        android:paddingVertical="14dp">
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
@@ -210,17 +227,21 @@
                             app:tint="@color/text_tertiary" />
                     </LinearLayout>
 
-                    <!-- Cerrar Sesión (btnLogout) -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="12dp"
+                        android:background="@color/border_light" />
+
                     <LinearLayout
                         android:id="@+id/btnLogout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center_vertical"
-                        android:paddingVertical="12dp">
+                        android:paddingVertical="14dp">
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
@@ -238,35 +259,19 @@
                     </LinearLayout>
 
                 </LinearLayout>
-            </ScrollView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:gravity="center"
+                android:text="Versión 1.0.0 • CAAS Cloud"
+                android:textColor="@color/text_tertiary"
+                android:textSize="12sp" />
 
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.core.widget.NestedScrollView>
 
-    <!-- 2. Avatar circular -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/avatar_container"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:cardCornerRadius="50dp"
-        app:cardElevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/card_profile_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/card_profile_container"
-        app:strokeColor="@color/white"
-        app:strokeWidth="4dp">
-
-        <ImageView
-            android:id="@+id/ivAvatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/orange_light"
-            android:padding="20dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_profile"
-            app:tint="@color/orange" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

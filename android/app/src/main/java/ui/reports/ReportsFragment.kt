@@ -55,7 +55,7 @@ class ReportsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeStates()
-        setupExportButton()
+        setupExportButtons()
         observeExportStates()
     }
 
@@ -63,14 +63,14 @@ class ReportsFragment : Fragment() {
         super.onStart()
         val current = businessViewModel.businessListState.value
         if (current is Result.Success && current.data.isNotEmpty()) {
-            stockViewModel.loadRecentMovements(current.data.map { it.id })
+            stockViewModel.loadRecentMovements(current.data.map { it.id }, limit = 20)
         } else {
             businessViewModel.getBusinessesByOwner()
         }
     }
 
     private fun setupRecyclerView() {
-        adapter = StockMovementsAdapter { /* no detail navigation from reports view */ }
+        adapter = StockMovementsAdapter { /* no detail navigation */ }
         binding.rvRecentMovements.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRecentMovements.adapter = adapter
     }
@@ -82,7 +82,7 @@ class ReportsFragment : Fragment() {
                     businessViewModel.businessListState.collect { state ->
                         if (state is Result.Success && state.data.isNotEmpty() &&
                             stockViewModel.recentMovementsState.value == null) {
-                            stockViewModel.loadRecentMovements(state.data.map { it.id })
+                            stockViewModel.loadRecentMovements(state.data.map { it.id }, limit = 20)
                         }
                     }
                 }
@@ -92,12 +92,15 @@ class ReportsFragment : Fragment() {
                             is Result.Loading -> showLoading(true)
                             is Result.Success -> {
                                 showLoading(false)
-                                if (state.data.isEmpty()) showEmptyState()
-                                else showMovements(state.data)
+                                if (state.data.isEmpty()) showEmptyState(true)
+                                else {
+                                    showEmptyState(false)
+                                    adapter.submitList(state.data)
+                                }
                             }
                             is Result.Error -> {
                                 showLoading(false)
-                                showEmptyState()
+                                showEmptyState(true)
                             }
                             null -> Unit
                         }
@@ -111,24 +114,17 @@ class ReportsFragment : Fragment() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun showEmptyState() {
-        binding.tvEmptyState.visibility = View.VISIBLE
-        binding.rvRecentMovements.visibility = View.GONE
+    private fun showEmptyState(show: Boolean) {
+        binding.layoutEmptyState.visibility = if (show) View.VISIBLE else View.GONE
+        binding.rvRecentMovements.visibility = if (show) View.GONE else View.VISIBLE
     }
 
-    private fun showMovements(movements: List<StockMovement>) {
-        binding.tvEmptyState.visibility = View.GONE
-        binding.rvRecentMovements.visibility = View.VISIBLE
-        adapter.submitList(movements)
+    private fun setupExportButtons() {
+        binding.cardExportPdf.setOnClickListener { openExportDialog(ExportType.PDF) }
+        binding.cardExportExcel.setOnClickListener { openExportDialog(ExportType.EXCEL) }
     }
 
-    // ── Exportación Excel ────────────────────────────────────────────────────
-
-    private fun setupExportButton() {
-        binding.btnExportExcel.setOnClickListener { openExportDialog() }
-    }
-
-    private fun openExportDialog() {
+    private fun openExportDialog(type: ExportType) {
         val businessResult = businessViewModel.businessListState.value
         if (businessResult !is Result.Success || businessResult.data.isEmpty()) {
             Snackbar.make(binding.root, "No hay un negocio disponible", Snackbar.LENGTH_SHORT).show()
@@ -150,11 +146,11 @@ class ReportsFragment : Fragment() {
                 Snackbar.make(binding.root, "No hay sucursales disponibles", Snackbar.LENGTH_SHORT).show()
                 return@launch
             }
-            showExportOptionsDialog(business, branches)
+            showExportOptionsDialog(business, branches, type)
         }
     }
 
-    private fun showExportOptionsDialog(business: Business, branches: List<Branch>) {
+    private fun showExportOptionsDialog(business: Business, branches: List<Branch>, type: ExportType) {
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_export_options, null)
 
@@ -163,10 +159,15 @@ class ReportsFragment : Fragment() {
         val etDateTo = dialogView.findViewById<TextInputEditText>(R.id.etDateTo)
         val btnGenerate = dialogView.findViewById<MaterialButton>(R.id.btnGenerate)
         val btnCancel = dialogView.findViewById<MaterialButton>(R.id.btnDialogCancel)
+        val tilDateFrom = dialogView.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilDateFrom)
+        val tilDateTo = dialogView.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilDateTo)
+
+        if (type == ExportType.PDF) {
+            tilDateFrom.visibility = View.GONE
+            tilDateTo.visibility = View.GONE
+        }
 
         val displayFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-
-        // Fechas por defecto: último mes
         val cal = Calendar.getInstance()
         var endDate = cal.timeInMillis
         cal.add(Calendar.MONTH, -1)
@@ -176,66 +177,44 @@ class ReportsFragment : Fragment() {
         etDateTo.setText(displayFormat.format(Date(endDate)))
 
         etDateFrom.setOnClickListener {
-            MaterialDatePicker.Builder.datePicker()
-                .setTitleText(getString(R.string.export_date_from))
-                .setSelection(startDate)
-                .build()
-                .also { picker ->
-                    picker.addOnPositiveButtonClickListener { selection ->
-                        startDate = selection
-                        etDateFrom.setText(displayFormat.format(Date(startDate)))
-                    }
-                    picker.show(childFragmentManager, "picker_from")
+            MaterialDatePicker.Builder.datePicker().setSelection(startDate).build().also { picker ->
+                picker.addOnPositiveButtonClickListener { selection ->
+                    startDate = selection
+                    etDateFrom.setText(displayFormat.format(Date(startDate)))
                 }
+                picker.show(childFragmentManager, "picker_from")
+            }
         }
 
         etDateTo.setOnClickListener {
-            MaterialDatePicker.Builder.datePicker()
-                .setTitleText(getString(R.string.export_date_to))
-                .setSelection(endDate)
-                .build()
-                .also { picker ->
-                    picker.addOnPositiveButtonClickListener { selection ->
-                        endDate = selection
-                        etDateTo.setText(displayFormat.format(Date(endDate)))
-                    }
-                    picker.show(childFragmentManager, "picker_to")
+            MaterialDatePicker.Builder.datePicker().setSelection(endDate).build().also { picker ->
+                picker.addOnPositiveButtonClickListener { selection ->
+                    endDate = selection
+                    etDateTo.setText(displayFormat.format(Date(endDate)))
                 }
+                picker.show(childFragmentManager, "picker_to")
+            }
         }
 
-        val branchNames = branches.map { it.name }
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, branchNames)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, branches.map { it.name })
         actvBranch.setAdapter(adapter)
 
         var selectedBranch: Branch? = null
-        actvBranch.setOnItemClickListener { _, _, position, _ ->
-            selectedBranch = branches[position]
-        }
+        actvBranch.setOnItemClickListener { _, _, position, _ -> selectedBranch = branches[position] }
 
-        val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setView(dialogView)
-            .create()
-
+        val dialog = MaterialAlertDialogBuilder(requireContext()).setView(dialogView).create()
         btnCancel.setOnClickListener { dialog.dismiss() }
         btnGenerate.setOnClickListener {
             val branch = selectedBranch ?: run {
-                Snackbar.make(binding.root, getString(R.string.export_select_branch), Snackbar.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            if (startDate > endDate) {
-                Snackbar.make(binding.root, "La fecha desde no puede ser mayor a la fecha hasta", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "Selecciona una sucursal", Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             dialog.dismiss()
-            reportsViewModel.exportMovementsExcel(
-                context = requireContext(),
-                businessId = business.id,
-                businessName = business.name,
-                branchId = branch.id,
-                branchName = branch.name,
-                startDate = startDate,
-                endDate = endDate
-            )
+            if (type == ExportType.PDF) {
+                reportsViewModel.exportInventoryPdf(requireContext(), business.id, business.name, branch.id, branch.name)
+            } else {
+                reportsViewModel.exportMovementsExcel(requireContext(), business.id, business.name, branch.id, branch.name, startDate, endDate)
+            }
         }
         dialog.show()
     }
@@ -243,42 +222,49 @@ class ReportsFragment : Fragment() {
     private fun observeExportStates() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                reportsViewModel.exportExcelState.collect { state ->
-                    when (state) {
-                        is Result.Loading -> {
-                            binding.progressExportExcel.visibility = View.VISIBLE
-                            binding.btnExportExcel.isEnabled = false
-                        }
-                        is Result.Success -> {
-                            binding.progressExportExcel.visibility = View.GONE
-                            binding.btnExportExcel.isEnabled = true
-                            showShareDialog(state.data.absolutePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                            reportsViewModel.resetExcelState()
-                        }
-                        is Result.Error -> {
-                            binding.progressExportExcel.visibility = View.GONE
-                            binding.btnExportExcel.isEnabled = true
-                            Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
-                            reportsViewModel.resetExcelState()
-                        }
-                        null -> Unit
+                launch {
+                    reportsViewModel.exportPdfState.collect { state ->
+                        handleExportResult(state, binding.progressExportPdf, "application/pdf")
+                    }
+                }
+                launch {
+                    reportsViewModel.exportExcelState.collect { state ->
+                        handleExportResult(state, binding.progressExportExcel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                     }
                 }
             }
         }
     }
 
+    private fun handleExportResult(state: Result<java.io.File>?, progress: View, mimeType: String) {
+        when (state) {
+            is Result.Loading -> progress.visibility = View.VISIBLE
+            is Result.Success -> {
+                progress.visibility = View.GONE
+                showShareDialog(state.data.absolutePath, mimeType)
+                if (mimeType.contains("pdf")) reportsViewModel.resetPdfState()
+                else reportsViewModel.resetExcelState()
+            }
+            is Result.Error -> {
+                progress.visibility = View.GONE
+                Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
+                if (mimeType.contains("pdf")) reportsViewModel.resetPdfState()
+                else reportsViewModel.resetExcelState()
+            }
+            null -> Unit
+        }
+    }
+
     private fun showShareDialog(filePath: String, mimeType: String) {
         val file = java.io.File(filePath)
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.export_file_ready)
-            .setPositiveButton(R.string.export_share) { _, _ ->
+            .setTitle("Archivo Listo")
+            .setMessage("El reporte ha sido generado correctamente. ¿Qué deseas hacer?")
+            .setPositiveButton("Compartir") { _, _ ->
                 val intent = reportsViewModel.shareFile(requireContext(), file, mimeType)
-                startActivity(android.content.Intent.createChooser(intent, getString(R.string.export_share)))
+                startActivity(android.content.Intent.createChooser(intent, "Compartir reporte"))
             }
-            .setNegativeButton(R.string.export_download_only) { _, _ ->
-                Snackbar.make(binding.root, "${getString(R.string.export_success_excel)}: ${file.name}", Snackbar.LENGTH_LONG).show()
-            }
+            .setNegativeButton("Cerrar", null)
             .show()
     }
 
