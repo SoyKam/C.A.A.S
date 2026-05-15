@@ -297,7 +297,7 @@ class ChartsFragment : Fragment() {
         btnCancel.setOnClickListener { dialog.dismiss() }
         btnGenerate.setOnClickListener {
             val branch = selectedBranch ?: run {
-                Snackbar.make(binding.root, getString(R.string.export_select_branch), Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "Selecciona una sucursal", Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             dialog.dismiss()
