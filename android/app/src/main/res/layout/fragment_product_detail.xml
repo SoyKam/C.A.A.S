@@ -226,6 +226,21 @@
                         android:text="—"/>
                 </LinearLayout>
 
+                <!-- BOTÓN VER HISTORIAL DE PRECIOS -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPriceHistory"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Ver Historial de Precios"
+                    android:textColor="@color/button_orange"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="@color/button_orange"
+                    app:strokeWidth="2dp"/>
+
                 <!-- BOTÓN EDITAR -->
                 <Button
                     android:id="@+id/btnEdit"

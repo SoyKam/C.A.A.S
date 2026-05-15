@@ -42,6 +42,14 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnPriceHistory.setOnClickListener {
+            findNavController().navigate(
+                ProductDetailFragmentDirections.actionProductDetailToPriceHistory(
+                    args.businessId, args.productId
+                )
+            )
+        }
+
         binding.btnEdit.setOnClickListener {
             findNavController().navigate(
                 ProductDetailFragmentDirections.actionProductDetailToEditProduct(

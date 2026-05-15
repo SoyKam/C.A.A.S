@@ -1,11 +1,13 @@
 package com.caas.app.domain.usecase
 
+import android.util.Log
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.Product
 import com.caas.app.domain.repository.ProductRepository
 
 class UpdateProductUseCase(
-    private val productRepository: ProductRepository
+    private val productRepository: ProductRepository,
+    private val savePriceHistoryUseCase: SavePriceHistoryUseCase? = null
 ) {
 
     suspend operator fun invoke(
@@ -42,6 +44,16 @@ class UpdateProductUseCase(
             updatedAt = System.currentTimeMillis()
         )
 
-        return productRepository.updateProduct(updated)
+        val updateResult = productRepository.updateProduct(updated)
+
+        if (updateResult is Result.Success) {
+            try {
+                savePriceHistoryUseCase?.invoke(existing, updated)
+            } catch (e: Exception) {
+                Log.e("UpdateProductUseCase", "Error al guardar historial de precios", e)
+            }
+        }
+
+        return updateResult
     }
 }
