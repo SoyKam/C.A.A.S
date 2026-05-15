@@ -1,10 +1,14 @@
 package com.caas.app.ui.product
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.caas.app.core.constants.FirestoreCollections
 import com.caas.app.core.result.Result
 import com.caas.app.data.model.Product
+import com.caas.app.data.repository.PriceHistoryRepositoryImpl
+import com.caas.app.data.source.FirestorePriceHistoryDataSource
+import com.caas.app.domain.usecase.SavePriceHistoryUseCase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +19,9 @@ import kotlinx.coroutines.tasks.await
 class ProductViewModel : ViewModel() {
 
     private val firestore = FirebaseFirestore.getInstance()
+    private val savePriceHistoryUseCase = SavePriceHistoryUseCase(
+        PriceHistoryRepositoryImpl(FirestorePriceHistoryDataSource(firestore))
+    )
 
     private val _productListState = MutableStateFlow<Result<List<Product>>?>(null)
     val productListState: StateFlow<Result<List<Product>>?> = _productListState.asStateFlow()
@@ -175,6 +182,11 @@ class ProductViewModel : ViewModel() {
                     updatedAt = now
                 )
                 productsCollection(businessId).document(productId).set(product).await()
+                try {
+                    existing?.let { savePriceHistoryUseCase(it, product) }
+                } catch (e: Exception) {
+                    Log.e("ProductViewModel", "Error al guardar historial de precios", e)
+                }
                 product
             }.fold(
                 onSuccess = { Result.Success(it) },

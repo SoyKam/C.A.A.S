@@ -403,6 +403,28 @@
                 android:name="productId"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_productDetail_to_priceHistory"
+            app:destination="@id/priceHistoryFragment">
+            <argument
+                android:name="businessId"
+                app:argType="string" />
+            <argument
+                android:name="productId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/priceHistoryFragment"
+        android:name="com.caas.app.ui.product.PriceHistoryFragment"
+        android:label="Historial de Precios">
+        <argument
+            android:name="businessId"
+            app:argType="string" />
+        <argument
+            android:name="productId"
+            app:argType="string" />
     </fragment>
 
     <fragment
