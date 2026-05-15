@@ -87,6 +87,9 @@ dependencies {
     }
     implementation("org.apache.xmlbeans:xmlbeans:5.1.1")
 
+    // MPAndroidChart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
     // FCM
     implementation("com.google.firebase:firebase-messaging")
 

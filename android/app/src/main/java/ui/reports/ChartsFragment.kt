@@ -1,10 +1,12 @@
 package com.caas.app.ui.reports
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -19,17 +21,23 @@ import com.caas.app.data.model.StockMovement
 import com.caas.app.databinding.FragmentChartsBinding
 import com.caas.app.ui.business.BusinessViewModel
 import com.caas.app.ui.stock.StockViewModel
-import com.google.android.material.datepicker.MaterialDatePicker
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 class ChartsFragment : Fragment() {
 
@@ -51,6 +59,7 @@ class ChartsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupChartsStyle()
         observeData()
         setupExportButton()
         observeExportStates()
@@ -58,11 +67,52 @@ class ChartsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        refreshData()
+    }
+
+    private fun refreshData() {
         val current = businessViewModel.businessListState.value
         if (current is Result.Success && current.data.isNotEmpty()) {
-            stockViewModel.loadRecentMovements(current.data.map { it.id })
+            val businessIds = current.data.map { it.id }
+            stockViewModel.loadRecentMovements(businessIds, limit = 0)
         } else {
             businessViewModel.getBusinessesByOwner()
+        }
+    }
+
+    private fun setupChartsStyle() {
+        binding.pieChartMovements.apply {
+            setUsePercentValues(true)
+            description.isEnabled = false
+            setExtraOffsets(5f, 10f, 5f, 5f)
+            dragDecelerationFrictionCoef = 0.95f
+            isDrawHoleEnabled = true
+            setHoleColor(Color.WHITE)
+            setTransparentCircleColor(Color.WHITE)
+            setTransparentCircleAlpha(110)
+            holeRadius = 58f
+            transparentCircleRadius = 61f
+            setDrawCenterText(true)
+            centerText = "Movimientos"
+            rotationAngle = 0f
+            isRotationEnabled = true
+            isHighlightPerTapEnabled = true
+            animateY(1400, Easing.EaseInOutQuad)
+            legend.isEnabled = true
+            setEntryLabelColor(Color.BLACK)
+            setEntryLabelTextSize(12f)
+        }
+
+        binding.barChartStock.apply {
+            description.isEnabled = false
+            setFitBars(true)
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setDrawGridLines(false)
+            xAxis.granularity = 1f
+            axisLeft.setDrawGridLines(true)
+            axisRight.isEnabled = false
+            animateY(1000)
+            legend.isEnabled = false
         }
     }
 
@@ -73,7 +123,7 @@ class ChartsFragment : Fragment() {
                     businessViewModel.businessListState.collect { state ->
                         if (state is Result.Success && state.data.isNotEmpty() &&
                             stockViewModel.recentMovementsState.value == null) {
-                            stockViewModel.loadRecentMovements(state.data.map { it.id })
+                            stockViewModel.loadRecentMovements(state.data.map { it.id }, limit = 0)
                         }
                     }
                 }
@@ -81,18 +131,14 @@ class ChartsFragment : Fragment() {
                 launch {
                     stockViewModel.recentMovementsState.collect { state ->
                         when (state) {
-                            is Result.Loading -> {
-                                binding.pbLoading.visibility = View.VISIBLE
-                                binding.tvEmptyCharts.visibility = View.GONE
-                            }
+                            is Result.Loading -> binding.pbLoading.visibility = View.VISIBLE
                             is Result.Success -> {
                                 binding.pbLoading.visibility = View.GONE
-                                updateCharts(state.data)
+                                updateUI(state.data)
                             }
                             is Result.Error -> {
                                 binding.pbLoading.visibility = View.GONE
-                                binding.tvEmptyCharts.visibility = View.VISIBLE
-                                binding.tvEmptyCharts.text = "Error al cargar datos"
+                                Snackbar.make(binding.root, "Error: ${state.message}", Snackbar.LENGTH_LONG).show()
                             }
                             null -> Unit
                         }
@@ -102,46 +148,94 @@ class ChartsFragment : Fragment() {
         }
     }
 
-    private fun updateCharts(movements: List<StockMovement>) {
-        if (movements.isEmpty()) {
-            binding.tvEmptyCharts.visibility = View.VISIBLE
-            return
-        }
-        binding.tvEmptyCharts.visibility = View.GONE
+    private fun updateUI(movements: List<StockMovement>) {
+        if (movements.isEmpty()) return
 
-        val entries = movements.count { it.type == MovementType.ENTRY }
-        val sales = movements.count { it.type == MovementType.SALE }
-        val damages = movements.count { it.type == MovementType.DAMAGE }
-        val transfers = movements.count { it.type == MovementType.TRANSFER }
+        val totalMovements = movements.size
+        val entriesCount = movements.count { it.type == MovementType.ENTRY }
+        val salesCount = movements.count { it.type == MovementType.SALE }
+        val damagesCount = movements.count { it.type == MovementType.DAMAGE }
+        val transfersCount = movements.count { it.type == MovementType.TRANSFER }
+        
+        binding.tvTotalMovements.text = totalMovements.toString()
+        binding.tvTotalProducts.text = movements.map { it.productId }.distinct().size.toString()
+        
+        val totalIn = movements.filter { it.type == MovementType.ENTRY }.sumOf { it.quantity }
+        val totalOut = movements.filter { it.type != MovementType.ENTRY }.sumOf { it.quantity }
+        binding.tvTotalStock.text = (totalIn - totalOut).coerceAtLeast(0).toString()
+        
+        binding.tvCriticalProducts.text = movements.filter { it.type == MovementType.DAMAGE }.size.toString()
 
-        val total = (entries + sales + damages + transfers).toFloat()
-        if (total == 0f) {
-            binding.tvEmptyCharts.visibility = View.VISIBLE
-            return
-        }
-
-        binding.tvEntryCount.text = entries.toString()
-        binding.tvSaleCount.text = sales.toString()
-        binding.tvDamageCount.text = damages.toString()
-        binding.tvTransferCount.text = transfers.toString()
-
-        setBarWeight(binding.barEntry, entries, total)
-        setBarWeight(binding.barSale, sales, total)
-        setBarWeight(binding.barDamage, damages, total)
-        setBarWeight(binding.barTransfer, transfers, total)
+        updatePieChart(entriesCount, salesCount, damagesCount, transfersCount)
+        updateBarChart(movements)
     }
 
-    private fun setBarWeight(view: View, count: Int, total: Float) {
-        val params = view.layoutParams as ViewGroup.LayoutParams
-        if (view.layoutParams is android.widget.LinearLayout.LayoutParams) {
-            val lp = view.layoutParams as android.widget.LinearLayout.LayoutParams
-            lp.weight = if (total > 0) (count / total) else 0.01f
-            if (count > 0 && lp.weight < 0.05f) lp.weight = 0.05f
-            view.layoutParams = lp
+    private fun updatePieChart(entries: Int, sales: Int, damages: Int, transfers: Int) {
+        val pieEntries = mutableListOf<PieEntry>()
+        if (entries > 0) pieEntries.add(PieEntry(entries.toFloat(), "Entradas"))
+        if (sales > 0) pieEntries.add(PieEntry(sales.toFloat(), "Salidas"))
+        if (damages > 0) pieEntries.add(PieEntry(damages.toFloat(), "Daños"))
+        if (transfers > 0) pieEntries.add(PieEntry(transfers.toFloat(), "Traslados"))
+
+        if (pieEntries.isEmpty()) {
+            binding.pieChartMovements.clear()
+            return
         }
+
+        val dataSet = PieDataSet(pieEntries, "")
+        dataSet.colors = listOf(
+            ContextCompat.getColor(requireContext(), R.color.green),
+            ContextCompat.getColor(requireContext(), R.color.orange),
+            ContextCompat.getColor(requireContext(), R.color.red),
+            ContextCompat.getColor(requireContext(), R.color.blue)
+        )
+        dataSet.sliceSpace = 3f
+        dataSet.selectionShift = 5f
+
+        val data = PieData(dataSet)
+        data.setValueFormatter(PercentFormatter(binding.pieChartMovements))
+        data.setValueTextSize(11f)
+        data.setValueTextColor(Color.WHITE)
+        
+        binding.pieChartMovements.data = data
+        binding.pieChartMovements.invalidate()
     }
 
-    // ── Exportación PDF ──────────────────────────────────────────────────────
+    private fun updateBarChart(movements: List<StockMovement>) {
+        val topProducts = movements.groupBy { it.productName }
+            .mapValues { it.value.sumOf { m -> if (m.type == MovementType.ENTRY) m.quantity else -m.quantity } }
+            .toList()
+            .sortedByDescending { it.second }
+            .take(5)
+
+        if (topProducts.isEmpty()) {
+            binding.barChartStock.clear()
+            return
+        }
+
+        val barEntries = mutableListOf<BarEntry>()
+        val labels = mutableListOf<String>()
+
+        topProducts.forEachIndexed { index, pair ->
+            barEntries.add(BarEntry(index.toFloat(), pair.second.toFloat()))
+            labels.add(if (pair.first.length > 8) pair.first.take(8) + ".." else pair.first)
+        }
+
+        val dataSet = BarDataSet(barEntries, "Stock Actual")
+        dataSet.color = ContextCompat.getColor(requireContext(), R.color.orange)
+        dataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.text_primary)
+        dataSet.valueTextSize = 10f
+
+        val data = BarData(dataSet)
+        data.barWidth = 0.5f
+
+        binding.barChartStock.apply {
+            this.data = data
+            xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+            xAxis.labelCount = labels.size
+            invalidate()
+        }
+    }
 
     private fun setupExportButton() {
         binding.btnExportPdf.setOnClickListener { openExportDialog() }
@@ -183,7 +277,6 @@ class ChartsFragment : Fragment() {
         val btnGenerate = dialogView.findViewById<MaterialButton>(R.id.btnGenerate)
         val btnCancel = dialogView.findViewById<MaterialButton>(R.id.btnDialogCancel)
 
-        // PDF no necesita rango de fechas
         tilDateFrom.visibility = View.GONE
         tilDateTo.visibility = View.GONE
 
@@ -198,6 +291,7 @@ class ChartsFragment : Fragment() {
 
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(dialogView)
+            .setTitle("Reporte de Inventario")
             .create()
 
         btnCancel.setOnClickListener { dialog.dismiss() }
@@ -230,7 +324,7 @@ class ChartsFragment : Fragment() {
                         is Result.Success -> {
                             binding.progressExportPdf.visibility = View.GONE
                             binding.btnExportPdf.isEnabled = true
-                            showShareDialog(state.data.absolutePath, "application/pdf")
+                            showShareDialog(state.data.absolutePath)
                             reportsViewModel.resetPdfState()
                         }
                         is Result.Error -> {
@@ -246,17 +340,16 @@ class ChartsFragment : Fragment() {
         }
     }
 
-    private fun showShareDialog(filePath: String, mimeType: String) {
+    private fun showShareDialog(filePath: String) {
         val file = java.io.File(filePath)
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.export_file_ready)
-            .setPositiveButton(R.string.export_share) { _, _ ->
-                val intent = reportsViewModel.shareFile(requireContext(), file, mimeType)
-                startActivity(android.content.Intent.createChooser(intent, getString(R.string.export_share)))
+            .setTitle("Reporte Generado")
+            .setMessage("¿Deseas compartir el reporte en PDF?")
+            .setPositiveButton("Compartir") { _, _ ->
+                val intent = reportsViewModel.shareFile(requireContext(), file, "application/pdf")
+                startActivity(android.content.Intent.createChooser(intent, "Compartir Reporte"))
             }
-            .setNegativeButton(R.string.export_download_only) { _, _ ->
-                Snackbar.make(binding.root, "${getString(R.string.export_success_pdf)}: ${file.name}", Snackbar.LENGTH_LONG).show()
-            }
+            .setNegativeButton("Cerrar", null)
             .show()
     }
 
